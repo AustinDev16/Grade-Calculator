@@ -12,6 +12,8 @@
 		FAD48AB91E8038EE003050B3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FAD48AB81E8038EE003050B3 /* Assets.xcassets */; };
 		FAD48ABC1E8038EE003050B3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FAD48ABA1E8038EE003050B3 /* LaunchScreen.storyboard */; };
 		FAD48AC51E803E79003050B3 /* APSScoresTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FAD48AC41E803E79003050B3 /* APSScoresTableViewController.m */; };
+		FAEC746B1E803FC5008236E9 /* APSClassesTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FAEC746A1E803FC5008236E9 /* APSClassesTableViewController.m */; };
+		FAEC746F1E80409A008236E9 /* FinalExamControllerModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = FAEC746D1E80409A008236E9 /* FinalExamControllerModel.xcdatamodeld */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +26,9 @@
 		FAD48ABD1E8038EE003050B3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FAD48AC31E803E79003050B3 /* APSScoresTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = APSScoresTableViewController.h; sourceTree = "<group>"; };
 		FAD48AC41E803E79003050B3 /* APSScoresTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = APSScoresTableViewController.m; sourceTree = "<group>"; };
+		FAEC74691E803FC5008236E9 /* APSClassesTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = APSClassesTableViewController.h; sourceTree = "<group>"; };
+		FAEC746A1E803FC5008236E9 /* APSClassesTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = APSClassesTableViewController.m; sourceTree = "<group>"; };
+		FAEC746E1E80409A008236E9 /* FinalExamControllerModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = FinalExamControllerModel.xcdatamodel; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,8 +61,11 @@
 		FAD48AAB1E8038EE003050B3 /* FinalExamCalculator */ = {
 			isa = PBXGroup;
 			children = (
+				FAEC746C1E804039008236E9 /* Model */,
 				FAD48AC31E803E79003050B3 /* APSScoresTableViewController.h */,
 				FAD48AC41E803E79003050B3 /* APSScoresTableViewController.m */,
+				FAEC74691E803FC5008236E9 /* APSClassesTableViewController.h */,
+				FAEC746A1E803FC5008236E9 /* APSClassesTableViewController.m */,
 				FAD48AAF1E8038EE003050B3 /* AppDelegate.h */,
 				FAD48AB01E8038EE003050B3 /* AppDelegate.m */,
 				FAD48AB81E8038EE003050B3 /* Assets.xcassets */,
@@ -74,6 +82,14 @@
 				FAD48AAD1E8038EE003050B3 /* main.m */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		FAEC746C1E804039008236E9 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				FAEC746D1E80409A008236E9 /* FinalExamControllerModel.xcdatamodeld */,
+			);
+			name = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -151,6 +167,8 @@
 				FAD48AC51E803E79003050B3 /* APSScoresTableViewController.m in Sources */,
 				FAD48AB11E8038EE003050B3 /* AppDelegate.m in Sources */,
 				FAD48AAE1E8038EE003050B3 /* main.m in Sources */,
+				FAEC746B1E803FC5008236E9 /* APSClassesTableViewController.m in Sources */,
+				FAEC746F1E80409A008236E9 /* FinalExamControllerModel.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -301,8 +319,22 @@
 				FAD48AC21E8038EE003050B3 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		FAEC746D1E80409A008236E9 /* FinalExamControllerModel.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				FAEC746E1E80409A008236E9 /* FinalExamControllerModel.xcdatamodel */,
+			);
+			currentVersion = FAEC746E1E80409A008236E9 /* FinalExamControllerModel.xcdatamodel */;
+			path = FinalExamControllerModel.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = FAD48AA11E8038EE003050B3 /* Project object */;
 }
