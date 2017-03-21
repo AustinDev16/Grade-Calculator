@@ -9,6 +9,7 @@
 #import "AppDelegate.h"
 #import "APSCoreDataStack.h"
 #import "APSPersistenceController.h"
+#import "APSClassesTableViewController.h"
 
 @interface AppDelegate ()
 
@@ -22,6 +23,18 @@
     
     [[APSCoreDataStack shared] initializeCoreData];
     
+    UIWindow *window = [[UIWindow alloc] initWithFrame: [[UIScreen mainScreen] bounds]];
+    
+    UITableViewController *tvc = [[APSClassesTableViewController alloc] initWithStyle:UITableViewStylePlain];
+    
+    UINavigationController *nc = [[UINavigationController alloc] initWithRootViewController:tvc];
+    
+    [window setRootViewController:nc];
+    
+    [window makeKeyAndVisible];
+    
+    
+    [self setWindow:window];
     
     
     
