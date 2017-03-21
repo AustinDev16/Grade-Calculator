@@ -24,6 +24,7 @@
 		FAEC74951E80AC87008236E9 /* APSPersistenceController.m in Sources */ = {isa = PBXBuildFile; fileRef = FAEC74941E80AC87008236E9 /* APSPersistenceController.m */; };
 		FAEC74981E80ACFA008236E9 /* APSCoreDataStack.m in Sources */ = {isa = PBXBuildFile; fileRef = FAEC74971E80ACFA008236E9 /* APSCoreDataStack.m */; };
 		FAEC749B1E8189CB008236E9 /* APSAppDataController.m in Sources */ = {isa = PBXBuildFile; fileRef = FAEC749A1E8189CB008236E9 /* APSAppDataController.m */; };
+		FAEC749E1E8197E1008236E9 /* APSMockDataController.m in Sources */ = {isa = PBXBuildFile; fileRef = FAEC749D1E8197E1008236E9 /* APSMockDataController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -59,6 +60,8 @@
 		FAEC74971E80ACFA008236E9 /* APSCoreDataStack.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = APSCoreDataStack.m; sourceTree = "<group>"; };
 		FAEC74991E8189CB008236E9 /* APSAppDataController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = APSAppDataController.h; sourceTree = "<group>"; };
 		FAEC749A1E8189CB008236E9 /* APSAppDataController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = APSAppDataController.m; sourceTree = "<group>"; };
+		FAEC749C1E8197E1008236E9 /* APSMockDataController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = APSMockDataController.h; sourceTree = "<group>"; };
+		FAEC749D1E8197E1008236E9 /* APSMockDataController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = APSMockDataController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -138,6 +141,8 @@
 		FAEC74701E8047A6008236E9 /* ModelController */ = {
 			isa = PBXGroup;
 			children = (
+				FAEC749C1E8197E1008236E9 /* APSMockDataController.h */,
+				FAEC749D1E8197E1008236E9 /* APSMockDataController.m */,
 				FAEC74711E8047EE008236E9 /* APSCourseController.h */,
 				FAEC74721E8047EE008236E9 /* APSCourseController.m */,
 				FAEC74991E8189CB008236E9 /* APSAppDataController.h */,
@@ -237,6 +242,7 @@
 				FAEC746B1E803FC5008236E9 /* APSClassesTableViewController.m in Sources */,
 				FAEC74901E80A9A2008236E9 /* Category+CoreDataProperties.m in Sources */,
 				FAEC746F1E80409A008236E9 /* FinalExamControllerModel.xcdatamodeld in Sources */,
+				FAEC749E1E8197E1008236E9 /* APSMockDataController.m in Sources */,
 				FAEC748F1E80A9A2008236E9 /* Category+CoreDataClass.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

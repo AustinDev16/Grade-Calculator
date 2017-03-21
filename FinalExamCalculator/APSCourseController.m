@@ -76,6 +76,16 @@
     
 }
 
+-(Course *)findCourseWithName:(NSString *)name
+{
+    //NSString *lowerCased = [name lowercaseString];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"SELF.name contains [c] %@", name];
+    NSArray *results = [[self courses] filteredArrayUsingPredicate:predicate];
+    
+    return [results firstObject];
+    
+}
+
 #pragma mark Category
 -(void)addCategory:(Category *)category toCourse:(Course *)course{
     [course addCategoriesObject:category];

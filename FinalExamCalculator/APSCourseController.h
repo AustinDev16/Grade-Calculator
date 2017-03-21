@@ -23,5 +23,6 @@
 -(void)addCategory:(Category *)category toCourse:(Course *)course;
 -(void)removeCategory:(Category *)category fromCourse:(Course *)course;
 
+-(Course *)findCourseWithName:(NSString *)name;
 
 @end

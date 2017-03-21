@@ -11,6 +11,8 @@
 #import "APSPersistenceController.h"
 #import "APSClassesTableViewController.h"
 #import "APSCourseController.h"
+#import "APSMockDataController.h"
+#import "APSAppDataController.h"
 
 @interface AppDelegate ()
 
@@ -25,7 +27,10 @@
     
     [[APSCoreDataStack shared] initializeCoreData];
     
-   
+    if ([[[[APSAppDataController shared] courseController] courses] count] == 0){
+        [APSMockDataController createMockDataCourse];
+        [APSMockDataController createMockDataCategories];
+    }
     
     UIWindow *window = [[UIWindow alloc] initWithFrame: [[UIScreen mainScreen] bounds]];
     
