@@ -14,6 +14,13 @@
 		FAD48AC51E803E79003050B3 /* APSScoresTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FAD48AC41E803E79003050B3 /* APSScoresTableViewController.m */; };
 		FAEC746B1E803FC5008236E9 /* APSClassesTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FAEC746A1E803FC5008236E9 /* APSClassesTableViewController.m */; };
 		FAEC746F1E80409A008236E9 /* FinalExamControllerModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = FAEC746D1E80409A008236E9 /* FinalExamControllerModel.xcdatamodeld */; };
+		FAEC74731E8047EE008236E9 /* APSCourseController.m in Sources */ = {isa = PBXBuildFile; fileRef = FAEC74721E8047EE008236E9 /* APSCourseController.m */; };
+		FAEC748D1E80A9A2008236E9 /* Course+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = FAEC74821E80A9A2008236E9 /* Course+CoreDataClass.m */; };
+		FAEC748E1E80A9A2008236E9 /* Course+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = FAEC74841E80A9A2008236E9 /* Course+CoreDataProperties.m */; };
+		FAEC748F1E80A9A2008236E9 /* Category+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = FAEC74861E80A9A2008236E9 /* Category+CoreDataClass.m */; };
+		FAEC74901E80A9A2008236E9 /* Category+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = FAEC74881E80A9A2008236E9 /* Category+CoreDataProperties.m */; };
+		FAEC74911E80A9A2008236E9 /* Score+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = FAEC748A1E80A9A2008236E9 /* Score+CoreDataClass.m */; };
+		FAEC74921E80A9A2008236E9 /* Score+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = FAEC748C1E80A9A2008236E9 /* Score+CoreDataProperties.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -29,6 +36,20 @@
 		FAEC74691E803FC5008236E9 /* APSClassesTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = APSClassesTableViewController.h; sourceTree = "<group>"; };
 		FAEC746A1E803FC5008236E9 /* APSClassesTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = APSClassesTableViewController.m; sourceTree = "<group>"; };
 		FAEC746E1E80409A008236E9 /* FinalExamControllerModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = FinalExamControllerModel.xcdatamodel; sourceTree = "<group>"; };
+		FAEC74711E8047EE008236E9 /* APSCourseController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = APSCourseController.h; sourceTree = "<group>"; };
+		FAEC74721E8047EE008236E9 /* APSCourseController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = APSCourseController.m; sourceTree = "<group>"; };
+		FAEC74811E80A9A2008236E9 /* Course+CoreDataClass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Course+CoreDataClass.h"; sourceTree = "<group>"; };
+		FAEC74821E80A9A2008236E9 /* Course+CoreDataClass.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Course+CoreDataClass.m"; sourceTree = "<group>"; };
+		FAEC74831E80A9A2008236E9 /* Course+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Course+CoreDataProperties.h"; sourceTree = "<group>"; };
+		FAEC74841E80A9A2008236E9 /* Course+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Course+CoreDataProperties.m"; sourceTree = "<group>"; };
+		FAEC74851E80A9A2008236E9 /* Category+CoreDataClass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Category+CoreDataClass.h"; sourceTree = "<group>"; };
+		FAEC74861E80A9A2008236E9 /* Category+CoreDataClass.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Category+CoreDataClass.m"; sourceTree = "<group>"; };
+		FAEC74871E80A9A2008236E9 /* Category+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Category+CoreDataProperties.h"; sourceTree = "<group>"; };
+		FAEC74881E80A9A2008236E9 /* Category+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Category+CoreDataProperties.m"; sourceTree = "<group>"; };
+		FAEC74891E80A9A2008236E9 /* Score+CoreDataClass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Score+CoreDataClass.h"; sourceTree = "<group>"; };
+		FAEC748A1E80A9A2008236E9 /* Score+CoreDataClass.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Score+CoreDataClass.m"; sourceTree = "<group>"; };
+		FAEC748B1E80A9A2008236E9 /* Score+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Score+CoreDataProperties.h"; sourceTree = "<group>"; };
+		FAEC748C1E80A9A2008236E9 /* Score+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Score+CoreDataProperties.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -61,6 +82,7 @@
 		FAD48AAB1E8038EE003050B3 /* FinalExamCalculator */ = {
 			isa = PBXGroup;
 			children = (
+				FAEC74701E8047A6008236E9 /* ModelController */,
 				FAEC746C1E804039008236E9 /* Model */,
 				FAD48AC31E803E79003050B3 /* APSScoresTableViewController.h */,
 				FAD48AC41E803E79003050B3 /* APSScoresTableViewController.m */,
@@ -87,9 +109,30 @@
 		FAEC746C1E804039008236E9 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				FAEC74811E80A9A2008236E9 /* Course+CoreDataClass.h */,
+				FAEC74821E80A9A2008236E9 /* Course+CoreDataClass.m */,
+				FAEC74831E80A9A2008236E9 /* Course+CoreDataProperties.h */,
+				FAEC74841E80A9A2008236E9 /* Course+CoreDataProperties.m */,
+				FAEC74851E80A9A2008236E9 /* Category+CoreDataClass.h */,
+				FAEC74861E80A9A2008236E9 /* Category+CoreDataClass.m */,
+				FAEC74871E80A9A2008236E9 /* Category+CoreDataProperties.h */,
+				FAEC74881E80A9A2008236E9 /* Category+CoreDataProperties.m */,
+				FAEC74891E80A9A2008236E9 /* Score+CoreDataClass.h */,
+				FAEC748A1E80A9A2008236E9 /* Score+CoreDataClass.m */,
+				FAEC748B1E80A9A2008236E9 /* Score+CoreDataProperties.h */,
+				FAEC748C1E80A9A2008236E9 /* Score+CoreDataProperties.m */,
 				FAEC746D1E80409A008236E9 /* FinalExamControllerModel.xcdatamodeld */,
 			);
 			name = Model;
+			sourceTree = "<group>";
+		};
+		FAEC74701E8047A6008236E9 /* ModelController */ = {
+			isa = PBXGroup;
+			children = (
+				FAEC74711E8047EE008236E9 /* APSCourseController.h */,
+				FAEC74721E8047EE008236E9 /* APSCourseController.m */,
+			);
+			name = ModelController;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -125,6 +168,7 @@
 					FAD48AA81E8038EE003050B3 = {
 						CreatedOnToolsVersion = 8.2.1;
 						DevelopmentTeam = QYV5ZZB7LD;
+						LastSwiftMigration = 0820;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -166,9 +210,16 @@
 			files = (
 				FAD48AC51E803E79003050B3 /* APSScoresTableViewController.m in Sources */,
 				FAD48AB11E8038EE003050B3 /* AppDelegate.m in Sources */,
+				FAEC748E1E80A9A2008236E9 /* Course+CoreDataProperties.m in Sources */,
 				FAD48AAE1E8038EE003050B3 /* main.m in Sources */,
+				FAEC74921E80A9A2008236E9 /* Score+CoreDataProperties.m in Sources */,
+				FAEC74731E8047EE008236E9 /* APSCourseController.m in Sources */,
+				FAEC74911E80A9A2008236E9 /* Score+CoreDataClass.m in Sources */,
+				FAEC748D1E80A9A2008236E9 /* Course+CoreDataClass.m in Sources */,
 				FAEC746B1E803FC5008236E9 /* APSClassesTableViewController.m in Sources */,
+				FAEC74901E80A9A2008236E9 /* Category+CoreDataProperties.m in Sources */,
 				FAEC746F1E80409A008236E9 /* FinalExamControllerModel.xcdatamodeld in Sources */,
+				FAEC748F1E80A9A2008236E9 /* Category+CoreDataClass.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -278,12 +329,16 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				DEVELOPMENT_TEAM = QYV5ZZB7LD;
 				INFOPLIST_FILE = FinalExamCalculator/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.Aptian-Software-LLC.FinalExamCalculator";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "FinalExamCalculator/FinalExamCalculator-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
@@ -291,12 +346,15 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				DEVELOPMENT_TEAM = QYV5ZZB7LD;
 				INFOPLIST_FILE = FinalExamCalculator/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.Aptian-Software-LLC.FinalExamCalculator";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "FinalExamCalculator/FinalExamCalculator-Bridging-Header.h";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};
