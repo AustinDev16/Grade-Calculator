@@ -8,6 +8,7 @@
 
 #import "APSCourseController.h"
 #import "Course+CoreDataProperties.h"
+#import "APSPersistenceController.h"
 
 
 
@@ -33,9 +34,12 @@
     return _internalCourses;
 }
 
+#pragma mark Course
 -(void)addNewCourse:(Course *)course
 {
     [_internalCourses addObject:course];
+    [APSPersistenceController saveToPersistedStore];
+    
 }
 
 -(void)deleteCourse:(Course *)course
@@ -43,16 +47,20 @@
     [_internalCourses removeObject:course];
     NSManagedObjectContext *moc = [course managedObjectContext];
     [moc deleteObject:course];
+    [APSPersistenceController saveToPersistedStore];
     
 }
 
+#pragma mark Category
 -(void)addCategory:(Category *)category toCourse:(Course *)course{
     [course addCategoriesObject:category];
+    [APSPersistenceController saveToPersistedStore];
 }
 
 -(void)removeCategory:(Category *)category fromCourse:(Course *)course
 {
-    
+    [course removeCategoriesObject:category];
+    [APSPersistenceController saveToPersistedStore];
 }
 
 
