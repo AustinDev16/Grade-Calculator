@@ -10,6 +10,7 @@
 #import "APSAppDataController.h"
 #import "APSCourseController.h"
 #import "Course+CoreDataProperties.h"
+#import "APSDashboardTableViewController.h"
 
 @interface APSClassesTableViewController ()
 
@@ -121,6 +122,17 @@
     }];
     
     return @[delete];
+}
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    Course *selected = [self.courseController.courses objectAtIndex:indexPath.row];
+    
+    APSDashboardTableViewController *tvc = [[APSDashboardTableViewController alloc] initWithStyle:UITableViewStyleGrouped];
+    [tvc updateViewWithSelectedCourse:selected];
+    
+    [[self navigationController] pushViewController:tvc animated:YES];
+    
 }
 
 @end
