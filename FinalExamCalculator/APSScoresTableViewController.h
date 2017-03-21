@@ -7,7 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+@class Course;
 
 @interface APSScoresTableViewController : UITableViewController
+
+@property (nonatomic, strong) Course *course;
+
 
 @end

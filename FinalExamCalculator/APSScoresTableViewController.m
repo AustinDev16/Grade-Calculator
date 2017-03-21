@@ -7,21 +7,21 @@
 //
 
 #import "APSScoresTableViewController.h"
+#import "Course+CoreDataProperties.h"
+#import "Category+CoreDataProperties.h"
 
 @interface APSScoresTableViewController ()
 
 @end
 
 @implementation APSScoresTableViewController
+@synthesize course;
+
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
-    
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    [self setTitle: self.course.name];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -32,15 +32,23 @@
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-#warning Incomplete implementation, return the number of sections
-    return 0;
+    if (self.course == nil){
+        return 0;
+    } else {
+        return self.course.categories.count;
+    }
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-#warning Incomplete implementation, return the number of rows
     return 0;
 }
 
+
+-(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
+{
+    NSArray <Category *> *categories = [self.course.categories array];
+    return [categories objectAtIndex:section].name;
+}
 /*
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:<#@"reuseIdentifier"#> forIndexPath:indexPath];

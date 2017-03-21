@@ -16,7 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (NSFetchRequest<Course *> *)fetchRequest;
 
 @property (nullable, nonatomic, copy) NSString *name;
-@property (nullable, nonatomic, retain) NSSet<Category *> *categories;
+@property (nullable, nonatomic, retain) NSOrderedSet<Category *> *categories;
 @property (nullable, nonatomic, retain) NSOrderedSet<Score *> *scores;
 
 @end
@@ -25,8 +25,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)addCategoriesObject:(Category *)value;
 - (void)removeCategoriesObject:(Category *)value;
-- (void)addCategories:(NSSet<Category *> *)values;
-- (void)removeCategories:(NSSet<Category *> *)values;
+- (void)addCategories:(NSOrderedSet<Category *> *)values;
+- (void)removeCategories:(NSOrderedSet<Category *> *)values;
 
 - (void)insertObject:(Score *)value inScoresAtIndex:(NSUInteger)idx;
 - (void)removeObjectFromScoresAtIndex:(NSUInteger)idx;
