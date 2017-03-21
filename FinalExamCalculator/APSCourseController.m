@@ -9,6 +9,7 @@
 #import "APSCourseController.h"
 #import "Course+CoreDataProperties.h"
 #import "APSPersistenceController.h"
+#import "APSCoreDataStack.h"
 
 
 
@@ -20,31 +21,55 @@
 
 @implementation APSCourseController
 
+@synthesize internalCourses;
+
 -(instancetype)init
 {
     self = [super init];
     if (self){
-        _internalCourses = [[NSMutableArray alloc] init];
+        internalCourses = [[NSMutableArray alloc] init];
     }
     return self;
 }
 
 -(NSArray *)courses
 {
-    return _internalCourses;
+    [self fetchCourses];
+    return internalCourses;
 }
 
-#pragma mark Course
--(void)addNewCourse:(Course *)course
+-(void)fetchCourses
 {
-    [_internalCourses addObject:course];
+    NSFetchRequest *fetchRequest = [Course fetchRequest];
+    NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES];
+    [fetchRequest setSortDescriptors:@[sortDescriptor]];
+    
+    NSManagedObjectContext *moc = [[APSCoreDataStack shared] mainQueueMOC];
+    
+    NSError *error = nil;
+    NSArray *results = [moc executeFetchRequest:fetchRequest error:&error];
+    if (!results){
+        NSLog(@"Error fetching course objects");
+    } else {
+        [self setInternalCourses:[[NSMutableArray alloc] initWithArray:results]];
+    }
+ 
+}
+
+
+#pragma mark Course
+-(void)addNewCourseWithName:(NSString *)name
+{
+    NSManagedObjectContext *moc = [[APSCoreDataStack shared] mainQueueMOC];
+    Course *newCourse = [[Course alloc] initWithContext:moc];
+    [newCourse setName:name];
     [APSPersistenceController saveToPersistedStore];
     
 }
 
 -(void)deleteCourse:(Course *)course
 {
-    [_internalCourses removeObject:course];
+    
     NSManagedObjectContext *moc = [course managedObjectContext];
     [moc deleteObject:course];
     [APSPersistenceController saveToPersistedStore];

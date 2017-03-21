@@ -23,6 +23,7 @@
 		FAEC74921E80A9A2008236E9 /* Score+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = FAEC748C1E80A9A2008236E9 /* Score+CoreDataProperties.m */; };
 		FAEC74951E80AC87008236E9 /* APSPersistenceController.m in Sources */ = {isa = PBXBuildFile; fileRef = FAEC74941E80AC87008236E9 /* APSPersistenceController.m */; };
 		FAEC74981E80ACFA008236E9 /* APSCoreDataStack.m in Sources */ = {isa = PBXBuildFile; fileRef = FAEC74971E80ACFA008236E9 /* APSCoreDataStack.m */; };
+		FAEC749B1E8189CB008236E9 /* APSAppDataController.m in Sources */ = {isa = PBXBuildFile; fileRef = FAEC749A1E8189CB008236E9 /* APSAppDataController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -56,6 +57,8 @@
 		FAEC74941E80AC87008236E9 /* APSPersistenceController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = APSPersistenceController.m; sourceTree = "<group>"; };
 		FAEC74961E80ACFA008236E9 /* APSCoreDataStack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = APSCoreDataStack.h; sourceTree = "<group>"; };
 		FAEC74971E80ACFA008236E9 /* APSCoreDataStack.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = APSCoreDataStack.m; sourceTree = "<group>"; };
+		FAEC74991E8189CB008236E9 /* APSAppDataController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = APSAppDataController.h; sourceTree = "<group>"; };
+		FAEC749A1E8189CB008236E9 /* APSAppDataController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = APSAppDataController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -137,6 +140,8 @@
 			children = (
 				FAEC74711E8047EE008236E9 /* APSCourseController.h */,
 				FAEC74721E8047EE008236E9 /* APSCourseController.m */,
+				FAEC74991E8189CB008236E9 /* APSAppDataController.h */,
+				FAEC749A1E8189CB008236E9 /* APSAppDataController.m */,
 				FAEC74931E80AC87008236E9 /* APSPersistenceController.h */,
 				FAEC74941E80AC87008236E9 /* APSPersistenceController.m */,
 				FAEC74961E80ACFA008236E9 /* APSCoreDataStack.h */,
@@ -218,6 +223,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FAEC749B1E8189CB008236E9 /* APSAppDataController.m in Sources */,
 				FAD48AC51E803E79003050B3 /* APSScoresTableViewController.m in Sources */,
 				FAD48AB11E8038EE003050B3 /* AppDelegate.m in Sources */,
 				FAEC748E1E80A9A2008236E9 /* Course+CoreDataProperties.m in Sources */,

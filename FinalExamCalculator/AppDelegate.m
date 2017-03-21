@@ -10,6 +10,7 @@
 #import "APSCoreDataStack.h"
 #import "APSPersistenceController.h"
 #import "APSClassesTableViewController.h"
+#import "APSCourseController.h"
 
 @interface AppDelegate ()
 
@@ -18,10 +19,13 @@
 @implementation AppDelegate
 
 
+
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
     
     [[APSCoreDataStack shared] initializeCoreData];
+    
+   
     
     UIWindow *window = [[UIWindow alloc] initWithFrame: [[UIScreen mainScreen] bounds]];
     
@@ -35,6 +39,8 @@
     
     
     [self setWindow:window];
+    
+    
     
     
     

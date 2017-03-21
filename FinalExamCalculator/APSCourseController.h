@@ -16,7 +16,7 @@
 -(instancetype)init;
 -(NSArray *)courses;
 
--(void)addNewCourse:(Course *)course;
+-(void)addNewCourseWithName:(NSString *)name;
 -(void)deleteCourse:(Course *)course;
 
 
