@@ -19,7 +19,7 @@
     
     [mainMOC performBlockAndWait:^{
         if ([mainMOC hasChanges]){
-            NSError *error;
+            NSError *error = nil;
             [mainMOC save:(&error)];
             
             if (error != nil){
@@ -33,7 +33,7 @@
     
     [privateMOC performBlock:^{
         if ([privateMOC hasChanges]) {
-            NSError *error;
+            NSError *error = nil;
             [privateMOC save:(&error)];
             
             if (error != nil){
