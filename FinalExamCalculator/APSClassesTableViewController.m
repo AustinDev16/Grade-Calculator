@@ -21,6 +21,10 @@
 @implementation APSClassesTableViewController
 @synthesize courseController;
 
+-(void)CoreDataReadyNotified
+{
+    [self.tableView reloadData];
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -34,6 +38,8 @@
     [self setUpNavigationBar];
     
     [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"courseCell"];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(CoreDataReadyNotified) name:@"CoreDataStoreReady" object:nil];
 }
 
 -(void)setUpNavigationBar

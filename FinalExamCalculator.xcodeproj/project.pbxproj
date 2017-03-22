@@ -26,6 +26,7 @@
 		FAEC749B1E8189CB008236E9 /* APSAppDataController.m in Sources */ = {isa = PBXBuildFile; fileRef = FAEC749A1E8189CB008236E9 /* APSAppDataController.m */; };
 		FAEC749E1E8197E1008236E9 /* APSMockDataController.m in Sources */ = {isa = PBXBuildFile; fileRef = FAEC749D1E8197E1008236E9 /* APSMockDataController.m */; };
 		FAEC74A21E81D440008236E9 /* APSDashboardTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FAEC74A11E81D440008236E9 /* APSDashboardTableViewController.m */; };
+		FAEC74A51E81E07F008236E9 /* APSCalculatedFinalTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FAEC74A41E81E07F008236E9 /* APSCalculatedFinalTableViewCell.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -65,6 +66,8 @@
 		FAEC749D1E8197E1008236E9 /* APSMockDataController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = APSMockDataController.m; sourceTree = "<group>"; };
 		FAEC74A01E81D440008236E9 /* APSDashboardTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = APSDashboardTableViewController.h; sourceTree = "<group>"; };
 		FAEC74A11E81D440008236E9 /* APSDashboardTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = APSDashboardTableViewController.m; sourceTree = "<group>"; };
+		FAEC74A31E81E07F008236E9 /* APSCalculatedFinalTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = APSCalculatedFinalTableViewCell.h; sourceTree = "<group>"; };
+		FAEC74A41E81E07F008236E9 /* APSCalculatedFinalTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = APSCalculatedFinalTableViewCell.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -162,6 +165,8 @@
 				FAD48AC41E803E79003050B3 /* APSScoresTableViewController.m */,
 				FAEC74691E803FC5008236E9 /* APSClassesTableViewController.h */,
 				FAEC746A1E803FC5008236E9 /* APSClassesTableViewController.m */,
+				FAEC74A31E81E07F008236E9 /* APSCalculatedFinalTableViewCell.h */,
+				FAEC74A41E81E07F008236E9 /* APSCalculatedFinalTableViewCell.m */,
 				FAEC74A01E81D440008236E9 /* APSDashboardTableViewController.h */,
 				FAEC74A11E81D440008236E9 /* APSDashboardTableViewController.m */,
 			);
@@ -254,6 +259,7 @@
 				FAEC74951E80AC87008236E9 /* APSPersistenceController.m in Sources */,
 				FAEC746B1E803FC5008236E9 /* APSClassesTableViewController.m in Sources */,
 				FAEC74901E80A9A2008236E9 /* Category+CoreDataProperties.m in Sources */,
+				FAEC74A51E81E07F008236E9 /* APSCalculatedFinalTableViewCell.m in Sources */,
 				FAEC746F1E80409A008236E9 /* FinalExamControllerModel.xcdatamodeld in Sources */,
 				FAEC749E1E8197E1008236E9 /* APSMockDataController.m in Sources */,
 				FAEC748F1E80A9A2008236E9 /* Category+CoreDataClass.m in Sources */,

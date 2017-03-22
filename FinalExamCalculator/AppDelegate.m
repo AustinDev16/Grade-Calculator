@@ -20,17 +20,23 @@
 
 @implementation AppDelegate
 
-
-
-- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    // Override point for customization after application launch.
-    
-    [[APSCoreDataStack shared] initializeCoreData];
-    
+-(void)CoreDataReadyNotified
+{
     if ([[[[APSAppDataController shared] courseController] courses] count] == 0){
         [APSMockDataController createMockDataCourse];
         [APSMockDataController createMockDataCategories];
     }
+}
+
+- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    // Override point for customization after application launch.
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(CoreDataReadyNotified) name:@"CoreDataStoreReady" object:nil];
+    
+    
+    
+    [[APSCoreDataStack shared] initializeCoreData];
+    
+
     
     UIWindow *window = [[UIWindow alloc] initWithFrame: [[UIScreen mainScreen] bounds]];
     

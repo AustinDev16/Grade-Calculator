@@ -8,6 +8,7 @@
 
 #import "APSDashboardTableViewController.h"
 #import "Course+CoreDataProperties.h"
+#import "APSCalculatedFinalTableViewCell.h"
 
 @interface APSDashboardTableViewController ()
 @property (nonatomic, strong) Course *selectedCourse;
@@ -53,7 +54,8 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     if (indexPath.section == 0) {
-        UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"courseCell"];
+        APSCalculatedFinalTableViewCell *cell = [[APSCalculatedFinalTableViewCell alloc] init];
+        [cell configureViews];
         return cell;
     } else if (indexPath.section == 1){
         UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"courseCell"];
@@ -65,6 +67,14 @@
     }
 }
 
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (indexPath.section == 0){
+        return 200;
+    } else {
+        return 40;
+    }
+}
 
 /*
 // Override to support conditional editing of the table view.

@@ -71,6 +71,16 @@
         NSPersistentStore *store = [psc addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:storeURL options:options error:&error];
         NSAssert(store != nil, @"Error initializing PSC: %@\n%@", [error localizedDescription], [error userInfo]);
             });
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+       
+         NSNotification *notif = [NSNotification notificationWithName:@"CoreDataStoreReady" object:nil userInfo:nil];
+        [[NSNotificationCenter defaultCenter] postNotification:notif];
+        
+        
+    });
+   
+    
 }
 
 -(void)createChildMainThreadMOC
