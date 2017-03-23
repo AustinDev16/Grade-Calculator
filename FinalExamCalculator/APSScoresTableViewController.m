@@ -10,71 +10,95 @@
 #import "Course+CoreDataProperties.h"
 #import "Category+CoreDataProperties.h"
 #import "Score+CoreDataProperties.h"
+#import "APSCoreDataStack.h"
 
-@interface APSScoresTableViewController ()
+@interface APSScoresTableViewController () <NSFetchedResultsControllerDelegate>
 
-@property (nonatomic, strong) NSMutableArray<Score *> *scores;
+@property (nonatomic, strong) NSFetchedResultsController *fetchedResultsController;
 
 @end
 
 @implementation APSScoresTableViewController
 
-@synthesize scores;
+@synthesize fetchedResultsController;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     NSString *titleString = [NSString stringWithFormat:@"%@ - Scores", self.course.name];
     [self setTitle: titleString];
     [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"ScoreCell"];
+    
+}
+
+-(void)initializeFetchedResultsController
+{
+    NSManagedObjectContext *moc = [[APSCoreDataStack shared] mainQueueMOC];
+    NSFetchRequest *request = [Score fetchRequest];
+    NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:@"date" ascending:true];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"SELF.course.name == %@", _course.name ];
+    [request setSortDescriptors:@[sort]];
+    [request setPredicate:predicate];
+    
+    NSFetchedResultsController *controller = [[NSFetchedResultsController alloc] initWithFetchRequest:request managedObjectContext:moc sectionNameKeyPath:@"category.name" cacheName:nil];
+    
+    [self setFetchedResultsController:controller];
+    [[self fetchedResultsController] setDelegate:self];
+    
+    NSError *error = nil;
+    [[self fetchedResultsController] performFetch:&error];
+    
+    if (error){
+        NSLog(@"Error fetching: %@", error.localizedDescription);
+    }
+}
+
+-(void)controllerDidChangeContent:(NSFetchedResultsController *)controller
+{
+    
 }
 
 -(void)setCourse:(Course *)course
 {
     _course = course;
-    NSSortDescriptor *dateSort = [[NSSortDescriptor alloc] initWithKey:@"date" ascending:true];
-    NSArray *sortedArray = [_course.scores sortedArrayUsingDescriptors:@[dateSort]];
     
-    [self setScores:[NSMutableArray arrayWithArray:sortedArray]];
+    [self initializeFetchedResultsController];
     
-}
-
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    if (self.course == nil){
-        return 0;
-    } else {
-        return self.course.categories.count;
-    }
+ return [[self.fetchedResultsController sections] count];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 1;
+    if ([[self.fetchedResultsController sections] count] > 0) {
+        id <NSFetchedResultsSectionInfo> sectionInfo = [[self.fetchedResultsController sections] objectAtIndex:section];
+        return [sectionInfo numberOfObjects];
+    } else
+        return 0;
 }
 
 
 -(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
-    NSArray <Category *> *categories = [self.course.categories array];
-    return [categories objectAtIndex:section].name;
+    if ([[self.fetchedResultsController sections] count] > 0) {
+        id <NSFetchedResultsSectionInfo> sectionInfo = [[self.fetchedResultsController sections] objectAtIndex:section];
+        return [sectionInfo name];
+    } else
+        return nil;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ScoreCell" forIndexPath:indexPath];
     if (cell == nil){
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"ScoreCell"];
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue2 reuseIdentifier:@"ScoreCell"];
     }
     
-    Score *score = [self.scores objectAtIndex:indexPath.row];
-    
+
+    Score *score = [self.fetchedResultsController objectAtIndexPath:indexPath];
     cell.textLabel.text = score.name;
-    cell.detailTextLabel.text = [NSString stringWithFormat:@"%f / %f",score.pointsEarned, score.pointsPossible];
+    cell.detailTextLabel.text = [NSString stringWithFormat:@"%f %f",score.pointsEarned, score.pointsPossible];
     
     // Configure the cell...
     
