@@ -2,11 +2,12 @@
 //  Score+CoreDataProperties.h
 //  FinalExamCalculator
 //
-//  Created by Austin Blaser on 3/20/17.
+//  Created by Austin Blaser on 3/22/17.
 //  Copyright © 2017 Aptian Software, LLC. All rights reserved.
 //
 
 #import "Score+CoreDataClass.h"
+#import "Category+CoreDataClass.h"
 
 
 NS_ASSUME_NONNULL_BEGIN
@@ -20,6 +21,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic) double pointsEarned;
 @property (nonatomic) double pointsPossible;
 @property (nullable, nonatomic, retain) Course *course;
+@property (nullable, nonatomic, retain) Category *category;
 
 @end
 

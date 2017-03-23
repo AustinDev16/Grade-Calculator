@@ -2,7 +2,7 @@
 //  Course+CoreDataProperties.h
 //  FinalExamCalculator
 //
-//  Created by Austin Blaser on 3/20/17.
+//  Created by Austin Blaser on 3/22/17.
 //  Copyright © 2017 Aptian Software, LLC. All rights reserved.
 //
 
@@ -23,6 +23,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface Course (CoreDataGeneratedAccessors)
 
+- (void)insertObject:(Category *)value inCategoriesAtIndex:(NSUInteger)idx;
+- (void)removeObjectFromCategoriesAtIndex:(NSUInteger)idx;
+- (void)insertCategories:(NSArray<Category *> *)value atIndexes:(NSIndexSet *)indexes;
+- (void)removeCategoriesAtIndexes:(NSIndexSet *)indexes;
+- (void)replaceObjectInCategoriesAtIndex:(NSUInteger)idx withObject:(Category *)value;
+- (void)replaceCategoriesAtIndexes:(NSIndexSet *)indexes withCategories:(NSArray<Category *> *)values;
 - (void)addCategoriesObject:(Category *)value;
 - (void)removeCategoriesObject:(Category *)value;
 - (void)addCategories:(NSOrderedSet<Category *> *)values;

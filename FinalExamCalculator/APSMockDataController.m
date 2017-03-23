@@ -13,6 +13,7 @@
 #import "APSAppDataController.h"
 #import "APSCoreDataStack.h"
 #import "Score+CoreDataProperties.h"
+#import "APSScoreController.h"
 
 @implementation APSMockDataController
 
@@ -64,12 +65,18 @@
     [score1 setPointsPossible:10.0];
     [score1 setPointsEarned:8.3];
     [score1 setDate:[NSDate new]];
-    
-    
+    [score1 setCategory:homework1];
     
     Score *score2 = [[Score alloc] initWithContext:moc];
     [score2 setName:@"Assignment 2"];
-
+    [score2 setPointsPossible:80];
+    [score2 setPointsEarned:67];
+    [score2 setDate:[NSDate new]];
+    [score2 setCategory:exams1];
+    
+    APSScoreController *sc1 = [[APSScoreController alloc] initWithCourse:algebra];
+    [sc1 addScore:score1];
+    [sc1 addScore:score2];
 }
 
 @end
