@@ -14,6 +14,7 @@
 @property (nonatomic, strong) UILabel *scoreFooter;
 @property (nonatomic, strong) UIPickerView *pickerView;
 @property (nonatomic, strong) UILabel *pickerLabel;
+@property (nonatomic, strong) NSArray *gradeArray;
 
 @end
 
@@ -24,7 +25,7 @@
 @synthesize scoreFooter;
 @synthesize pickerView;
 @synthesize pickerLabel;
-
+@synthesize gradeArray;
 
 
 - (void)awakeFromNib {
@@ -34,8 +35,21 @@
 
 -(void)configureViews
 {
+    
+    // Initialize array of numbers
+    NSMutableArray *array = [NSMutableArray new];
+    for (int i = 50; i<101; i++) {
+//        [array addObject:[NSNumber numberWithInteger:i]];
+        [array insertObject:[NSNumber numberWithInteger:i] atIndex:0];
+    }
+    
+    [self setGradeArray:array];
+    
+    
+    
     UIStackView *outerView = [UIStackView new];
     [[self contentView] addSubview:outerView];
+    [outerView setDistribution:UIStackViewDistributionFillProportionally];
     
     // OuterStack View
     [outerView setAxis:UILayoutConstraintAxisHorizontal];
@@ -57,7 +71,7 @@
                                  toItem:self.contentView
                                  attribute:NSLayoutAttributeTop
                                  multiplier:1.0
-                                 constant:0];
+                                 constant:8.0];
     NSLayoutConstraint *ovTrailing = [NSLayoutConstraint
                                       constraintWithItem:outerView
                                       attribute:NSLayoutAttributeTrailing
@@ -80,12 +94,21 @@
     UIStackView *leftView = [UIStackView new];
     [leftView setAxis:UILayoutConstraintAxisVertical];
     [leftView setSpacing:8];
+    [leftView setDistribution:UIStackViewDistributionFillProportionally];
+    
+    leftView.translatesAutoresizingMaskIntoConstraints = NO;
+    NSLayoutConstraint *lvWidth = [NSLayoutConstraint constraintWithItem:leftView attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:outerView attribute:NSLayoutAttributeWidth multiplier:0.66 constant:0];
+    
     
     
     UIStackView *rightView = [UIStackView new];
+    [rightView setAxis:UILayoutConstraintAxisVertical];
+    [rightView setSpacing:8];
+    [rightView setDistribution:UIStackViewDistributionFillProportionally];
     
     [outerView addArrangedSubview:leftView];
     [outerView addArrangedSubview:rightView];
+    [outerView addConstraint:lvWidth];
     
     
     // Add labels to left View
@@ -101,9 +124,45 @@
     [[self finalScoreLabel] setTextAlignment:NSTextAlignmentCenter];
     [leftView addArrangedSubview:finalScoreLabel];
     
+    [self setScoreFooter:[[UILabel alloc] initWithFrame:CGRectMake(0, 0, 100, 40)]];
+    [[self scoreFooter] setText:@"on your final."];
+    [[self scoreFooter] setTextAlignment:NSTextAlignmentCenter];
+    [leftView addArrangedSubview:scoreFooter];
+    
+    
+    // Add label and picker to right view
+    
+    [self setPickerLabel:[[UILabel alloc] initWithFrame:CGRectMake(0, 0, 60, 40)]];
+    self.pickerLabel.translatesAutoresizingMaskIntoConstraints = NO;
+    [[self pickerLabel] setText:@"Desired Grade:"];
+    [[self pickerLabel] setTextAlignment:NSTextAlignmentCenter];
+    [rightView addArrangedSubview:pickerLabel];
+    
+    [self setPickerView:[UIPickerView new]];
+    [[self pickerView] setFrame:CGRectMake(0, 0, 60, 50)];
+    [[self pickerView] setDelegate:self];
+    [[self pickerView] setDataSource:self];
+    [rightView addArrangedSubview:pickerView];
+    
     
 }
 
+#pragma mark PickerView Methods
 
+-(NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component
+{
+    return [self.gradeArray count];
+}
+
+-(NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView
+{
+    return 1;
+}
+
+-(NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component
+{
+    NSString *title = [NSString stringWithFormat:@"%@", [self.gradeArray objectAtIndex:row]];
+    return title;
+}
 
 @end

@@ -50,6 +50,13 @@
     [[self navigationItem] setRightBarButtonItem:add];
 }
 
+-(void)viewDidAppear:(BOOL)animated
+{
+    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
+    
+    [self tableView:self.tableView didSelectRowAtIndexPath:indexPath];
+}
+
 -(void)addNewCourseTapped
 {
     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"New Course" message:nil preferredStyle:UIAlertControllerStyleAlert];

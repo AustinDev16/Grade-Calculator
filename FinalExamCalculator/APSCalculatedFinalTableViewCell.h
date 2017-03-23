@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface APSCalculatedFinalTableViewCell : UITableViewCell
+@interface APSCalculatedFinalTableViewCell : UITableViewCell <UIPickerViewDelegate,UIPickerViewDataSource>
 
 -(void)configureViews;
 
