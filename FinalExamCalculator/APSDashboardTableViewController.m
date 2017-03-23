@@ -9,6 +9,7 @@
 #import "APSDashboardTableViewController.h"
 #import "Course+CoreDataProperties.h"
 #import "APSCalculatedFinalTableViewCell.h"
+#import "APSScoresTableViewController.h"
 
 @interface APSDashboardTableViewController ()
 @property (nonatomic, strong) Course *selectedCourse;
@@ -75,6 +76,25 @@
         return 200;
     } else {
         return 40;
+    }
+}
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (indexPath.section == 1){
+        
+        APSScoresTableViewController *tvc = [[APSScoresTableViewController alloc] initWithStyle:UITableViewStylePlain];
+        [tvc setCourse:[self selectedCourse]];
+        
+        UIBarButtonItem *backButton = [UIBarButtonItem new];
+        [backButton setTitle:@"Dashboard"];
+        
+        
+        [[self navigationItem] setBackBarButtonItem:backButton];
+
+        [[self navigationController] pushViewController:tvc animated:true];
+        
+        
     }
 }
 
