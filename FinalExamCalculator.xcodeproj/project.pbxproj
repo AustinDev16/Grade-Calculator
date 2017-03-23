@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		FA8A87ED1E8369990053D648 /* APSScoreController.m in Sources */ = {isa = PBXBuildFile; fileRef = FA8A87EC1E8369990053D648 /* APSScoreController.m */; };
 		FAD48AAE1E8038EE003050B3 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = FAD48AAD1E8038EE003050B3 /* main.m */; };
 		FAD48AB11E8038EE003050B3 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = FAD48AB01E8038EE003050B3 /* AppDelegate.m */; };
 		FAD48AB91E8038EE003050B3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FAD48AB81E8038EE003050B3 /* Assets.xcassets */; };
@@ -30,6 +31,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		FA8A87EB1E8369990053D648 /* APSScoreController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = APSScoreController.h; sourceTree = "<group>"; };
+		FA8A87EC1E8369990053D648 /* APSScoreController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = APSScoreController.m; sourceTree = "<group>"; };
 		FAD48AA91E8038EE003050B3 /* FinalExamCalculator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FinalExamCalculator.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FAD48AAD1E8038EE003050B3 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		FAD48AAF1E8038EE003050B3 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -146,6 +149,8 @@
 			children = (
 				FAEC749C1E8197E1008236E9 /* APSMockDataController.h */,
 				FAEC749D1E8197E1008236E9 /* APSMockDataController.m */,
+				FA8A87EB1E8369990053D648 /* APSScoreController.h */,
+				FA8A87EC1E8369990053D648 /* APSScoreController.m */,
 				FAEC74711E8047EE008236E9 /* APSCourseController.h */,
 				FAEC74721E8047EE008236E9 /* APSCourseController.m */,
 				FAEC74991E8189CB008236E9 /* APSAppDataController.h */,
@@ -263,6 +268,7 @@
 				FAEC746F1E80409A008236E9 /* FinalExamControllerModel.xcdatamodeld in Sources */,
 				FAEC749E1E8197E1008236E9 /* APSMockDataController.m in Sources */,
 				FAEC748F1E80A9A2008236E9 /* Category+CoreDataClass.m in Sources */,
+				FA8A87ED1E8369990053D648 /* APSScoreController.m in Sources */,
 				FAEC74A21E81D440008236E9 /* APSDashboardTableViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

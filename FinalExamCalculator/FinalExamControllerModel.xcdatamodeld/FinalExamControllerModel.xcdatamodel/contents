@@ -4,6 +4,7 @@
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="weight" optional="YES" attributeType="Double" minValueString="0" maxValueString="1" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
         <relationship name="course" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Course" inverseName="categories" inverseEntity="Course" syncable="YES"/>
+        <relationship name="scores" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Score" inverseName="category" inverseEntity="Score" syncable="YES"/>
     </entity>
     <entity name="Course" representedClassName="Course" syncable="YES">
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
@@ -15,11 +16,12 @@
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="pointsEarned" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="pointsPossible" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
+        <relationship name="category" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Category" inverseName="scores" inverseEntity="Category" syncable="YES"/>
         <relationship name="course" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Course" inverseName="scores" inverseEntity="Course" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Category" positionX="205" positionY="-171" width="128" height="88"/>
-        <element name="Course" positionX="-126" positionY="-261" width="128" height="88"/>
-        <element name="Score" positionX="79" positionY="-45" width="128" height="118"/>
+        <element name="Category" positionX="205" positionY="-171" width="128" height="103"/>
+        <element name="Course" positionX="-234" positionY="-277" width="128" height="88"/>
+        <element name="Score" positionX="-63" positionY="-61" width="128" height="133"/>
     </elements>
 </model>

@@ -12,6 +12,7 @@
 #import "Category+CoreDataProperties.h"
 #import "APSAppDataController.h"
 #import "APSCoreDataStack.h"
+#import "Score+CoreDataProperties.h"
 
 @implementation APSMockDataController
 
@@ -56,6 +57,18 @@
     [[[APSAppDataController shared] courseController] addCategory:homework2 toCourse:english];
     [[[APSAppDataController shared] courseController] addCategory:exams2 toCourse:english];
     
+    
+    // Add scores
+    Score *score1 = [[Score alloc] initWithContext:moc];
+    [score1 setName:@"Assignment 1"];
+    [score1 setPointsPossible:10.0];
+    [score1 setPointsEarned:8.3];
+    [score1 setDate:[NSDate new]];
+    
+    
+    
+    Score *score2 = [[Score alloc] initWithContext:moc];
+    [score2 setName:@"Assignment 2"];
 
 }
 
