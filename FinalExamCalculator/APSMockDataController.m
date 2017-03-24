@@ -14,6 +14,7 @@
 #import "APSCoreDataStack.h"
 #import "Score+CoreDataProperties.h"
 #import "APSScoreController.h"
+#import "APSCategoryType.h"
 
 @implementation APSMockDataController
 
@@ -35,18 +36,22 @@
     Category *homework1 = [[Category alloc] initWithContext:moc];
     [homework1 setName:@"Homework"];
     [homework1 setWeight:0.4];
+    [homework1 setType:[APSCategoryType numberFromTypeString:@"Other"]];
     
     Category *exams1 = [[Category alloc] initWithContext:moc];
     [exams1 setName:@"Exams"];
     [exams1 setWeight:0.5];
+    [exams1 setType:[APSCategoryType numberFromTypeString:@"Other"]];
     
     Category *homework2 = [[Category alloc] initWithContext:moc];
     [homework2 setName:@"Homework"];
     [homework2 setWeight:0.5];
+    [homework2 setType:[APSCategoryType numberFromTypeString:@"Other"]];
     
     Category *exams2 = [[Category alloc] initWithContext:moc];
     [exams2 setName:@"Exams"];
     [exams2 setWeight:0.5];
+    [exams2 setType:[APSCategoryType numberFromTypeString:@"Other"]];
     
     //Add Categories to courses
     Course *algebra = [[[APSAppDataController shared] courseController] findCourseWithName:@"Algebra"];

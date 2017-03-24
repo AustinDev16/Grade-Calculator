@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		FA1BFF881E84887B00A1228C /* Score+ScoreCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = FA1BFF871E84887B00A1228C /* Score+ScoreCategory.m */; };
+		FA30CB6E1E85B84F00BD01C0 /* APSCategoryType.m in Sources */ = {isa = PBXBuildFile; fileRef = FA30CB6D1E85B84F00BD01C0 /* APSCategoryType.m */; };
 		FA8A87ED1E8369990053D648 /* APSScoreController.m in Sources */ = {isa = PBXBuildFile; fileRef = FA8A87EC1E8369990053D648 /* APSScoreController.m */; };
 		FAD48AAE1E8038EE003050B3 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = FAD48AAD1E8038EE003050B3 /* main.m */; };
 		FAD48AB11E8038EE003050B3 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = FAD48AB01E8038EE003050B3 /* AppDelegate.m */; };
@@ -34,6 +35,8 @@
 /* Begin PBXFileReference section */
 		FA1BFF861E84887B00A1228C /* Score+ScoreCategory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Score+ScoreCategory.h"; sourceTree = "<group>"; };
 		FA1BFF871E84887B00A1228C /* Score+ScoreCategory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Score+ScoreCategory.m"; sourceTree = "<group>"; };
+		FA30CB6C1E85B84F00BD01C0 /* APSCategoryType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = APSCategoryType.h; sourceTree = "<group>"; };
+		FA30CB6D1E85B84F00BD01C0 /* APSCategoryType.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = APSCategoryType.m; sourceTree = "<group>"; };
 		FA8A87EB1E8369990053D648 /* APSScoreController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = APSScoreController.h; sourceTree = "<group>"; };
 		FA8A87EC1E8369990053D648 /* APSScoreController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = APSScoreController.m; sourceTree = "<group>"; };
 		FAD48AA91E8038EE003050B3 /* FinalExamCalculator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FinalExamCalculator.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -152,6 +155,8 @@
 		FAEC74701E8047A6008236E9 /* ModelController */ = {
 			isa = PBXGroup;
 			children = (
+				FA30CB6C1E85B84F00BD01C0 /* APSCategoryType.h */,
+				FA30CB6D1E85B84F00BD01C0 /* APSCategoryType.m */,
 				FAEC749C1E8197E1008236E9 /* APSMockDataController.h */,
 				FAEC749D1E8197E1008236E9 /* APSMockDataController.m */,
 				FA8A87EB1E8369990053D648 /* APSScoreController.h */,
@@ -256,6 +261,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FA30CB6E1E85B84F00BD01C0 /* APSCategoryType.m in Sources */,
 				FAEC749B1E8189CB008236E9 /* APSAppDataController.m in Sources */,
 				FAD48AC51E803E79003050B3 /* APSScoresTableViewController.m in Sources */,
 				FAD48AB11E8038EE003050B3 /* AppDelegate.m in Sources */,

@@ -11,6 +11,7 @@
 #import "APSPersistenceController.h"
 #import "APSCoreDataStack.h"
 #import "Category+CoreDataClass.h"
+#import "APSCategoryType.h"
 
 
 @interface APSCourseController ()
@@ -69,6 +70,7 @@
     [final setName:@"Final Exam"];
     [final setWeight:0.10];
     [self addCategory:final toCourse:newCourse];
+    [final setType:[APSCategoryType numberFromTypeString:@"Final"]];
     
     [APSPersistenceController saveToPersistedStore];
     

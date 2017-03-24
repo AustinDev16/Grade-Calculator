@@ -20,7 +20,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic) double weight;
 @property (nullable, nonatomic, retain) Course *course;
 @property (nullable, nonatomic, retain) NSSet<Score *> *scores;
-
+@property (nonatomic) int16_t type;
 @end
 
 @interface Category (CoreDataGeneratedAccessors)
@@ -29,6 +29,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)removeScoresObject:(Score *)value;
 - (void)addScores:(NSSet<Score *> *)values;
 - (void)removeScores:(NSSet<Score *> *)values;
+
 
 @end
 

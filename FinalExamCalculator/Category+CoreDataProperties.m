@@ -18,5 +18,6 @@
 @dynamic weight;
 @dynamic course;
 @dynamic scores;
+@dynamic type;
 
 @end
