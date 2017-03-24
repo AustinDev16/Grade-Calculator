@@ -11,6 +11,7 @@
 #import "Category+CoreDataProperties.h"
 #import "Score+CoreDataProperties.h"
 #import "APSCoreDataStack.h"
+#import "Score+ScoreCategory.h"
 
 @interface APSScoresTableViewController () <NSFetchedResultsControllerDelegate>
 
@@ -26,7 +27,7 @@
     [super viewDidLoad];
     NSString *titleString = [NSString stringWithFormat:@"%@ - Scores", self.course.name];
     [self setTitle: titleString];
-    [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"ScoreCell"];
+
     
 }
 
@@ -90,17 +91,17 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ScoreCell" forIndexPath:indexPath];
-    if (cell == nil){
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue2 reuseIdentifier:@"ScoreCell"];
-    }
     
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ScoreCell"];
+    
+    if (cell == nil){
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"ScoreCell"];
+    }
 
     Score *score = [self.fetchedResultsController objectAtIndexPath:indexPath];
     cell.textLabel.text = score.name;
-    cell.detailTextLabel.text = [NSString stringWithFormat:@"%f %f",score.pointsEarned, score.pointsPossible];
-    
-    // Configure the cell...
+    [cell.detailTextLabel setText:[score stringLabel]];
+    [cell.detailTextLabel setTextColor:[UIColor blackColor]];
     
     return cell;
 }

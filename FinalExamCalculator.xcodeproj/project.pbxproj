@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		FA1BFF881E84887B00A1228C /* Score+ScoreCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = FA1BFF871E84887B00A1228C /* Score+ScoreCategory.m */; };
 		FA8A87ED1E8369990053D648 /* APSScoreController.m in Sources */ = {isa = PBXBuildFile; fileRef = FA8A87EC1E8369990053D648 /* APSScoreController.m */; };
 		FAD48AAE1E8038EE003050B3 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = FAD48AAD1E8038EE003050B3 /* main.m */; };
 		FAD48AB11E8038EE003050B3 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = FAD48AB01E8038EE003050B3 /* AppDelegate.m */; };
@@ -31,6 +32,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		FA1BFF861E84887B00A1228C /* Score+ScoreCategory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Score+ScoreCategory.h"; sourceTree = "<group>"; };
+		FA1BFF871E84887B00A1228C /* Score+ScoreCategory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Score+ScoreCategory.m"; sourceTree = "<group>"; };
 		FA8A87EB1E8369990053D648 /* APSScoreController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = APSScoreController.h; sourceTree = "<group>"; };
 		FA8A87EC1E8369990053D648 /* APSScoreController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = APSScoreController.m; sourceTree = "<group>"; };
 		FAD48AA91E8038EE003050B3 /* FinalExamCalculator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FinalExamCalculator.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -127,6 +130,8 @@
 		FAEC746C1E804039008236E9 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				FA1BFF861E84887B00A1228C /* Score+ScoreCategory.h */,
+				FA1BFF871E84887B00A1228C /* Score+ScoreCategory.m */,
 				FAEC74811E80A9A2008236E9 /* Course+CoreDataClass.h */,
 				FAEC74821E80A9A2008236E9 /* Course+CoreDataClass.m */,
 				FAEC74831E80A9A2008236E9 /* Course+CoreDataProperties.h */,
@@ -268,6 +273,7 @@
 				FAEC746F1E80409A008236E9 /* FinalExamControllerModel.xcdatamodeld in Sources */,
 				FAEC749E1E8197E1008236E9 /* APSMockDataController.m in Sources */,
 				FAEC748F1E80A9A2008236E9 /* Category+CoreDataClass.m in Sources */,
+				FA1BFF881E84887B00A1228C /* Score+ScoreCategory.m in Sources */,
 				FA8A87ED1E8369990053D648 /* APSScoreController.m in Sources */,
 				FAEC74A21E81D440008236E9 /* APSDashboardTableViewController.m in Sources */,
 			);
