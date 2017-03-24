@@ -54,7 +54,7 @@
 {
     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
     
-    [self tableView:self.tableView didSelectRowAtIndexPath:indexPath];
+   // [self tableView:self.tableView didSelectRowAtIndexPath:indexPath];
 }
 
 -(void)addNewCourseTapped

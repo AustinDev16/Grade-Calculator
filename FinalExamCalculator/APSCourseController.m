@@ -10,7 +10,7 @@
 #import "Course+CoreDataProperties.h"
 #import "APSPersistenceController.h"
 #import "APSCoreDataStack.h"
-
+#import "Category+CoreDataClass.h"
 
 
 @interface APSCourseController ()
@@ -63,6 +63,13 @@
     NSManagedObjectContext *moc = [[APSCoreDataStack shared] mainQueueMOC];
     Course *newCourse = [[Course alloc] initWithContext:moc];
     [newCourse setName:name];
+    
+    
+    Category *final = [[Category alloc] initWithContext:moc];
+    [final setName:@"Final Exam"];
+    [final setWeight:0.10];
+    [self addCategory:final toCourse:newCourse];
+    
     [APSPersistenceController saveToPersistedStore];
     
 }
