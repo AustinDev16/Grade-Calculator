@@ -34,7 +34,7 @@
     // Categories
     Category *homework1 = [[Category alloc] initWithContext:moc];
     [homework1 setName:@"Homework"];
-    [homework1 setWeight:0.5];
+    [homework1 setWeight:0.4];
     
     Category *exams1 = [[Category alloc] initWithContext:moc];
     [exams1 setName:@"Exams"];
