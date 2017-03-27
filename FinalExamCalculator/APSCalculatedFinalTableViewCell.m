@@ -7,6 +7,8 @@
 //
 
 #import "APSCalculatedFinalTableViewCell.h"
+#import "APSScoreController.h"
+
 @interface APSCalculatedFinalTableViewCell ()
 
 @property (nonatomic, strong) UILabel *finalScoreLabel;
@@ -15,6 +17,7 @@
 @property (nonatomic, strong) UIPickerView *pickerView;
 @property (nonatomic, strong) UILabel *pickerLabel;
 @property (nonatomic, strong) NSArray *gradeArray;
+@property (nonatomic, strong) APSScoreController *scoreController;
 
 @end
 
@@ -26,6 +29,7 @@
 @synthesize pickerView;
 @synthesize pickerLabel;
 @synthesize gradeArray;
+@synthesize scoreController;
 
 
 - (void)awakeFromNib {
@@ -147,6 +151,25 @@
     
 }
 
+-(void)updateWithCourse:(Course *)course
+{
+    APSScoreController *controller = [[APSScoreController alloc] initWithCourse:course];
+    
+    [self setScoreController:controller];
+}
+
+-(void)updateFinalScoreForDesiredScore:(double)score
+{
+    double neededScore = [self.scoreController predictedFinalScoreForFinalGrade:score];
+    // Evaluate if score is reasonable
+    NSString *updatedLabel = [NSString stringWithFormat:@"%.1f %@",neededScore*10.0, @"%"];
+    
+    [self.finalScoreLabel setText:updatedLabel];
+    
+    
+    
+}
+
 #pragma mark PickerView Methods
 
 -(NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component
@@ -163,6 +186,13 @@
 {
     NSString *title = [NSString stringWithFormat:@"%@", [self.gradeArray objectAtIndex:row]];
     return title;
+}
+
+-(void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component
+{
+    NSNumber *selectedScore = [self.gradeArray objectAtIndex:row];
+    
+    [self updateFinalScoreForDesiredScore:[selectedScore doubleValue]/100.0];
 }
 
 @end

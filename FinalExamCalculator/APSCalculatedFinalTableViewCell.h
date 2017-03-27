@@ -7,9 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+@class Course;
 
 @interface APSCalculatedFinalTableViewCell : UITableViewCell <UIPickerViewDelegate,UIPickerViewDataSource>
 
 -(void)configureViews;
+-(void)updateWithCourse:(Course *)course;
+
 
 @end

@@ -23,6 +23,7 @@
 {
     [self setSelectedCourse:course];
     [self setupNavigationBar];
+    [self.tableView reloadData];
 }
 
 - (void)viewDidLoad {
@@ -59,6 +60,7 @@
     if (indexPath.section == 0) {
         APSCalculatedFinalTableViewCell *cell = [[APSCalculatedFinalTableViewCell alloc] init];
         [cell configureViews];
+        [cell updateWithCourse:self.selectedCourse];
         return cell;
     } else if (indexPath.section == 1){
         UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"courseCell"];
