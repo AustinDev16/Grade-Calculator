@@ -15,6 +15,15 @@
 @property (nonatomic, strong) Course *selectedCourse;
 @property (nonatomic, strong) Score *scoreToBeEdited;
 @property (nonatomic, strong) APSScoreController *scoreController;
+
+@property (nonatomic, strong) UITableViewCell *nameCell;
+@property (nonatomic, strong) UITableViewCell *scoreCell;
+@property (nonatomic, strong) UITableViewCell *categoryCell;
+
+@property (nonatomic, strong) UITextField *nameTextField;
+@property (nonatomic, strong) UITextField *pointsEarnedField;
+@property (nonatomic, strong) UITextField *pointsPossibleField;
+@property (nonatomic, strong) UIPickerView *categoryPicker;
 @end
 
 @implementation APSEditScoreTableViewController
@@ -22,17 +31,17 @@
 @synthesize selectedCourse;
 @synthesize scoreToBeEdited;
 @synthesize scoreController;
+@synthesize nameCell;
+@synthesize scoreCell;
+@synthesize categoryCell;
+@synthesize nameTextField;
+@synthesize pointsEarnedField;
+@synthesize pointsPossibleField;
+@synthesize categoryPicker;
 
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
-    
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
-    
     
     UIBarButtonItem *cancel = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(cancelButtonTapped)];
     [self.navigationItem setLeftBarButtonItem:cancel];
@@ -49,6 +58,7 @@
     APSScoreController *controller = [[APSScoreController alloc] initWithCourse:course];
     [self setScoreController:controller];
     [self updateTitle];
+    [self buildCells];
 }
 
 -(void)updateTitle
@@ -66,70 +76,77 @@
     [self updateTitle];
 }
 
+#pragma mark Build cells
+-(void)buildCells
+{
+  // Build section one
+    UITableViewCell *name = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:nil];
+    UITextField *nameField = [UITextField new];
+    [nameField setPlaceholder:@"Title"];
+    [nameField setAutocapitalizationType:UITextAutocapitalizationTypeWords];
+//    [nameField setBorderStyle:UITextBorderStyleRoundedRect];
+//    [nameField.layer setBorderWidth:1.0];
+//    [nameField.layer setBorderColor:[UIColor grayColor].CGColor];
+//    [nameField.layer setCornerRadius:5.0];
+    [nameField setAdjustsFontSizeToFitWidth:true];
+    nameField.translatesAutoresizingMaskIntoConstraints = false;
+    
+    [name.contentView addSubview:nameField];
+    
+    NSLayoutConstraint *top = [NSLayoutConstraint constraintWithItem:nameField attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:name.contentView attribute:NSLayoutAttributeTop multiplier:1.0 constant:0];
+    NSLayoutConstraint *leading = [NSLayoutConstraint constraintWithItem:nameField attribute:NSLayoutAttributeLeading relatedBy:NSLayoutRelationEqual toItem:name.contentView attribute:NSLayoutAttributeLeadingMargin multiplier:1.0 constant:0];
+    NSLayoutConstraint *trailing = [NSLayoutConstraint constraintWithItem:nameField attribute:NSLayoutAttributeTrailing relatedBy:NSLayoutRelationEqual toItem:name.contentView attribute:NSLayoutAttributeTrailingMargin multiplier:1.0 constant:0];
+    NSLayoutConstraint *bottom = [NSLayoutConstraint constraintWithItem:nameField attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:name.contentView attribute:NSLayoutAttributeBottom multiplier:1.0 constant:0];
+    
+    [name.contentView addConstraints:@[top, leading, trailing, bottom]];
+    
+    [self setNameCell:name];
+    [self setNameTextField: nameField];
+    
+    
+    
+}
+
+
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-#warning Incomplete implementation, return the number of sections
-    return 0;
+    return 2;
 }
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-#warning Incomplete implementation, return the number of rows
-    return 0;
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    if (section == 0){
+        return 2; // name and score
+    } else {
+        return 1; // category
+    }
 }
 
-/*
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:<#@"reuseIdentifier"#> forIndexPath:indexPath];
+    
+    if (indexPath.section == 0) {
+        if (indexPath.row == 0){
+            return self.nameCell;
+        } else {
+            return [UITableViewCell new];
+        }
+    } else {
+        return [UITableViewCell new];
+    }
     
     // Configure the cell...
-    
-    return cell;
-}
-*/
 
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
 }
-*/
 
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    } else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
+-(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
+{
+    if (section == 0){
+        return @"Name and Score";
+    } else {
+        return @"Category";
+    }
 }
-*/
-
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath {
-}
-*/
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end
