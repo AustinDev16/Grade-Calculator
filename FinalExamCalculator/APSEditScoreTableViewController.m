@@ -7,12 +7,22 @@
 //
 
 #import "APSEditScoreTableViewController.h"
+#import "Course+CoreDataClass.h"
+#import "Score+CoreDataClass.h"
+#import "APSScoreController.h"
 
 @interface APSEditScoreTableViewController ()
-
+@property (nonatomic, strong) Course *selectedCourse;
+@property (nonatomic, strong) Score *scoreToBeEdited;
+@property (nonatomic, strong) APSScoreController *scoreController;
 @end
 
 @implementation APSEditScoreTableViewController
+
+@synthesize selectedCourse;
+@synthesize scoreToBeEdited;
+@synthesize scoreController;
+
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -31,6 +41,29 @@
 -(void)cancelButtonTapped
 {
     [self dismissViewControllerAnimated:self completion:nil];
+}
+
+-(void)setCourse:(Course *)course
+{
+    [self setSelectedCourse:course];
+    APSScoreController *controller = [[APSScoreController alloc] initWithCourse:course];
+    [self setScoreController:controller];
+    [self updateTitle];
+}
+
+-(void)updateTitle
+{
+    if (!scoreToBeEdited) {
+        [self setTitle:[NSString stringWithFormat:@"%@: %@",selectedCourse.name, @"New Score"]];
+    } else {
+        [self setTitle:[NSString stringWithFormat:@"%@: %@",selectedCourse.name, scoreToBeEdited.name]];
+    }
+}
+
+-(void)setScoreToBeEdited:(Score *)score
+{
+    [self setScoreToBeEdited:score];
+    [self updateTitle];
 }
 
 #pragma mark - Table view data source

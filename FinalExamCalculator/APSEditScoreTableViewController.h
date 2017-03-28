@@ -7,7 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+@class Course;
+@class Score;
 
 @interface APSEditScoreTableViewController : UITableViewController
+
+-(void)setCourse:(Course *)course;
+-(void)setScoreToBeEdited:(Score *)score;
 
 @end

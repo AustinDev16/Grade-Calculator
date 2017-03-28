@@ -94,6 +94,9 @@
 -(void)addScoreTapped
 {
     APSEditScoreTableViewController *tvc = [[APSEditScoreTableViewController alloc] initWithStyle:UITableViewStyleGrouped];
+    
+    [tvc setCourse:selectedCourse];
+    
     UINavigationController *nc = [[UINavigationController alloc] initWithRootViewController:tvc];
     [nc setModalPresentationStyle:UIModalPresentationPopover];
     [self presentViewController:nc animated:true completion:nil];
