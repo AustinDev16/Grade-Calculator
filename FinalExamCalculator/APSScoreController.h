@@ -20,5 +20,6 @@
 -(Course *)course;
 
 -(double)predictedFinalScoreForFinalGrade:(double)finalGrade;
+-(double)currentScore;
 
 @end

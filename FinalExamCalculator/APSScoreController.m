@@ -107,6 +107,15 @@
 
 #pragma mark Calculations
 
+-(double)currentScore
+{
+    double sum = 0.0;
+    for (Category *category in self.nonFinalCategories) {
+        sum += [self averageWeightedScoreForCategory:category];
+    }
+    return sum;
+}
+
 -(double)predictedFinalScoreForFinalGrade:(double)finalGrade
 {
     double sum = 0.0;

@@ -83,7 +83,7 @@
                                       toItem:self.contentView
                                       attribute:NSLayoutAttributeTrailing
                                       multiplier:1.0
-                                      constant:0];
+                                      constant:-8];
     NSLayoutConstraint *ovBottom = [NSLayoutConstraint
                                     constraintWithItem:outerView
                                     attribute:NSLayoutAttributeBottom
@@ -140,6 +140,7 @@
     self.pickerLabel.translatesAutoresizingMaskIntoConstraints = NO;
     [[self pickerLabel] setText:@"Desired Grade:"];
     [[self pickerLabel] setTextAlignment:NSTextAlignmentCenter];
+    self.pickerLabel.adjustsFontSizeToFitWidth = true;
     [rightView addArrangedSubview:pickerLabel];
     
     [self setPickerView:[UIPickerView new]];

@@ -10,14 +10,18 @@
 #import "Course+CoreDataProperties.h"
 #import "APSCalculatedFinalTableViewCell.h"
 #import "APSScoresTableViewController.h"
+#import "APSScoreController.h"
 
 @interface APSDashboardTableViewController ()
 @property (nonatomic, strong) Course *selectedCourse;
+@property (nonatomic, strong) UITableViewCell *currentScoreCell;
+
 @end
 
 @implementation APSDashboardTableViewController
 
 @synthesize selectedCourse;
+@synthesize currentScoreCell;
 
 -(void)updateViewWithSelectedCourse:(Course *)course
 {
@@ -31,11 +35,7 @@
     
     self.tableView.scrollEnabled = NO;
     
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
-    
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    [self buildCurrentScoreCell];
 }
 
 -(void)setupNavigationBar
@@ -43,11 +43,30 @@
     [self setTitle:self.selectedCourse.name];
 }
 
+-(void)buildCurrentScoreCell
+{
+    UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:nil];
+    cell.textLabel.text = @"Current score:";
+    cell.detailTextLabel.text = @"-- %";
+    [cell.detailTextLabel setTextColor:[UIColor blackColor]];
+    [self setCurrentScoreCell:cell];
+}
+
+-(void)updateCurrentScore
+{
+    APSScoreController *controller = [[APSScoreController alloc] initWithCourse:self.selectedCourse];
+    double score = [controller currentScore]*100.0;
+    NSString *label = [NSString stringWithFormat:@"%.1f %@", score, @"%"];
+    
+    [self.currentScoreCell.detailTextLabel setText:label];
+    
+}
+
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
 
-    return 2;
+    return 3;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -57,16 +76,25 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    if (indexPath.section == 0) {
+    if (indexPath.section == 0){
+        if (!self.currentScoreCell){
+            [self buildCurrentScoreCell];
+        }
+        [self updateCurrentScore];
+        return self.currentScoreCell;
+        
+    } else if (indexPath.section == 1) {
         APSCalculatedFinalTableViewCell *cell = [[APSCalculatedFinalTableViewCell alloc] init];
         [cell configureViews];
         [cell updateWithCourse:self.selectedCourse];
         return cell;
-    } else if (indexPath.section == 1){
+        
+    } else if (indexPath.section == 2){
         UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"courseCell"];
         cell.textLabel.text = @"Scores";
         [cell setAccessoryType:UITableViewCellAccessoryDisclosureIndicator];
         return cell;
+        
     } else {
         return [UITableViewCell new];
     }
@@ -74,7 +102,7 @@
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.section == 0){
+    if (indexPath.section == 1){
         return 200;
     } else {
         return 40;
@@ -83,7 +111,7 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.section == 1){
+    if (indexPath.section == 2){
         
         APSScoresTableViewController *tvc = [[APSScoresTableViewController alloc] initWithStyle:UITableViewStylePlain];
         [tvc setCourse:[self selectedCourse]];
@@ -100,48 +128,13 @@
     }
 }
 
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
+-(NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section
+{
+    if (section == 0){
+        return @"Current score doesn't include the final exam.";
+    } else {
+        return nil;
+    }
 }
-*/
-
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    } else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
-}
-*/
-
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath {
-}
-*/
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end
