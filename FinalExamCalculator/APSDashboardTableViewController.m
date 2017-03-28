@@ -12,9 +12,10 @@
 #import "APSScoresTableViewController.h"
 #import "APSScoreController.h"
 
-@interface APSDashboardTableViewController ()
+@interface APSDashboardTableViewController () <UIToolbarDelegate>
 @property (nonatomic, strong) Course *selectedCourse;
 @property (nonatomic, strong) UITableViewCell *currentScoreCell;
+@property (nonatomic, strong) UIToolbar *toolBar;
 
 @end
 
@@ -22,6 +23,7 @@
 
 @synthesize selectedCourse;
 @synthesize currentScoreCell;
+@synthesize toolBar;
 
 -(void)updateViewWithSelectedCourse:(Course *)course
 {
@@ -36,11 +38,28 @@
     self.tableView.scrollEnabled = NO;
     
     [self buildCurrentScoreCell];
+    [self setupToolBar];
 }
 
 -(void)setupNavigationBar
 {
     [self setTitle:self.selectedCourse.name];
+}
+
+-(void)setupToolBar
+{
+    UIToolbar *newToolBar = [UIToolbar new];
+    UIBarButtonItem *adjustCats = [[UIBarButtonItem alloc] initWithTitle:@"Adjust Weights" style:UIBarButtonItemStylePlain target:self action:@selector(adjustWeightsTapped)];
+    UIBarButtonItem *newScore = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCompose target:self action:@selector(addScoreTapped)];
+    
+ //   [newToolBar setItems:@[adjustCats, newScore]];
+    [newToolBar setDelegate:self];
+    
+    [self setToolBar:newToolBar];
+//    [self.view addSubview:self.toolBar];
+    self.navigationController.toolbarHidden = false;
+    [self.navigationController setToolbarHidden:false animated:true];
+    [self.navigationController.toolbar setItems:@[adjustCats, newScore]];
 }
 
 -(void)buildCurrentScoreCell
@@ -60,6 +79,24 @@
     
     [self.currentScoreCell.detailTextLabel setText:label];
     
+}
+
+# pragma mark Toolbar items
+-(void)addScoreTapped
+{
+    
+}
+
+-(void)adjustWeightsTapped
+{
+    
+}
+
+#pragma mark ToolBar Delegate
+
+-(UIBarPosition)positionForBar:(id<UIBarPositioning>)bar
+{
+    return UIBarPositionBottom;
 }
 
 #pragma mark - Table view data source
