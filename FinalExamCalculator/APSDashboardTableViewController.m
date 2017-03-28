@@ -41,6 +41,12 @@
     [self setupToolBar];
 }
 
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [self.navigationController setToolbarHidden:true animated:false];
+}
+
 -(void)setupNavigationBar
 {
     [self setTitle:self.selectedCourse.name];
@@ -48,18 +54,20 @@
 
 -(void)setupToolBar
 {
-    UIToolbar *newToolBar = [UIToolbar new];
+    UIToolbar *newToolBar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 44)];
     UIBarButtonItem *adjustCats = [[UIBarButtonItem alloc] initWithTitle:@"Adjust Weights" style:UIBarButtonItemStylePlain target:self action:@selector(adjustWeightsTapped)];
+    UIBarButtonItem *spacer = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
     UIBarButtonItem *newScore = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCompose target:self action:@selector(addScoreTapped)];
     
- //   [newToolBar setItems:@[adjustCats, newScore]];
+  [newToolBar setItems:@[adjustCats, spacer, newScore]];
     [newToolBar setDelegate:self];
     
+    CGRect toolBarFrame = CGRectMake(0, [[UIScreen mainScreen] bounds].size.height - (44 + 64), [[UIScreen mainScreen] bounds].size.width, 44);
+    [newToolBar setFrame:toolBarFrame];
+    [newToolBar setBarStyle:UIBarStyleDefault];
+    [self.view addSubview:newToolBar];
+    
     [self setToolBar:newToolBar];
-//    [self.view addSubview:self.toolBar];
-    self.navigationController.toolbarHidden = false;
-    [self.navigationController setToolbarHidden:false animated:true];
-    [self.navigationController.toolbar setItems:@[adjustCats, newScore]];
 }
 
 -(void)buildCurrentScoreCell

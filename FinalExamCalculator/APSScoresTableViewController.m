@@ -13,22 +13,25 @@
 #import "APSCoreDataStack.h"
 #import "Score+ScoreCategory.h"
 
-@interface APSScoresTableViewController () <NSFetchedResultsControllerDelegate>
+@interface APSScoresTableViewController () <NSFetchedResultsControllerDelegate, UIToolbarDelegate>
 
 @property (nonatomic, strong) NSFetchedResultsController *fetchedResultsController;
+@property (nonatomic, strong) UIToolbar *toolBar;
 
 @end
 
 @implementation APSScoresTableViewController
 
 @synthesize fetchedResultsController;
+@synthesize toolBar;
+
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     NSString *titleString = [NSString stringWithFormat:@"%@ - Scores", self.course.name];
     [self setTitle: titleString];
 
-    
+    [self setupToolBar];
 }
 
 -(void)initializeFetchedResultsController
@@ -63,6 +66,28 @@
     _course = course;
     
     [self initializeFetchedResultsController];
+    
+}
+
+
+-(void)setupToolBar
+{
+
+    UIBarButtonItem *adjustCats = [[UIBarButtonItem alloc] initWithTitle:@"Adjust Weights" style:UIBarButtonItemStylePlain target:self action:@selector(adjustWeightsTapped)];
+    UIBarButtonItem *spacer = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
+    UIBarButtonItem *newScore = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCompose target:self action:@selector(addScoreTapped)];
+    
+    self.navigationController.toolbarHidden = false;
+    [self setToolbarItems:@[adjustCats, spacer, newScore]];
+}
+
+-(void)adjustWeightsTapped
+{
+    
+}
+
+-(void)addScoreTapped
+{
     
 }
 
