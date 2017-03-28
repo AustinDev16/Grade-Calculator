@@ -11,6 +11,7 @@
 #import "APSCalculatedFinalTableViewCell.h"
 #import "APSScoresTableViewController.h"
 #import "APSScoreController.h"
+#import "APSEditScoreTableViewController.h"
 
 @interface APSDashboardTableViewController () <UIToolbarDelegate>
 @property (nonatomic, strong) Course *selectedCourse;
@@ -92,7 +93,10 @@
 # pragma mark Toolbar items
 -(void)addScoreTapped
 {
-    
+    APSEditScoreTableViewController *tvc = [[APSEditScoreTableViewController alloc] initWithStyle:UITableViewStyleGrouped];
+    UINavigationController *nc = [[UINavigationController alloc] initWithRootViewController:tvc];
+    [nc setModalPresentationStyle:UIModalPresentationPopover];
+    [self presentViewController:nc animated:true completion:nil];
 }
 
 -(void)adjustWeightsTapped
