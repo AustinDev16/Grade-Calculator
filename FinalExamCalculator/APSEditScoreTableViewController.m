@@ -11,7 +11,7 @@
 #import "Score+CoreDataClass.h"
 #import "APSScoreController.h"
 
-@interface APSEditScoreTableViewController ()
+@interface APSEditScoreTableViewController () <UIPickerViewDelegate, UIPickerViewDataSource>
 @property (nonatomic, strong) Course *selectedCourse;
 @property (nonatomic, strong) Score *scoreToBeEdited;
 @property (nonatomic, strong) APSScoreController *scoreController;
@@ -84,7 +84,7 @@
   // Build section one
     [self buildNameCell];
     [self buildPointsCell];
-    
+    [self buildPickerCell];
     
 }
 
@@ -169,6 +169,41 @@
     
 }
 
+-(void)buildPickerCell
+{
+    UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:nil];
+    UIPickerView *picker = [[UIPickerView alloc] init];
+    [picker setDelegate:self];
+    
+    [cell.contentView addSubview:picker];
+    
+    picker.translatesAutoresizingMaskIntoConstraints = false;
+    NSLayoutConstraint *top = [NSLayoutConstraint constraintWithItem:picker attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:cell.contentView attribute:NSLayoutAttributeTop multiplier:1.0 constant:0];
+    NSLayoutConstraint *leading = [NSLayoutConstraint constraintWithItem:picker attribute:NSLayoutAttributeLeading relatedBy:NSLayoutRelationEqual toItem:cell.contentView attribute:NSLayoutAttributeLeadingMargin multiplier:1.0 constant:0];
+    NSLayoutConstraint *trailing = [NSLayoutConstraint constraintWithItem:picker attribute:NSLayoutAttributeTrailing relatedBy:NSLayoutRelationEqual toItem:cell.contentView attribute:NSLayoutAttributeTrailingMargin multiplier:1.0 constant:0];
+    NSLayoutConstraint *bottom = [NSLayoutConstraint constraintWithItem:picker attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:cell.contentView attribute:NSLayoutAttributeBottom multiplier:1.0 constant:0];
+    [cell.contentView addConstraints:@[top, leading, trailing, bottom]];
+    
+    [self setCategoryPicker:picker];
+    [self setCategoryCell:cell];
+}
+
+#pragma mark UIPickerView Delegate and data source
+-(NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView
+{
+    return 1;
+}
+
+-(NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component
+{
+    return 10;
+}
+
+-(NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component
+{
+    return @"TEst";
+}
+
 
 #pragma mark - Table view data source
 
@@ -195,7 +230,7 @@
             return self.scoreCell;
         }
     } else {
-        return [UITableViewCell new];
+        return self.categoryCell;
     }
     
     // Configure the cell...
