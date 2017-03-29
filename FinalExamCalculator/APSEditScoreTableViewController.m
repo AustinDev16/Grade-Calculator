@@ -22,6 +22,7 @@
 
 @property (nonatomic, strong) UITextField *nameTextField;
 @property (nonatomic, strong) UITextField *pointsEarnedField;
+@property (nonatomic, strong) UILabel *dividerLabel;
 @property (nonatomic, strong) UITextField *pointsPossibleField;
 @property (nonatomic, strong) UIPickerView *categoryPicker;
 @end
@@ -36,6 +37,7 @@
 @synthesize categoryCell;
 @synthesize nameTextField;
 @synthesize pointsEarnedField;
+@synthesize dividerLabel;
 @synthesize pointsPossibleField;
 @synthesize categoryPicker;
 
@@ -80,30 +82,90 @@
 -(void)buildCells
 {
   // Build section one
-    UITableViewCell *name = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:nil];
-    UITextField *nameField = [UITextField new];
-    [nameField setPlaceholder:@"Title"];
-    [nameField setAutocapitalizationType:UITextAutocapitalizationTypeWords];
-//    [nameField setBorderStyle:UITextBorderStyleRoundedRect];
-//    [nameField.layer setBorderWidth:1.0];
-//    [nameField.layer setBorderColor:[UIColor grayColor].CGColor];
-//    [nameField.layer setCornerRadius:5.0];
-    [nameField setAdjustsFontSizeToFitWidth:true];
-    nameField.translatesAutoresizingMaskIntoConstraints = false;
-    
-    [name.contentView addSubview:nameField];
-    
-    NSLayoutConstraint *top = [NSLayoutConstraint constraintWithItem:nameField attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:name.contentView attribute:NSLayoutAttributeTop multiplier:1.0 constant:0];
-    NSLayoutConstraint *leading = [NSLayoutConstraint constraintWithItem:nameField attribute:NSLayoutAttributeLeading relatedBy:NSLayoutRelationEqual toItem:name.contentView attribute:NSLayoutAttributeLeadingMargin multiplier:1.0 constant:0];
-    NSLayoutConstraint *trailing = [NSLayoutConstraint constraintWithItem:nameField attribute:NSLayoutAttributeTrailing relatedBy:NSLayoutRelationEqual toItem:name.contentView attribute:NSLayoutAttributeTrailingMargin multiplier:1.0 constant:0];
-    NSLayoutConstraint *bottom = [NSLayoutConstraint constraintWithItem:nameField attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:name.contentView attribute:NSLayoutAttributeBottom multiplier:1.0 constant:0];
-    
-    [name.contentView addConstraints:@[top, leading, trailing, bottom]];
-    
-    [self setNameCell:name];
-    [self setNameTextField: nameField];
+    [self buildNameCell];
+    [self buildPointsCell];
     
     
+}
+
+-(void)buildNameCell
+{
+    UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:nil];
+    UITextField *textField = [UITextField new];
+    [textField setPlaceholder:@"Title"];
+    [textField setAutocapitalizationType:UITextAutocapitalizationTypeWords];
+    //    [nameField setBorderStyle:UITextBorderStyleRoundedRect];
+    //    [nameField.layer setBorderWidth:1.0];
+    //    [nameField.layer setBorderColor:[UIColor grayColor].CGColor];
+    //    [nameField.layer setCornerRadius:5.0];
+    [textField setAdjustsFontSizeToFitWidth:true];
+    textField.translatesAutoresizingMaskIntoConstraints = false;
+    
+    [cell.contentView addSubview:textField];
+    
+    NSLayoutConstraint *top = [NSLayoutConstraint constraintWithItem:textField attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:cell.contentView attribute:NSLayoutAttributeTop multiplier:1.0 constant:0];
+    NSLayoutConstraint *leading = [NSLayoutConstraint constraintWithItem:textField attribute:NSLayoutAttributeLeading relatedBy:NSLayoutRelationEqual toItem:cell.contentView attribute:NSLayoutAttributeLeadingMargin multiplier:1.0 constant:0];
+    NSLayoutConstraint *trailing = [NSLayoutConstraint constraintWithItem:textField attribute:NSLayoutAttributeTrailing relatedBy:NSLayoutRelationEqual toItem:cell.contentView attribute:NSLayoutAttributeTrailingMargin multiplier:1.0 constant:0];
+    NSLayoutConstraint *bottom = [NSLayoutConstraint constraintWithItem:textField attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:cell.contentView attribute:NSLayoutAttributeBottom multiplier:1.0 constant:0];
+    
+    [cell.contentView addConstraints:@[top, leading, trailing, bottom]];
+    
+    [self setNameCell:cell];
+    [self setNameTextField: textField];
+}
+
+-(void)buildPointsCell
+{
+    UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:nil];
+    UITextField *pointsEarned = [UITextField new];
+    [pointsEarned setPlaceholder:@"Points Earned"];
+    [pointsEarned setBorderStyle:UITextBorderStyleRoundedRect];
+    [pointsEarned.layer setBorderWidth:1.0];
+    [pointsEarned.layer setBorderColor:[UIColor grayColor].CGColor];
+    [pointsEarned.layer setCornerRadius:5.0];
+    [pointsEarned setKeyboardType:UIKeyboardTypeDecimalPad];
+    
+    UILabel *label = [UILabel new];
+    [label setText:@"/"];
+    [label setFont:[UIFont boldSystemFontOfSize:24]];
+    
+    UITextField *pointsPossible = [UITextField new];
+    [pointsPossible setPlaceholder:@"Points Possible"];
+    [pointsPossible.layer setBorderWidth:1.0];
+    [pointsPossible.layer setBorderColor:[UIColor grayColor].CGColor];
+    [pointsPossible.layer setCornerRadius:5.0];
+    [pointsPossible setKeyboardType:UIKeyboardTypeDecimalPad];
+    
+    // Divider
+    [cell.contentView addSubview:label];
+    label.translatesAutoresizingMaskIntoConstraints = false;
+    NSLayoutConstraint *labelCenterX = [NSLayoutConstraint constraintWithItem:label attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:cell.contentView attribute:NSLayoutAttributeCenterXWithinMargins multiplier:1.0 constant:0];
+    NSLayoutConstraint *labelCenterY = [NSLayoutConstraint constraintWithItem:label attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:cell.contentView attribute:NSLayoutAttributeCenterYWithinMargins multiplier:1.0 constant:0];
+    [cell.contentView addConstraints:@[labelCenterX, labelCenterY]];
+    
+    // Points earned
+    [cell.contentView addSubview:pointsEarned];
+    pointsEarned.translatesAutoresizingMaskIntoConstraints = false;
+    [pointsEarned setFrame:CGRectMake(0, 0, 60, 30)];
+    
+    NSLayoutConstraint *peCenterY = [NSLayoutConstraint constraintWithItem:pointsEarned attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:cell.contentView attribute:NSLayoutAttributeCenterYWithinMargins multiplier:1.0 constant:0];
+    NSLayoutConstraint *peTrailing = [NSLayoutConstraint constraintWithItem:pointsEarned attribute:NSLayoutAttributeTrailing relatedBy:NSLayoutRelationEqual toItem:label attribute:NSLayoutAttributeLeading multiplier:1.0 constant:-8];
+    [cell.contentView addConstraints:@[peCenterY, peTrailing]];
+    
+    //Points Possible
+    [cell.contentView addSubview:pointsPossible];
+    pointsPossible.translatesAutoresizingMaskIntoConstraints = false;
+    [pointsPossible setFrame:CGRectMake(0, 0, 60, 30)];
+    
+    NSLayoutConstraint *ppCenterY = [NSLayoutConstraint constraintWithItem:pointsPossible attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:cell.contentView attribute:NSLayoutAttributeCenterYWithinMargins multiplier:1.0 constant:0];
+    NSLayoutConstraint *ppLeading = [NSLayoutConstraint constraintWithItem:pointsPossible attribute:NSLayoutAttributeLeading relatedBy:NSLayoutRelationEqual toItem:label attribute:NSLayoutAttributeTrailing multiplier:1.0 constant:8];
+    [cell.contentView addConstraints:@[ppCenterY, ppLeading]];
+    
+    
+    [self setScoreCell:cell];
+    [self setPointsEarnedField:pointsEarned];
+    [self setDividerLabel:label];
+    [self setPointsPossibleField:pointsPossible];
     
 }
 
@@ -130,7 +192,7 @@
         if (indexPath.row == 0){
             return self.nameCell;
         } else {
-            return [UITableViewCell new];
+            return self.scoreCell;
         }
     } else {
         return [UITableViewCell new];
