@@ -41,12 +41,21 @@
 @synthesize pointsPossibleField;
 @synthesize categoryPicker;
 
+#pragma mark View and Setup
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     
     UIBarButtonItem *cancel = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(cancelButtonTapped)];
     [self.navigationItem setLeftBarButtonItem:cancel];
+}
+
+
+-(void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    
+    [self.nameTextField becomeFirstResponder];
 }
 
 -(void)cancelButtonTapped
@@ -124,6 +133,7 @@
     [pointsEarned.layer setBorderColor:[UIColor grayColor].CGColor];
     [pointsEarned.layer setCornerRadius:5.0];
     [pointsEarned setKeyboardType:UIKeyboardTypeDecimalPad];
+    [pointsEarned setTextAlignment:NSTextAlignmentCenter];
     
     UILabel *label = [UILabel new];
     [label setText:@"/"];
@@ -135,6 +145,7 @@
     [pointsPossible.layer setBorderColor:[UIColor grayColor].CGColor];
     [pointsPossible.layer setCornerRadius:5.0];
     [pointsPossible setKeyboardType:UIKeyboardTypeDecimalPad];
+    [pointsPossible setTextAlignment:NSTextAlignmentCenter];
     
     // Divider
     [cell.contentView addSubview:label];
