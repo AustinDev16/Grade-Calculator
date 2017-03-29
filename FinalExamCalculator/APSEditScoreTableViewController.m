@@ -60,6 +60,9 @@
 
 -(void)cancelButtonTapped
 {
+    [self.nameTextField resignFirstResponder];
+    [self.pointsEarnedField resignFirstResponder];
+    [self.pointsPossibleField resignFirstResponder];
     [self dismissViewControllerAnimated:self completion:nil];
 }
 
