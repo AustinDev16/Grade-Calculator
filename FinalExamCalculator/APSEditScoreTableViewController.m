@@ -210,12 +210,14 @@
 
 -(NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component
 {
-    return 10;
+    return [self.scoreController categoriesWithFinal:false].count;
 }
 
 -(NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component
 {
-    return @"TEst";
+    Category *cat = [[self.scoreController categoriesWithFinal:false] objectAtIndex:row];
+    
+    return cat.name;
 }
 
 

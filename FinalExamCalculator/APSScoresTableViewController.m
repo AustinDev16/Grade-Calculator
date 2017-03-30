@@ -12,6 +12,7 @@
 #import "Score+CoreDataProperties.h"
 #import "APSCoreDataStack.h"
 #import "Score+ScoreCategory.h"
+#import "APSEditScoreTableViewController.h"
 
 @interface APSScoresTableViewController () <NSFetchedResultsControllerDelegate, UIToolbarDelegate>
 
@@ -24,6 +25,7 @@
 
 @synthesize fetchedResultsController;
 @synthesize toolBar;
+
 
 
 - (void)viewDidLoad {
@@ -88,7 +90,13 @@
 
 -(void)addScoreTapped
 {
+    APSEditScoreTableViewController *tvc = [[APSEditScoreTableViewController alloc] initWithStyle:UITableViewStyleGrouped];
     
+    [tvc setCourse:_course];
+    
+    UINavigationController *nc = [[UINavigationController alloc] initWithRootViewController:tvc];
+    [nc setModalPresentationStyle:UIModalPresentationPopover];
+    [self presentViewController:nc animated:true completion:nil];
 }
 
 #pragma mark - Table view data source

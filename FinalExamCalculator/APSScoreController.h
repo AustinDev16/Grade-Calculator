@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 @class Course;
 @class Score;
+@class Category;
 
 @interface APSScoreController : NSObject
 
@@ -21,5 +22,7 @@
 
 -(double)predictedFinalScoreForFinalGrade:(double)finalGrade;
 -(double)currentScore;
+
+-(NSArray<Category *> *)categoriesWithFinal:(BOOL)withFinal;
 
 @end

@@ -59,6 +59,15 @@
     [self setNonFinalCategories:other];
 }
 
+-(NSArray<Category *> *)categoriesWithFinal:(BOOL)withFinal
+{
+    if (withFinal){
+        return self.course.categories.array;
+    } else {
+        return self.nonFinalCategories;
+    }
+}
+
 -(NSArray *)scoresWithType:(NSString *)type
 {
     NSMutableArray *tempArray = [NSMutableArray new];
