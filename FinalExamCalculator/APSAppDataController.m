@@ -16,7 +16,7 @@
 @end
 
 @implementation APSAppDataController
-
+@synthesize internalCourseController;
 
 +(instancetype)shared
 {
@@ -31,7 +31,7 @@
 }
 
 -(APSCourseController *)courseController{
-    return _internalCourseController;
+    return internalCourseController;
 }
 
 @end

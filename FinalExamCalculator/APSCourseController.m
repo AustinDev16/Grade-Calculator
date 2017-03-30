@@ -36,7 +36,7 @@
 -(NSArray *)courses
 {
     [self fetchCourses];
-    return internalCourses;
+    return [internalCourses copy];
 }
 
 -(void)fetchCourses
