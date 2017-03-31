@@ -54,7 +54,6 @@
 -(void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    
     [self.nameTextField becomeFirstResponder];
 }
 
@@ -84,10 +83,19 @@
     }
 }
 
--(void)setScoreToBeEdited:(Score *)score
+-(void)updateWithScore:(Score *)score
 {
     [self setScoreToBeEdited:score];
     [self updateTitle];
+    [nameTextField setText:scoreToBeEdited.name];
+    [pointsEarnedField setText:[NSString stringWithFormat:@"%.1f", scoreToBeEdited.pointsEarned]];
+    [pointsPossibleField setText:[NSString stringWithFormat:@"%.1f", scoreToBeEdited.pointsPossible]];
+    
+    NSInteger categoryIndex = [[self.scoreController categoriesWithFinal:false] indexOfObject:scoreToBeEdited.category];
+    
+    if (categoryIndex) {
+        [self.categoryPicker selectRow:categoryIndex inComponent:0 animated:false];
+    }
 }
 
 #pragma mark Build cells
@@ -215,9 +223,9 @@
 
 -(NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component
 {
-    Category *cat = [[self.scoreController categoriesWithFinal:false] objectAtIndex:row];
+    Category *category = [[self.scoreController categoriesWithFinal:false] objectAtIndex:row];
     
-    return cat.name;
+    return category.name;
 }
 
 

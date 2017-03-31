@@ -36,6 +36,12 @@
     [self setupToolBar];
 }
 
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [self setEditing:false animated:true];
+}
+
 -(void)initializeFetchedResultsController
 {
     NSManagedObjectContext *moc = [[APSCoreDataStack shared] mainQueueMOC];
@@ -142,7 +148,15 @@
 -(NSArray<UITableViewRowAction *> *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UITableViewRowAction *edit = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleNormal title:@"Edit" handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
-    
+        
+        Score *selectedScore = [self.fetchedResultsController objectAtIndexPath:indexPath];
+        APSEditScoreTableViewController *tvc = [[APSEditScoreTableViewController alloc] initWithStyle:UITableViewStyleGrouped];
+        [tvc setCourse:self.course];
+        [tvc updateWithScore:selectedScore];
+        UINavigationController *nc = [[UINavigationController alloc] initWithRootViewController:tvc];
+        
+        [self presentViewController:nc animated:true completion:nil];
+        
     }];
     
     //[edit setBackgroundColor:[UIColor blueColor]];

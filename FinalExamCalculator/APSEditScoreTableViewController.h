@@ -13,6 +13,6 @@
 @interface APSEditScoreTableViewController : UITableViewController
 
 -(void)setCourse:(Course *)course;
--(void)setScoreToBeEdited:(Score *)score;
+-(void)updateWithScore:(Score *)score;
 
 @end
