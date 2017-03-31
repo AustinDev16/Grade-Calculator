@@ -35,11 +35,26 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code
+    
+
+}
+
+-(void)updateScore
+{
+    NSInteger row = [self.pickerView selectedRowInComponent:0];
+    NSNumber *selectedScore = [self.gradeArray objectAtIndex:row];
+    [self updateFinalScoreForDesiredScore:[selectedScore doubleValue]/100.0];
+}
+
+-(void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 -(void)configureViews
 {
-    
+    // Set up notifications
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateScore) name:@"ScoreUpdated" object:nil];
     // Initialize array of numbers
     NSMutableArray *array = [NSMutableArray new];
     for (int i = 50; i<101; i++) {

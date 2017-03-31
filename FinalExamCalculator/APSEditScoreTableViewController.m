@@ -198,7 +198,7 @@
     
     UILabel *label = [UILabel new];
     [label setText:@"/"];
-    [label setFont:[UIFont boldSystemFontOfSize:24]];
+    [label setFont:[UIFont boldSystemFontOfSize:28]];
     
     UITextField *pointsPossible = [UITextField new];
     [pointsPossible setPlaceholder:@"Points Possible"];
@@ -211,14 +211,27 @@
     // Divider
     [cell.contentView addSubview:label];
     label.translatesAutoresizingMaskIntoConstraints = false;
-    NSLayoutConstraint *labelCenterX = [NSLayoutConstraint constraintWithItem:label attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:cell.contentView attribute:NSLayoutAttributeCenterXWithinMargins multiplier:1.0 constant:0];
-    NSLayoutConstraint *labelCenterY = [NSLayoutConstraint constraintWithItem:label attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:cell.contentView attribute:NSLayoutAttributeCenterYWithinMargins multiplier:1.0 constant:0];
+    NSLayoutConstraint *labelCenterX = [NSLayoutConstraint
+                                        constraintWithItem:label attribute:NSLayoutAttributeCenterX
+                                        relatedBy:NSLayoutRelationEqual
+                                        toItem:cell.contentView
+                                        attribute:NSLayoutAttributeCenterXWithinMargins
+                                        multiplier:1.0
+                                        constant:0];
+    NSLayoutConstraint *labelCenterY = [NSLayoutConstraint
+                                        constraintWithItem:label
+                                        attribute:NSLayoutAttributeCenterY
+                                        relatedBy:NSLayoutRelationEqual
+                                        toItem:cell.contentView
+                                        attribute:NSLayoutAttributeCenterYWithinMargins
+                                        multiplier:1.0
+                                        constant:0];
     [cell.contentView addConstraints:@[labelCenterX, labelCenterY]];
     
     // Points earned
     [cell.contentView addSubview:pointsEarned];
     pointsEarned.translatesAutoresizingMaskIntoConstraints = false;
-    [pointsEarned setFrame:CGRectMake(0, 0, 60, 30)];
+    [pointsEarned setFrame:CGRectMake(0, 0, 40, 60)];
     
     NSLayoutConstraint *peCenterY = [NSLayoutConstraint constraintWithItem:pointsEarned attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:cell.contentView attribute:NSLayoutAttributeCenterYWithinMargins multiplier:1.0 constant:0];
     NSLayoutConstraint *peTrailing = [NSLayoutConstraint constraintWithItem:pointsEarned attribute:NSLayoutAttributeTrailing relatedBy:NSLayoutRelationEqual toItem:label attribute:NSLayoutAttributeLeading multiplier:1.0 constant:-8];
@@ -227,12 +240,20 @@
     //Points Possible
     [cell.contentView addSubview:pointsPossible];
     pointsPossible.translatesAutoresizingMaskIntoConstraints = false;
-    [pointsPossible setFrame:CGRectMake(0, 0, 60, 30)];
+    
     
     NSLayoutConstraint *ppCenterY = [NSLayoutConstraint constraintWithItem:pointsPossible attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:cell.contentView attribute:NSLayoutAttributeCenterYWithinMargins multiplier:1.0 constant:0];
     NSLayoutConstraint *ppLeading = [NSLayoutConstraint constraintWithItem:pointsPossible attribute:NSLayoutAttributeLeading relatedBy:NSLayoutRelationEqual toItem:label attribute:NSLayoutAttributeTrailing multiplier:1.0 constant:8];
-    [cell.contentView addConstraints:@[ppCenterY, ppLeading]];
-    
+    NSLayoutConstraint *ppHeight = [NSLayoutConstraint
+                                    constraintWithItem:pointsPossible
+                                    attribute:NSLayoutAttributeHeight
+                                    relatedBy:NSLayoutRelationEqual
+                                    toItem:pointsEarned
+                                    attribute:NSLayoutAttributeHeight
+                                    multiplier:1.0
+                                    constant:0];
+    [cell.contentView addConstraints:@[ppCenterY, ppLeading, ppHeight]];
+    //[pointsPossible setFrame:CGRectMake(0, 0, 60, 30)];
     
     [self setScoreCell:cell];
     [self setPointsEarnedField:pointsEarned];
@@ -323,9 +344,13 @@
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.section == 0){
-        return 40;
+        if (indexPath.row == 0){
+            return 40; // Title
+        } else {
+            return 50; // Scores
+        }
     } else {
-        return 80;
+        return 80; // Category picker
     }
 }
 
