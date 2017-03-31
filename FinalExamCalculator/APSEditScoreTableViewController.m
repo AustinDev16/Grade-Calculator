@@ -92,6 +92,8 @@
     [self.scoreController addScore:newScore];
     
     [self dismissViewControllerAnimated:self completion:nil];
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"ScoreUpdated" object:nil];
 }
 
 -(void)cancelButtonTapped

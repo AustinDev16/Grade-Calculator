@@ -171,8 +171,7 @@
         [APSPersistenceController saveToPersistedStore];
         
         [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-        
-        
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"ScoreUpdated" object:nil];
     }];
     
     return @[delete, edit];

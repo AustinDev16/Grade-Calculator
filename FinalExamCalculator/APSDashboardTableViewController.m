@@ -40,12 +40,19 @@
     
     [self buildCurrentScoreCell];
     [self setupToolBar];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateCurrentScore) name:@"ScoreUpdated" object:nil];
 }
 
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
     [self.navigationController setToolbarHidden:true animated:false];
+}
+
+-(void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 -(void)setupNavigationBar
