@@ -13,6 +13,7 @@
 #import "APSCoreDataStack.h"
 #import "Score+ScoreCategory.h"
 #import "APSEditScoreTableViewController.h"
+#import "APSPersistenceController.h"
 
 @interface APSScoresTableViewController () <NSFetchedResultsControllerDelegate, UIToolbarDelegate>
 
@@ -40,13 +41,14 @@
 {
     [super viewWillAppear:animated];
     [self setEditing:false animated:true];
+    [self.tableView reloadData];
 }
 
 -(void)initializeFetchedResultsController
 {
     NSManagedObjectContext *moc = [[APSCoreDataStack shared] mainQueueMOC];
     NSFetchRequest *request = [Score fetchRequest];
-    NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:@"date" ascending:true];
+    NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:@"category" ascending:true];
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"SELF.course.name == %@", _course.name ];
     [request setSortDescriptors:@[sort]];
     [request setPredicate:predicate];
@@ -162,6 +164,14 @@
     //[edit setBackgroundColor:[UIColor blueColor]];
     
     UITableViewRowAction *delete = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDestructive title:@"Delete" handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
+        
+        Score *scoreToBeDeleted = [self.fetchedResultsController objectAtIndexPath:indexPath];
+        NSManagedObjectContext *moc = [[APSCoreDataStack shared] mainQueueMOC];
+        [moc deleteObject:scoreToBeDeleted];
+        [APSPersistenceController saveToPersistedStore];
+        
+        [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+        
         
     }];
     

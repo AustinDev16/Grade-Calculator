@@ -10,6 +10,7 @@
 #import "Course+CoreDataClass.h"
 #import "Score+CoreDataClass.h"
 #import "APSScoreController.h"
+#import "APSCoreDataStack.h"
 
 @interface APSEditScoreTableViewController () <UIPickerViewDelegate, UIPickerViewDataSource>
 @property (nonatomic, strong) Course *selectedCourse;
@@ -48,6 +49,9 @@
     
     UIBarButtonItem *cancel = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(cancelButtonTapped)];
     [self.navigationItem setLeftBarButtonItem:cancel];
+    
+    UIBarButtonItem *save = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSave target:self action:@selector(saveButtonTapped)];
+    [self.navigationItem setRightBarButtonItem:save];
 }
 
 
@@ -55,6 +59,39 @@
 {
     [super viewDidAppear:animated];
     [self.nameTextField becomeFirstResponder];
+}
+
+-(void)saveButtonTapped
+{
+    [self.nameTextField resignFirstResponder];
+    [self.pointsEarnedField resignFirstResponder];
+    [self.pointsPossibleField resignFirstResponder];
+
+    // Verify
+    if (self.nameTextField.text.length == 0 || self.pointsPossibleField.text.length == 0 || self.pointsEarnedField.text.length == 0 ){
+        // display error
+        return;
+    }
+    
+    double pointsEarned = [self.pointsEarnedField.text doubleValue];
+    double pointsPossible = [self.pointsPossibleField.text doubleValue];
+    Category *selectedCategory = [[self.scoreController categoriesWithFinal:false] objectAtIndex:[self.categoryPicker selectedRowInComponent:0]];
+    if (!pointsEarned || !pointsPossible || !selectedCategory){
+        // display error
+        return;
+    }
+    
+    NSManagedObjectContext *moc = [[APSCoreDataStack shared] mainQueueMOC];
+    Score *newScore = [[Score alloc] initWithContext:moc];
+    [newScore setName:self.nameTextField.text];
+    [newScore setPointsEarned:pointsEarned];
+    [newScore setPointsPossible:pointsPossible];
+    [newScore setCategory:selectedCategory];
+    [newScore setDate:[NSDate new]];
+    
+    [self.scoreController addScore:newScore];
+    
+    [self dismissViewControllerAnimated:self completion:nil];
 }
 
 -(void)cancelButtonTapped
