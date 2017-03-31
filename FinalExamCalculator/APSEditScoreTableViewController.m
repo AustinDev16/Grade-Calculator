@@ -11,6 +11,7 @@
 #import "Score+CoreDataClass.h"
 #import "APSScoreController.h"
 #import "APSCoreDataStack.h"
+#import "APSPersistenceController.h"
 
 @interface APSEditScoreTableViewController () <UIPickerViewDelegate, UIPickerViewDataSource>
 @property (nonatomic, strong) Course *selectedCourse;
@@ -81,15 +82,25 @@
         return;
     }
     
-    NSManagedObjectContext *moc = [[APSCoreDataStack shared] mainQueueMOC];
-    Score *newScore = [[Score alloc] initWithContext:moc];
-    [newScore setName:self.nameTextField.text];
-    [newScore setPointsEarned:pointsEarned];
-    [newScore setPointsPossible:pointsPossible];
-    [newScore setCategory:selectedCategory];
-    [newScore setDate:[NSDate new]];
-    
-    [self.scoreController addScore:newScore];
+    if (!scoreToBeEdited){
+        NSManagedObjectContext *moc = [[APSCoreDataStack shared] mainQueueMOC];
+        Score *newScore = [[Score alloc] initWithContext:moc];
+        [newScore setName:self.nameTextField.text];
+        [newScore setPointsEarned:pointsEarned];
+        [newScore setPointsPossible:pointsPossible];
+        [newScore setCategory:selectedCategory];
+        [newScore setDate:[NSDate new]];
+        
+        [self.scoreController addScore:newScore];
+        
+    } else {
+        [scoreToBeEdited setName:self.nameTextField.text];
+        [scoreToBeEdited setPointsEarned:pointsEarned];
+        [scoreToBeEdited setPointsPossible:pointsPossible];
+        [scoreToBeEdited setCategory:selectedCategory];
+        [APSPersistenceController saveToPersistedStore];
+        
+    }
     
     [self dismissViewControllerAnimated:self completion:nil];
     
