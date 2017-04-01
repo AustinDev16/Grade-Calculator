@@ -11,6 +11,6 @@
 
 @interface APSWeightsViewController : UIViewController
 
--(void)updateWithCourse:(Course *)course;
+-(void)updateWithCourse:(Course *)selectedCourse;
 
 @end
