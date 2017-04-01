@@ -12,6 +12,7 @@
 #import "APSScoresTableViewController.h"
 #import "APSScoreController.h"
 #import "APSEditScoreTableViewController.h"
+#import "APSWeightsViewController.h"
 
 @interface APSDashboardTableViewController () <UIToolbarDelegate>
 @property (nonatomic, strong) Course *selectedCourse;
@@ -111,7 +112,12 @@
 
 -(void)adjustWeightsTapped
 {
+    APSWeightsViewController *wvc = [[APSWeightsViewController alloc] init];
+    [wvc updateWithCourse:self.selectedCourse];
+    UINavigationController *nc = [[UINavigationController alloc] initWithRootViewController:wvc];
+    [nc setModalPresentationStyle:UIModalPresentationPopover];
     
+    [self presentViewController:nc animated:true completion:nil];
 }
 
 #pragma mark ToolBar Delegate

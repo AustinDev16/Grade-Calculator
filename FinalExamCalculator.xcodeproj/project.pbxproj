@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		FA14632B1E901D0900D56D00 /* APSWeightsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FA14632A1E901D0900D56D00 /* APSWeightsViewController.m */; };
 		FA1BFF881E84887B00A1228C /* Score+ScoreCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = FA1BFF871E84887B00A1228C /* Score+ScoreCategory.m */; };
 		FA30CB6E1E85B84F00BD01C0 /* APSCategoryType.m in Sources */ = {isa = PBXBuildFile; fileRef = FA30CB6D1E85B84F00BD01C0 /* APSCategoryType.m */; };
 		FA8A87ED1E8369990053D648 /* APSScoreController.m in Sources */ = {isa = PBXBuildFile; fileRef = FA8A87EC1E8369990053D648 /* APSScoreController.m */; };
@@ -34,6 +35,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		FA1463291E901D0900D56D00 /* APSWeightsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = APSWeightsViewController.h; sourceTree = "<group>"; };
+		FA14632A1E901D0900D56D00 /* APSWeightsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = APSWeightsViewController.m; sourceTree = "<group>"; };
 		FA1BFF861E84887B00A1228C /* Score+ScoreCategory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Score+ScoreCategory.h"; sourceTree = "<group>"; };
 		FA1BFF871E84887B00A1228C /* Score+ScoreCategory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Score+ScoreCategory.m"; sourceTree = "<group>"; };
 		FA30CB6C1E85B84F00BD01C0 /* APSCategoryType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = APSCategoryType.h; sourceTree = "<group>"; };
@@ -187,6 +190,8 @@
 				FAEC746A1E803FC5008236E9 /* APSClassesTableViewController.m */,
 				FAEC74A31E81E07F008236E9 /* APSCalculatedFinalTableViewCell.h */,
 				FAEC74A41E81E07F008236E9 /* APSCalculatedFinalTableViewCell.m */,
+				FA1463291E901D0900D56D00 /* APSWeightsViewController.h */,
+				FA14632A1E901D0900D56D00 /* APSWeightsViewController.m */,
 				FAEC74A01E81D440008236E9 /* APSDashboardTableViewController.h */,
 				FAEC74A11E81D440008236E9 /* APSDashboardTableViewController.m */,
 			);
@@ -277,6 +282,7 @@
 				FAEC74911E80A9A2008236E9 /* Score+CoreDataClass.m in Sources */,
 				FA9FD0751E8B1C9A0083265C /* APSEditScoreTableViewController.m in Sources */,
 				FAEC748D1E80A9A2008236E9 /* Course+CoreDataClass.m in Sources */,
+				FA14632B1E901D0900D56D00 /* APSWeightsViewController.m in Sources */,
 				FAEC74981E80ACFA008236E9 /* APSCoreDataStack.m in Sources */,
 				FAEC74951E80AC87008236E9 /* APSPersistenceController.m in Sources */,
 				FAEC746B1E803FC5008236E9 /* APSClassesTableViewController.m in Sources */,

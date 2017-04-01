@@ -14,6 +14,7 @@
 #import "Score+ScoreCategory.h"
 #import "APSEditScoreTableViewController.h"
 #import "APSPersistenceController.h"
+#import "APSWeightsViewController.h"
 
 @interface APSScoresTableViewController () <NSFetchedResultsControllerDelegate, UIToolbarDelegate>
 
@@ -93,6 +94,12 @@
 
 -(void)adjustWeightsTapped
 {
+    APSWeightsViewController *wvc = [[APSWeightsViewController alloc] init];
+    [wvc updateWithCourse:self.course];
+    UINavigationController *nc = [[UINavigationController alloc] initWithRootViewController:wvc];
+    [nc setModalPresentationStyle:UIModalPresentationPopover];
+    
+    [self presentViewController:nc animated:true completion:nil];
     
 }
 
