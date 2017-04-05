@@ -54,13 +54,14 @@
     [_stackView setAxis:UILayoutConstraintAxisHorizontal];
     [_stackView setDistribution:UIStackViewDistributionFill];
     [_stackView setSpacing:8];
+    [_stackView setAlignment:UIStackViewAlignmentCenter];
     
     NSLayoutConstraint *svLeading = [NSLayoutConstraint
                                      constraintWithItem:_stackView
                                      attribute:NSLayoutAttributeLeading
                                      relatedBy:NSLayoutRelationEqual
                                      toItem:self.contentView
-                                     attribute:NSLayoutAttributeLeading
+                                     attribute:NSLayoutAttributeLeadingMargin
                                      multiplier:1.0
                                      constant:0];
     NSLayoutConstraint *svTop = [NSLayoutConstraint
@@ -76,7 +77,7 @@
                                       attribute:NSLayoutAttributeTrailing
                                       relatedBy:NSLayoutRelationEqual
                                       toItem:self.contentView
-                                      attribute:NSLayoutAttributeTrailing
+                                      attribute:NSLayoutAttributeTrailingMargin
                                       multiplier:1.0
                                       constant:0];
     NSLayoutConstraint *svBottom = [NSLayoutConstraint
@@ -101,10 +102,24 @@
     // Stepper
     
     [self.stepper setTranslatesAutoresizingMaskIntoConstraints:false];
+    [self.stepper setValue:self.category.weight];
+    [self.stepper setMaximumValue:1.0];
+    [self.stepper setMinimumValue:0.01];
+    [self.stepper setStepValue:0.01];
+    [self.stepper addTarget:self action:@selector(stepperUpdated) forControlEvents:UIControlEventValueChanged];
     [_stackView addArrangedSubview:_stepper];
     
     
     
+}
+
+-(void)stepperUpdated
+{
+    double value = [self.stepper value];
+    [self.categoryWeightLabel setText:[NSString stringWithFormat:@"%.0f %@", value * 100.0, @"%"]];
+    
+    [self.category setWeight:value];
+
 }
 
 @end
