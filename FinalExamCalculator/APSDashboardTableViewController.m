@@ -51,6 +51,12 @@
     [self.navigationController setToolbarHidden:true animated:false];
 }
 
+-(void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    [self adjustWeightsTapped];
+}
+
 -(void)dealloc
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self];

@@ -8,8 +8,10 @@
 
 #import "APSWeightsViewController.h"
 #import "Course+CoreDataClass.h"
+#import "APSCategoryStepperTableViewCell.h"
+#import "Category+CoreDataClass.h"
 
-@interface APSWeightsViewController ()
+@interface APSWeightsViewController () <UITableViewDelegate, UITableViewDataSource>
 
 @property (nonatomic, strong) Course *course;
 @property (nonatomic, strong) UITextField *addNewCategoryField;
@@ -23,6 +25,7 @@
 @implementation APSWeightsViewController
 
 @synthesize course;
+@synthesize tableView;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -54,6 +57,7 @@
 -(void)configureViews
 {
     [self configureAddCategory];
+    [self configureTableView];
 }
 
 -(void)configureAddCategory
@@ -141,6 +145,71 @@
     
     [self setAddNewCategoryField:textField];
     [self setAddNewCategoryButton:button];
+}
+
+-(void)configureTableView
+{
+    UITableView *tv = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 80) style:UITableViewStylePlain];
+    
+    tv.translatesAutoresizingMaskIntoConstraints = false;
+    [self.view addSubview:tv];
+    
+    NSLayoutConstraint *tvTop = [NSLayoutConstraint
+                                 constraintWithItem:tv
+                                 attribute:NSLayoutAttributeTop
+                                 relatedBy:NSLayoutRelationEqual
+                                 toItem:_addNewCategoryField
+                                 attribute:NSLayoutAttributeBottom
+                                 multiplier:1.0
+                                 constant:8];
+    NSLayoutConstraint *tvWidth = [NSLayoutConstraint
+                                   constraintWithItem:tv
+                                   attribute:NSLayoutAttributeWidth
+                                   relatedBy:NSLayoutRelationEqual
+                                   toItem:self.view
+                                   attribute:NSLayoutAttributeWidth
+                                   multiplier:1.0
+                                   constant:0];
+    NSLayoutConstraint *tvBottom = [NSLayoutConstraint
+                                    constraintWithItem:tv
+                                    attribute:NSLayoutAttributeBottom
+                                    relatedBy:NSLayoutRelationEqual
+                                    toItem:self.view
+                                    attribute:NSLayoutAttributeBottom
+                                    multiplier:1.0
+                                    constant:0];
+    [self.view addConstraints:@[tvTop, tvWidth, tvBottom]];
+    
+    [tv setDelegate:self];
+    [tv setDataSource:self];
+    
+    [tv registerClass:[APSCategoryStepperTableViewCell class] forCellReuseIdentifier:@"StepperCell"];
+    
+    [self setTableView:tv];
+}
+
+#pragma mark Tableview Delegate and Datasource
+
+-(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    return 1;
+}
+
+-(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return [[self.course categories] count];
+}
+
+-(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    APSCategoryStepperTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"StepperCell"];
+    if (!cell){
+        cell = [[APSCategoryStepperTableViewCell alloc] init];
+    }
+    Category *selectedCategory = [[self.course categories] objectAtIndex:indexPath.row];
+    
+    [cell updateWithCategory:selectedCategory];
+    return cell;
 }
 
 @end
