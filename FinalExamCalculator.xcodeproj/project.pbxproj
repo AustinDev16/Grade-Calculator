@@ -33,6 +33,8 @@
 		FAEC749E1E8197E1008236E9 /* APSMockDataController.m in Sources */ = {isa = PBXBuildFile; fileRef = FAEC749D1E8197E1008236E9 /* APSMockDataController.m */; };
 		FAEC74A21E81D440008236E9 /* APSDashboardTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FAEC74A11E81D440008236E9 /* APSDashboardTableViewController.m */; };
 		FAEC74A51E81E07F008236E9 /* APSCalculatedFinalTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FAEC74A41E81E07F008236E9 /* APSCalculatedFinalTableViewCell.m */; };
+		FAFEBEB71E95AF9E0042B70C /* Course+CourseCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = FAFEBEB61E95AF9E0042B70C /* Course+CourseCategory.m */; };
+		FAFEBEBA1E96AE7A0042B70C /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAFEBEB91E96AE7A0042B70C /* Accelerate.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -86,6 +88,9 @@
 		FAEC74A11E81D440008236E9 /* APSDashboardTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = APSDashboardTableViewController.m; sourceTree = "<group>"; };
 		FAEC74A31E81E07F008236E9 /* APSCalculatedFinalTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = APSCalculatedFinalTableViewCell.h; sourceTree = "<group>"; };
 		FAEC74A41E81E07F008236E9 /* APSCalculatedFinalTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = APSCalculatedFinalTableViewCell.m; sourceTree = "<group>"; };
+		FAFEBEB51E95AF9E0042B70C /* Course+CourseCategory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Course+CourseCategory.h"; sourceTree = "<group>"; };
+		FAFEBEB61E95AF9E0042B70C /* Course+CourseCategory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Course+CourseCategory.m"; sourceTree = "<group>"; };
+		FAFEBEB91E96AE7A0042B70C /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -93,6 +98,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FAFEBEBA1E96AE7A0042B70C /* Accelerate.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -104,6 +110,7 @@
 			children = (
 				FAD48AAB1E8038EE003050B3 /* FinalExamCalculator */,
 				FAD48AAA1E8038EE003050B3 /* Products */,
+				FAFEBEB81E96AE7A0042B70C /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -142,6 +149,8 @@
 		FAEC746C1E804039008236E9 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				FAFEBEB51E95AF9E0042B70C /* Course+CourseCategory.h */,
+				FAFEBEB61E95AF9E0042B70C /* Course+CourseCategory.m */,
 				FA1BFF861E84887B00A1228C /* Score+ScoreCategory.h */,
 				FA1BFF871E84887B00A1228C /* Score+ScoreCategory.m */,
 				FAEC74811E80A9A2008236E9 /* Course+CoreDataClass.h */,
@@ -201,6 +210,14 @@
 				FAEC74A11E81D440008236E9 /* APSDashboardTableViewController.m */,
 			);
 			name = "View Controllers";
+			sourceTree = "<group>";
+		};
+		FAFEBEB81E96AE7A0042B70C /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				FAFEBEB91E96AE7A0042B70C /* Accelerate.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -289,6 +306,7 @@
 				FAEC748D1E80A9A2008236E9 /* Course+CoreDataClass.m in Sources */,
 				FA14632B1E901D0900D56D00 /* APSWeightsViewController.m in Sources */,
 				FAEC74981E80ACFA008236E9 /* APSCoreDataStack.m in Sources */,
+				FAFEBEB71E95AF9E0042B70C /* Course+CourseCategory.m in Sources */,
 				FAEC74951E80AC87008236E9 /* APSPersistenceController.m in Sources */,
 				FAEC746B1E803FC5008236E9 /* APSClassesTableViewController.m in Sources */,
 				FAEC74901E80A9A2008236E9 /* Category+CoreDataProperties.m in Sources */,

@@ -10,12 +10,16 @@
 #import "Course+CoreDataClass.h"
 #import "APSCategoryStepperTableViewCell.h"
 #import "Category+CoreDataClass.h"
+#import "Course+CourseCategory.h"
+#import "APSPersistenceController.h"
 
 @interface APSWeightsViewController () <UITableViewDelegate, UITableViewDataSource>
 
 @property (nonatomic, strong) Course *course;
 @property (nonatomic, strong) UITextField *addNewCategoryField;
 @property (nonatomic, strong) UIButton *addNewCategoryButton;
+@property (nonatomic, strong) UILabel *toolBarLabel;
+
 
 @property (nonatomic, strong) UITableView *tableView;
 
@@ -26,6 +30,7 @@
 
 @synthesize course;
 @synthesize tableView;
+@synthesize toolBarLabel;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -34,6 +39,15 @@
     [self.view setBackgroundColor:[UIColor groupTableViewBackgroundColor]];
     
     [self configureViews];
+    [self setupToolBar];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(weightsUpdated) name:@"CategoryWeightUpdated" object:nil];
+}
+
+-(void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    [self weightsUpdated];
 }
 
 -(void)setupNavigationBar
@@ -44,14 +58,61 @@
     [self.navigationItem setRightBarButtonItem:done];
 }
 
+-(void)setupToolBar
+{
+    [self.navigationController setToolbarHidden:false];
+    
+    UIBarButtonItem *resetWeights = [[UIBarButtonItem alloc] initWithTitle:@"Reset" style:UIBarButtonItemStylePlain target:self action:@selector(resetWeightsTapped)];
+    UIBarButtonItem *spacer = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
+    
+    [self setToolBarLabel:[[UILabel alloc] initWithFrame:CGRectMake(0, 0, 160, 20)]];
+    [self.toolBarLabel setText:@""];
+    [self.toolBarLabel setTextAlignment:NSTextAlignmentCenter];
+    
+    UIBarButtonItem *labelButton = [[UIBarButtonItem alloc] initWithCustomView:self.toolBarLabel];
+    
+    [self setToolbarItems:@[resetWeights, spacer, labelButton, spacer]];
+    
+    [self.toolBarLabel setTextColor:[UIColor redColor]];
+}
+
 -(void)updateWithCourse:(Course *)selectedCourse
 {
     [self setCourse:selectedCourse];
 }
 
+-(void)weightsUpdated
+{
+    if ([self.course categoryWeightsValid]){
+        [[self.navigationItem rightBarButtonItem] setEnabled:true];
+        [self.toolBarLabel setText:@""];
+        
+    } else {
+        [[self.navigationItem rightBarButtonItem] setEnabled:false];
+        
+        [[self toolBarLabel] setText:@"Adjust Weights"];
+        [self.toolBarLabel setTextColor:[UIColor redColor]];
+    }
+}
+
 -(void)doneButtonTapped
 {
-    [self dismissViewControllerAnimated:true completion:nil];
+    if ([self.course categoryWeightsValid]){
+        [APSPersistenceController saveToPersistedStore];
+        [self dismissViewControllerAnimated:true completion:nil];
+    }
+}
+
+-(void)resetWeightsTapped
+{
+    NSArray<NSNumber *> *weightsArray = [course resetWeightsArray];
+    int j = 0;
+    for (Category *category in self.course.categories) {
+        [category setWeight:[[weightsArray objectAtIndex:j] doubleValue]];
+        j++;
+    }
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"CategoryWeightsUpdated" object:nil];
 }
 
 -(void)configureViews

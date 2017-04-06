@@ -32,8 +32,12 @@
     [self setCategory:category];
     [self prepareViewElements];
     [self configureViews];
-    
-    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(categoryWeightReset) name:@"CategoryWeightsUpdated" object:nil];
+}
+
+-(void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 -(void)prepareViewElements
@@ -103,7 +107,7 @@
     
     [self.stepper setTranslatesAutoresizingMaskIntoConstraints:false];
     [self.stepper setValue:self.category.weight];
-    [self.stepper setMaximumValue:1.0];
+    [self.stepper setMaximumValue:0.99];
     [self.stepper setMinimumValue:0.01];
     [self.stepper setStepValue:0.01];
     [self.stepper addTarget:self action:@selector(stepperUpdated) forControlEvents:UIControlEventValueChanged];
@@ -119,7 +123,15 @@
     [self.categoryWeightLabel setText:[NSString stringWithFormat:@"%.0f %@", value * 100.0, @"%"]];
     
     [self.category setWeight:value];
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"CategoryWeightUpdated" object:nil];
 
+}
+
+-(void)categoryWeightReset
+{
+    [self.categoryWeightLabel setText:[NSString stringWithFormat:@"%.0f %@", self.category.weight * 100.0, @"%"]];
+    [self.stepper setValue:self.category.weight];
 }
 
 @end
