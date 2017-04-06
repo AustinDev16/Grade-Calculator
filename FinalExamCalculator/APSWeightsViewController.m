@@ -67,6 +67,7 @@
     
     [self setToolBarLabel:[[UILabel alloc] initWithFrame:CGRectMake(0, 0, 160, 20)]];
     [self.toolBarLabel setText:@""];
+    [self.toolBarLabel setFont:[UIFont systemFontOfSize:[UIFont smallSystemFontSize]]];
     [self.toolBarLabel setTextAlignment:NSTextAlignmentCenter];
     
     UIBarButtonItem *labelButton = [[UIBarButtonItem alloc] initWithCustomView:self.toolBarLabel];
@@ -113,6 +114,7 @@
     }
     
     [[NSNotificationCenter defaultCenter] postNotificationName:@"CategoryWeightsUpdated" object:nil];
+    [self weightsUpdated];
 }
 
 -(void)configureViews
