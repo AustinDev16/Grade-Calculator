@@ -54,6 +54,7 @@
     [super viewDidAppear:animated];
     [self weightsUpdated];
     [self textFieldChangedValue];
+    
 }
 
 -(void)setupNavigationBar
@@ -322,6 +323,56 @@
     [cell configureViews];
     [cell updateWithCategory:selectedCategory];
     return cell;
+}
+
+-(NSArray<UITableViewRowAction *> *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    Category *selectedCategory = [self.course.categories objectAtIndex:indexPath.row];
+    
+    UITableViewRowAction *edit = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleNormal title:@"Edit Name" handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
+        
+        NSString *messageString = [NSString stringWithFormat:@"Enter a new name for %@.",selectedCategory.name];
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:nil message:messageString preferredStyle:UIAlertControllerStyleAlert];
+        
+        [alertController addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
+            [textField setAutocapitalizationType:UITextAutocapitalizationTypeWords];
+            [textField setPlaceholder:selectedCategory.name];
+        }];
+        
+        UIAlertAction *save = [UIAlertAction actionWithTitle:@"Save" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            
+            UITextField *textField = [[alertController textFields] firstObject];
+            
+            if (textField && textField.text.length > 0){ // if valid new name
+                [selectedCategory setName:textField.text];
+                [APSPersistenceController saveToPersistedStore];
+                [[NSNotificationCenter defaultCenter] postNotificationName:@"CategoryWeightsUpdated" object:nil];
+                [self.tableView setEditing:false animated:true];
+            } else { //Text field empty
+                [self.tableView setEditing:false animated:true];
+            }
+        }];
+        
+        UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+            [self.tableView setEditing:false animated:true];
+        }];
+        
+        [alertController addAction:save];
+        [alertController addAction:cancel];
+        
+        [self presentViewController:alertController animated:true completion:^{
+            
+        }];
+        
+        
+        
+    }];
+    
+    UITableViewRowAction *delete = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDestructive title:@"Delete" handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
+        
+    }];
+    
+    return @[delete, edit];
 }
 
 @end

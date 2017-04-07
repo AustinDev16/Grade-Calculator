@@ -140,6 +140,7 @@
 {
     [self.categoryWeightLabel setText:[NSString stringWithFormat:@"%.0f %@", self.category.weight * 100.0, @"%"]];
     [self.stepper setValue:self.category.weight];
+    [self.categoryNameLabel setText:self.category.name];
 }
 
 @end
