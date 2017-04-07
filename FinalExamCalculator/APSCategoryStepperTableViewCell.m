@@ -30,9 +30,11 @@
 -(void)updateWithCategory:(Category *)category
 {
     [self setCategory:category];
-    [self prepareViewElements];
-    [self configureViews];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(categoryWeightReset) name:@"CategoryWeightsUpdated" object:nil];
+    
+    [self.categoryNameLabel setText:[NSString stringWithFormat:@"%@", self.category.name]];
+    [self.stepper setValue:self.category.weight];
+    [self.categoryWeightLabel setText:[NSString stringWithFormat:@"%.0f %@", self.category.weight * 100.0, @"%"]];
+
 }
 
 -(void)dealloc
@@ -51,8 +53,15 @@
 
 -(void)configureViews
 {
+    if (self.stackView && self.stepper && self.categoryNameLabel && self.categoryWeightLabel){
+        return;
+    }
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(categoryWeightReset) name:@"CategoryWeightsUpdated" object:nil];
+
     // Initialize all view elements
     // Stack View
+    [self prepareViewElements];
     [self.contentView addSubview:_stackView];
     _stackView.translatesAutoresizingMaskIntoConstraints = false;
     [_stackView setAxis:UILayoutConstraintAxisHorizontal];
@@ -95,18 +104,17 @@
     [self.contentView addConstraints:@[svLeading, svTop, svTrailing, svBottom]];
     
     // Category label
-    [self.categoryNameLabel setText:[NSString stringWithFormat:@"%@", self.category.name]];
-    self.categoryNameLabel.translatesAutoresizingMaskIntoConstraints = false;
+        self.categoryNameLabel.translatesAutoresizingMaskIntoConstraints = false;
     [_stackView addArrangedSubview:_categoryNameLabel];
     
     // Weight Label
-    [self.categoryWeightLabel setText:[NSString stringWithFormat:@"%.0f %@", self.category.weight * 100.0, @"%"]];
+    
     self.categoryWeightLabel.translatesAutoresizingMaskIntoConstraints = false;
     [_stackView addArrangedSubview:_categoryWeightLabel];
     // Stepper
     
     [self.stepper setTranslatesAutoresizingMaskIntoConstraints:false];
-    [self.stepper setValue:self.category.weight];
+    
     [self.stepper setMaximumValue:0.99];
     [self.stepper setMinimumValue:0.01];
     [self.stepper setStepValue:0.01];

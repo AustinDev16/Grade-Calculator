@@ -12,5 +12,6 @@
 @interface APSCategoryStepperTableViewCell : UITableViewCell
 
 -(void)updateWithCategory:(Category *)category;
+-(void)configureViews;
 
 @end

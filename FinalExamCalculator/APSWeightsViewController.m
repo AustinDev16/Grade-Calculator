@@ -268,9 +268,10 @@
     APSCategoryStepperTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"StepperCell"];
     if (!cell){
         cell = [[APSCategoryStepperTableViewCell alloc] init];
+        
     }
     Category *selectedCategory = [[self.course categories] objectAtIndex:indexPath.row];
-    
+    [cell configureViews];
     [cell updateWithCategory:selectedCategory];
     return cell;
 }
