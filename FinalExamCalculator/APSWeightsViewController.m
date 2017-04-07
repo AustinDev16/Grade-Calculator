@@ -12,6 +12,10 @@
 #import "Category+CoreDataClass.h"
 #import "Course+CourseCategory.h"
 #import "APSPersistenceController.h"
+#import "APSAppDataController.h"
+#import "APSCourseController.h"
+#import "APSCoreDataStack.h"
+
 
 @interface APSWeightsViewController () <UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate>
 
@@ -79,45 +83,6 @@
     [self.toolBarLabel setTextColor:[UIColor redColor]];
 }
 
--(void)updateWithCourse:(Course *)selectedCourse
-{
-    [self setCourse:selectedCourse];
-}
-
--(void)weightsUpdated
-{
-    if ([self.course categoryWeightsValid]){
-        [[self.navigationItem rightBarButtonItem] setEnabled:true];
-        [self.toolBarLabel setText:@""];
-        
-    } else {
-        [[self.navigationItem rightBarButtonItem] setEnabled:false];
-        
-        [[self toolBarLabel] setText:@"Adjust Weights"];
-        [self.toolBarLabel setTextColor:[UIColor redColor]];
-    }
-}
-
--(void)doneButtonTapped
-{
-    if ([self.course categoryWeightsValid]){
-        [APSPersistenceController saveToPersistedStore];
-        [self dismissViewControllerAnimated:true completion:nil];
-    }
-}
-
--(void)resetWeightsTapped
-{
-    NSArray<NSNumber *> *weightsArray = [course resetWeightsArray];
-    int j = 0;
-    for (Category *category in self.course.categories) {
-        [category setWeight:[[weightsArray objectAtIndex:j] doubleValue]];
-        j++;
-    }
-    
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"CategoryWeightsUpdated" object:nil];
-    [self weightsUpdated];
-}
 
 -(void)configureViews
 {
@@ -145,6 +110,7 @@
     [button setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
     [button setTitleColor:[UIColor grayColor] forState:UIControlStateDisabled];
     [button setTitle:@"Add" forState:UIControlStateNormal];
+    [button addTarget:self action:@selector(addNewCategoryTapped) forControlEvents:UIControlEventTouchUpInside];
     
     textField.translatesAutoresizingMaskIntoConstraints = false;
     [self.view addSubview:textField];
@@ -255,6 +221,65 @@
     [tv registerClass:[APSCategoryStepperTableViewCell class] forCellReuseIdentifier:@"StepperCell"];
     
     [self setTableView:tv];
+}
+
+#pragma mark Actions and helper methods
+
+
+-(void)updateWithCourse:(Course *)selectedCourse
+{
+    [self setCourse:selectedCourse];
+}
+
+-(void)weightsUpdated
+{
+    if ([self.course categoryWeightsValid]){
+        [[self.navigationItem rightBarButtonItem] setEnabled:true];
+        [self.toolBarLabel setText:@""];
+        
+    } else {
+        [[self.navigationItem rightBarButtonItem] setEnabled:false];
+        
+        [[self toolBarLabel] setText:@"Adjust Weights"];
+        [self.toolBarLabel setTextColor:[UIColor redColor]];
+    }
+}
+
+-(void)doneButtonTapped
+{
+    if ([self.course categoryWeightsValid]){
+        [APSPersistenceController saveToPersistedStore];
+        [self dismissViewControllerAnimated:true completion:nil];
+    }
+}
+
+-(void)resetWeightsTapped
+{
+    NSArray<NSNumber *> *weightsArray = [course resetWeightsArray];
+    int j = 0;
+    for (Category *category in self.course.categories) {
+        [category setWeight:[[weightsArray objectAtIndex:j] doubleValue]];
+        j++;
+    }
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"CategoryWeightsUpdated" object:nil];
+    [self weightsUpdated];
+}
+
+-(void)addNewCategoryTapped
+{
+    NSManagedObjectContext *moc = [[APSCoreDataStack shared] mainQueueMOC];
+    Category *newCategory = [[Category alloc] initWithContext:moc];
+    [newCategory setName:[self.addNewCategoryField text]];
+    [newCategory setWeight:0.1];
+    [newCategory setCourse:self.course];
+    
+    [[[APSAppDataController shared] courseController] addCategory:newCategory toCourse:self.course];
+    
+    [self.addNewCategoryField resignFirstResponder];
+    [self.addNewCategoryField setText:@""];
+    [self.tableView reloadData];
+    [self weightsUpdated];
 }
 
 #pragma mark TextField delegate methods
