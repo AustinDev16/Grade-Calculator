@@ -13,7 +13,7 @@
 #import "Course+CourseCategory.h"
 #import "APSPersistenceController.h"
 
-@interface APSWeightsViewController () <UITableViewDelegate, UITableViewDataSource>
+@interface APSWeightsViewController () <UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate>
 
 @property (nonatomic, strong) Course *course;
 @property (nonatomic, strong) UITextField *addNewCategoryField;
@@ -40,6 +40,7 @@
     
     [self configureViews];
     [self setupToolBar];
+    [self textFieldChangedValue];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(weightsUpdated) name:@"CategoryWeightUpdated" object:nil];
 }
@@ -48,6 +49,7 @@
 {
     [super viewDidAppear:animated];
     [self weightsUpdated];
+    [self textFieldChangedValue];
 }
 
 -(void)setupNavigationBar
@@ -131,13 +133,17 @@
     // Text field
     [textField setPlaceholder:@"New category"];
     [textField setAutocapitalizationType:UITextAutocapitalizationTypeWords];
+    [textField setReturnKeyType:UIReturnKeyDone];
+    [textField setDelegate:self];
+    [textField addTarget:self action:@selector(textFieldChangedValue) forControlEvents:UIControlEventEditingChanged];
 //    [textField.layer setCornerRadius:5];
 //    [textField.layer setBorderColor:[UIColor grayColor].CGColor];
 //    [textField.layer setBorderWidth:1];
     
     
-    [button setTintColor:[UIColor blueColor]];
+    
     [button setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
+    [button setTitleColor:[UIColor grayColor] forState:UIControlStateDisabled];
     [button setTitle:@"Add" forState:UIControlStateNormal];
     
     textField.translatesAutoresizingMaskIntoConstraints = false;
@@ -249,6 +255,23 @@
     [tv registerClass:[APSCategoryStepperTableViewCell class] forCellReuseIdentifier:@"StepperCell"];
     
     [self setTableView:tv];
+}
+
+#pragma mark TextField delegate methods
+
+-(BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    [self.addNewCategoryField resignFirstResponder];
+    return true;
+}
+
+-(void)textFieldChangedValue
+{
+    if (self.addNewCategoryField.text.length == 0){
+        [self.addNewCategoryButton setEnabled:false];
+    } else {
+        [self.addNewCategoryButton setEnabled:true];
+    }
 }
 
 #pragma mark Tableview Delegate and Datasource
