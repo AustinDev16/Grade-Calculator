@@ -25,4 +25,6 @@
 
 -(NSArray<Category *> *)categoriesWithFinal:(BOOL)withFinal;
 
+-(void)deleteScoresAndCategory:(Category *)category;
+-(void)reassignScoresFromCategory:(Category *)oldCategory toNewCategory:(Category *)newCategory;
 @end

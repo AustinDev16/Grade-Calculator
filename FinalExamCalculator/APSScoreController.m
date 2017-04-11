@@ -114,6 +114,33 @@
     [APSPersistenceController saveToPersistedStore];
 }
 
+/// This function deletes the scores and category.
+-(void)deleteScoresAndCategory:(Category *)category
+{
+    NSManagedObjectContext *moc = [category managedObjectContext];
+    for (Score *score in category.scores) {
+        [moc deleteObject:score];
+    }
+    
+    [moc deleteObject:category];
+    
+    [APSPersistenceController saveToPersistedStore];
+}
+
+/// This function reassigns scores to a new category and then deletes the old category.
+-(void)reassignScoresFromCategory:(Category *)oldCategory toNewCategory:(Category *)newCategory
+{
+    NSArray *scoresToReassign = [oldCategory.scores allObjects];
+    for (Score *score in scoresToReassign){
+        [score setCategory:newCategory];
+    }
+    
+    NSManagedObjectContext *moc = [oldCategory managedObjectContext];
+    [moc deleteObject:oldCategory];
+    [APSPersistenceController saveToPersistedStore];
+    
+}
+
 #pragma mark Calculations
 
 -(double)currentScore

@@ -13,6 +13,7 @@
 		FA30CB6E1E85B84F00BD01C0 /* APSCategoryType.m in Sources */ = {isa = PBXBuildFile; fileRef = FA30CB6D1E85B84F00BD01C0 /* APSCategoryType.m */; };
 		FA8A87ED1E8369990053D648 /* APSScoreController.m in Sources */ = {isa = PBXBuildFile; fileRef = FA8A87EC1E8369990053D648 /* APSScoreController.m */; };
 		FA9FD0751E8B1C9A0083265C /* APSEditScoreTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FA9FD0741E8B1C9A0083265C /* APSEditScoreTableViewController.m */; };
+		FACF84741E9BEBB300C186C5 /* APSReassignScoresViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FACF84731E9BEBB300C186C5 /* APSReassignScoresViewController.m */; };
 		FAD48AAE1E8038EE003050B3 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = FAD48AAD1E8038EE003050B3 /* main.m */; };
 		FAD48AB11E8038EE003050B3 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = FAD48AB01E8038EE003050B3 /* AppDelegate.m */; };
 		FAD48AB91E8038EE003050B3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FAD48AB81E8038EE003050B3 /* Assets.xcassets */; };
@@ -50,6 +51,8 @@
 		FA8A87EC1E8369990053D648 /* APSScoreController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = APSScoreController.m; sourceTree = "<group>"; };
 		FA9FD0731E8B1C9A0083265C /* APSEditScoreTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = APSEditScoreTableViewController.h; sourceTree = "<group>"; };
 		FA9FD0741E8B1C9A0083265C /* APSEditScoreTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = APSEditScoreTableViewController.m; sourceTree = "<group>"; };
+		FACF84721E9BEBB300C186C5 /* APSReassignScoresViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = APSReassignScoresViewController.h; sourceTree = "<group>"; };
+		FACF84731E9BEBB300C186C5 /* APSReassignScoresViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = APSReassignScoresViewController.m; sourceTree = "<group>"; };
 		FAD48AA91E8038EE003050B3 /* FinalExamCalculator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FinalExamCalculator.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FAD48AAD1E8038EE003050B3 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		FAD48AAF1E8038EE003050B3 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -204,6 +207,8 @@
 				FAEC74A41E81E07F008236E9 /* APSCalculatedFinalTableViewCell.m */,
 				FA1463291E901D0900D56D00 /* APSWeightsViewController.h */,
 				FA14632A1E901D0900D56D00 /* APSWeightsViewController.m */,
+				FACF84721E9BEBB300C186C5 /* APSReassignScoresViewController.h */,
+				FACF84731E9BEBB300C186C5 /* APSReassignScoresViewController.m */,
 				FA2848C01E93334D0084F11C /* APSCategoryStepperTableViewCell.h */,
 				FA2848C11E93334D0084F11C /* APSCategoryStepperTableViewCell.m */,
 				FAEC74A01E81D440008236E9 /* APSDashboardTableViewController.h */,
@@ -315,6 +320,7 @@
 				FAEC749E1E8197E1008236E9 /* APSMockDataController.m in Sources */,
 				FAEC748F1E80A9A2008236E9 /* Category+CoreDataClass.m in Sources */,
 				FA2848C21E93334D0084F11C /* APSCategoryStepperTableViewCell.m in Sources */,
+				FACF84741E9BEBB300C186C5 /* APSReassignScoresViewController.m in Sources */,
 				FA1BFF881E84887B00A1228C /* Score+ScoreCategory.m in Sources */,
 				FA8A87ED1E8369990053D648 /* APSScoreController.m in Sources */,
 				FAEC74A21E81D440008236E9 /* APSDashboardTableViewController.m in Sources */,

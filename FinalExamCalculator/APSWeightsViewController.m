@@ -15,6 +15,9 @@
 #import "APSAppDataController.h"
 #import "APSCourseController.h"
 #import "APSCoreDataStack.h"
+#import "APSScoreController.h"
+#import "APSReassignScoresViewController.h"
+#import "APSCategoryType.h"
 
 
 @interface APSWeightsViewController () <UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate>
@@ -23,6 +26,7 @@
 @property (nonatomic, strong) UITextField *addNewCategoryField;
 @property (nonatomic, strong) UIButton *addNewCategoryButton;
 @property (nonatomic, strong) UILabel *toolBarLabel;
+@property (nonatomic, strong) UIViewController *scoreReassignmentViewController;
 
 
 @property (nonatomic, strong) UITableView *tableView;
@@ -35,6 +39,7 @@
 @synthesize course;
 @synthesize tableView;
 @synthesize toolBarLabel;
+@synthesize scoreReassignmentViewController;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -47,6 +52,11 @@
     [self textFieldChangedValue];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(weightsUpdated) name:@"CategoryWeightUpdated" object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(deleteCategoryFromNotification:) name:@"ReassignDeleteRowComplete" object:nil];
+    
+    UIViewController *vc = [[UIViewController alloc] init];
+    [self setScoreReassignmentViewController:vc];
 }
 
 -(void)viewDidAppear:(BOOL)animated
@@ -210,8 +220,8 @@
                                     constraintWithItem:tv
                                     attribute:NSLayoutAttributeBottom
                                     relatedBy:NSLayoutRelationEqual
-                                    toItem:self.view
-                                    attribute:NSLayoutAttributeBottom
+                                    toItem:self.bottomLayoutGuide
+                                    attribute:NSLayoutAttributeTop
                                     multiplier:1.0
                                     constant:0];
     [self.view addConstraints:@[tvTop, tvWidth, tvBottom]];
@@ -281,6 +291,23 @@
     [self.addNewCategoryField setText:@""];
     [self.tableView reloadData];
     [self weightsUpdated];
+    [self textFieldChangedValue];
+}
+
+-(void)deleteCategoryFromNotification:(NSNotification *)notif
+{
+    NSDictionary *userInfo = notif.userInfo;
+    
+    NSNumber *rowToDelete = [userInfo valueForKey:@"IndexPathRow"];
+    
+    if (rowToDelete){
+        [self.tableView setEditing:false animated:false];
+        [self.tableView reloadData];
+        [self weightsUpdated];
+    } else {
+        [self.tableView setEditing:false animated:true];
+    }
+    
 }
 
 #pragma mark TextField delegate methods
@@ -325,10 +352,18 @@
     return cell;
 }
 
+-(BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    Category *selectedCategory = [self.course.categories objectAtIndex:indexPath.row];
+    return ([selectedCategory type] != [APSCategoryType numberFromTypeString:@"Final"]);
+}
+
 -(NSArray<UITableViewRowAction *> *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     Category *selectedCategory = [self.course.categories objectAtIndex:indexPath.row];
     
+    
+    // EDIT Category name
     UITableViewRowAction *edit = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleNormal title:@"Edit Name" handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
         
         NSString *messageString = [NSString stringWithFormat:@"Enter a new name for %@.",selectedCategory.name];
@@ -368,11 +403,56 @@
         
     }];
     
+    
+    //DELETE category action
     UITableViewRowAction *delete = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDestructive title:@"Delete" handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
+        
+        APSScoreController *scoreController = [[APSScoreController alloc] initWithCourse:self.course];
+        
+        
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:nil message:@"Do you want to permanently delete the scores in this category or reassign them to a different category?" preferredStyle:UIAlertControllerStyleActionSheet];
+        
+        UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+            [self.tableView setEditing:false animated:true];
+        }];
+        
+        UIAlertAction *deleteScores = [UIAlertAction actionWithTitle:@"Delete Scores" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+            
+            [scoreController deleteScoresAndCategory:selectedCategory];
+            [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+            [self weightsUpdated];
+        }];
+        
+        UIAlertAction *reassignScores = [UIAlertAction actionWithTitle:@"Reassign Scores" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            
+            APSReassignScoresViewController *vc = [APSReassignScoresViewController new];
+            
+            UINavigationController *nc = [[UINavigationController alloc] initWithRootViewController:vc];
+            [nc setModalPresentationStyle:UIModalPresentationOverCurrentContext];
+            [self presentViewController:nc animated:true completion:nil];
+            [vc updateWithCourse:self.course andCategory:selectedCategory andRow: indexPath.row];
+            
+        }];
+        
+        
+        
+        [alertController addAction:cancel];
+        [alertController addAction:deleteScores];
+        if ([self.course.categories count] <= 2){
+            [alertController setMessage:@"Are you sure you want to delete all scores in this category?"];
+        } else {
+            [alertController addAction:reassignScores];
+        }
+        
+        [self presentViewController:alertController animated:true completion:nil];
         
     }];
     
-    return @[delete, edit];
+    if ([selectedCategory type] == [APSCategoryType numberFromTypeString:@"Final"]){
+        return nil;
+    } else {
+        return @[delete, edit];
+    }
 }
 
 @end
