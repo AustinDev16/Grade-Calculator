@@ -54,7 +54,7 @@
 -(void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    [self adjustWeightsTapped];
+    //[self adjustWeightsTapped];
 }
 
 -(void)dealloc

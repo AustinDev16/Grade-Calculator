@@ -23,7 +23,7 @@
     
     // Courses
     [[[APSAppDataController shared] courseController] addNewCourseWithName:@"Algebra"];
-    [[[APSAppDataController shared] courseController] addNewCourseWithName:@"English"];
+    //[[[APSAppDataController shared] courseController] addNewCourseWithName:@"English"];
     
     
     
@@ -43,15 +43,15 @@
     [exams1 setWeight:0.5];
     [exams1 setType:[APSCategoryType numberFromTypeString:@"Other"]];
     
-    Category *homework2 = [[Category alloc] initWithContext:moc];
-    [homework2 setName:@"Homework"];
-    [homework2 setWeight:0.5];
-    [homework2 setType:[APSCategoryType numberFromTypeString:@"Other"]];
-    
-    Category *exams2 = [[Category alloc] initWithContext:moc];
-    [exams2 setName:@"Exams"];
-    [exams2 setWeight:0.5];
-    [exams2 setType:[APSCategoryType numberFromTypeString:@"Other"]];
+//    Category *homework2 = [[Category alloc] initWithContext:moc];
+//    [homework2 setName:@"Homework"];
+//    [homework2 setWeight:0.5];
+//    [homework2 setType:[APSCategoryType numberFromTypeString:@"Other"]];
+//    
+//    Category *exams2 = [[Category alloc] initWithContext:moc];
+//    [exams2 setName:@"Exams"];
+//    [exams2 setWeight:0.5];
+//    [exams2 setType:[APSCategoryType numberFromTypeString:@"Other"]];
     
     //Add Categories to courses
     Course *algebra = [[[APSAppDataController shared] courseController] findCourseWithName:@"Algebra"];
@@ -59,10 +59,10 @@
     [[[APSAppDataController shared] courseController] addCategory:exams1 toCourse:algebra];
     
     
-    Course *english = [[[APSAppDataController shared] courseController]  findCourseWithName:@"English"];
-    [[[APSAppDataController shared] courseController] addCategory:homework2 toCourse:english];
-    [[[APSAppDataController shared] courseController] addCategory:exams2 toCourse:english];
-    
+//    Course *english = [[[APSAppDataController shared] courseController]  findCourseWithName:@"English"];
+//    [[[APSAppDataController shared] courseController] addCategory:homework2 toCourse:english];
+//    [[[APSAppDataController shared] courseController] addCategory:exams2 toCourse:english];
+//    
     
     // Add scores
     Score *score1 = [[Score alloc] initWithContext:moc];

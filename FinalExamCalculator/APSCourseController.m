@@ -59,7 +59,7 @@
 
 
 #pragma mark Course
--(void)addNewCourseWithName:(NSString *)name
+-(Course *)addNewCourseWithName:(NSString *)name
 {
     NSManagedObjectContext *moc = [[APSCoreDataStack shared] mainQueueMOC];
     Course *newCourse = [[Course alloc] initWithContext:moc];
@@ -73,7 +73,7 @@
     [final setType:[APSCategoryType numberFromTypeString:@"Final"]];
     
     [APSPersistenceController saveToPersistedStore];
-    
+    return newCourse;
 }
 
 -(void)deleteCourse:(Course *)course

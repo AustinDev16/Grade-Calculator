@@ -11,6 +11,7 @@
 #import "APSCourseController.h"
 #import "Course+CoreDataProperties.h"
 #import "APSDashboardTableViewController.h"
+#import "APSWeightsViewController.h"
 
 @interface APSClassesTableViewController ()
 
@@ -53,14 +54,14 @@
 -(void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
-    
-   [self tableView:self.tableView didSelectRowAtIndexPath:indexPath];
+//    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
+//    
+//   [self tableView:self.tableView didSelectRowAtIndexPath:indexPath];
 }
 
 -(void)addNewCourseTapped
 {
-    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"New Course" message:nil preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"New Course" message:@"Add weights on the next screen." preferredStyle:UIAlertControllerStyleAlert];
     
     [alertController addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
         [textField setAutocapitalizationType:UITextAutocapitalizationTypeWords];
@@ -76,9 +77,17 @@
             
         } else {
             
-            [[self courseController] addNewCourseWithName:newCourseName];
+            Course *newCourse = [[self courseController] addNewCourseWithName:newCourseName];
             
             [[self tableView] reloadData];
+            
+            
+            APSWeightsViewController *weights = [APSWeightsViewController new];
+            [weights updateWithCourse:newCourse];
+            UINavigationController *nc = [[UINavigationController alloc] initWithRootViewController:weights];
+            [nc setModalTransitionStyle:UIModalTransitionStyleCoverVertical];
+            
+            [self presentViewController:nc animated:true completion:nil];
             
             
             
