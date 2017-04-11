@@ -18,9 +18,25 @@
 #import "APSScoreController.h"
 #import "APSReassignScoresViewController.h"
 #import "APSCategoryType.h"
+#pragma mark HALFSIZEPresentation Controller
+@interface HalfSizePresentationController : UIPresentationController
 
+@end
 
-@interface APSWeightsViewController () <UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate>
+@implementation HalfSizePresentationController
+
+-(CGRect)frameOfPresentedViewInContainerView
+{
+    UIViewController *root = [[[UIApplication sharedApplication] keyWindow] rootViewController];
+    UIView *rootView = [root view];
+    CGFloat y = CGRectGetMidY(rootView.frame);
+    return CGRectMake(0, y, self.containerView.bounds.size.width, self.containerView.bounds.size.height/2.0);
+}
+
+@end
+
+#pragma mark APSWeightsViewController
+@interface APSWeightsViewController () <UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate, UIViewControllerTransitioningDelegate>
 
 @property (nonatomic, strong) Course *course;
 @property (nonatomic, strong) UITextField *addNewCategoryField;
@@ -327,6 +343,15 @@
     }
 }
 
+#pragma mark UIViewTransitioningDelegate
+
+-(UIPresentationController *)presentationControllerForPresentedViewController:(UIViewController *)presented presentingViewController:(UIViewController *)presenting sourceViewController:(UIViewController *)source
+{
+    return [[HalfSizePresentationController alloc] initWithPresentedViewController:presented presentingViewController:presenting];
+}
+
+
+
 #pragma mark Tableview Delegate and Datasource
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -354,8 +379,12 @@
 
 -(BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    Category *selectedCategory = [self.course.categories objectAtIndex:indexPath.row];
-    return ([selectedCategory type] != [APSCategoryType numberFromTypeString:@"Final"]);
+    if (indexPath.row + 1 > self.course.categories.count){
+        return false;
+    } else {
+        Category *selectedCategory = [self.course.categories objectAtIndex:indexPath.row];
+        return ([selectedCategory type] != [APSCategoryType numberFromTypeString:@"Final"]);
+    }
 }
 
 -(NSArray<UITableViewRowAction *> *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -428,7 +457,11 @@
             APSReassignScoresViewController *vc = [APSReassignScoresViewController new];
             
             UINavigationController *nc = [[UINavigationController alloc] initWithRootViewController:vc];
-            [nc setModalPresentationStyle:UIModalPresentationOverCurrentContext];
+            [nc setModalPresentationStyle:UIModalPresentationCustom];
+            [nc setTransitioningDelegate:self];
+            
+            
+            
             [self presentViewController:nc animated:true completion:nil];
             [vc updateWithCourse:self.course andCategory:selectedCategory andRow: indexPath.row];
             
@@ -456,3 +489,5 @@
 }
 
 @end
+
+
