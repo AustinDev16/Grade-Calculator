@@ -19,8 +19,8 @@
     for (Category *category in self.categories) {
         sum += category.weight;
     }
-    
-    return (sum == 1.0);
+    //NSLog(@"Sum = %f, Diff = %f", sum, fabs(sum - 1.0));
+    return (fabs(sum - 1.0) < 0.009);
 }
 
 -(NSArray<NSNumber *> *)resetWeightsArray
