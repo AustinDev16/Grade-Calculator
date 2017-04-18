@@ -18,14 +18,12 @@
 
 @interface APSScoresTableViewController () <NSFetchedResultsControllerDelegate, UIToolbarDelegate>
 
-@property (nonatomic, strong) NSFetchedResultsController *fetchedResultsController;
 @property (nonatomic, strong) UIToolbar *toolBar;
 
 @end
 
 @implementation APSScoresTableViewController
 
-@synthesize fetchedResultsController;
 @synthesize toolBar;
 
 
@@ -34,6 +32,8 @@
     [super viewDidLoad];
     NSString *titleString = [NSString stringWithFormat:@"%@ - Scores", self.course.name];
     [self setTitle: titleString];
+    [self.tableView setDelegate: self];
+    [self.tableView setDataSource:self];
 
     [self setupToolBar];
 }
@@ -41,43 +41,16 @@
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [self setEditing:false animated:true];
+    //[self setEditing:false animated:true];
     [self.tableView reloadData];
 }
 
--(void)initializeFetchedResultsController
-{
-    NSManagedObjectContext *moc = [[APSCoreDataStack shared] mainQueueMOC];
-    NSFetchRequest *request = [Score fetchRequest];
-    NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:@"category" ascending:true];
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"SELF.course.name == %@", _course.name ];
-    [request setSortDescriptors:@[sort]];
-    [request setPredicate:predicate];
-    
-    NSFetchedResultsController *controller = [[NSFetchedResultsController alloc] initWithFetchRequest:request managedObjectContext:moc sectionNameKeyPath:@"category.name" cacheName:nil];
-    
-    [self setFetchedResultsController:controller];
-    [[self fetchedResultsController] setDelegate:self];
-    
-    NSError *error = nil;
-    [[self fetchedResultsController] performFetch:&error];
-    
-    if (error){
-        NSLog(@"Error fetching: %@", error.localizedDescription);
-    }
-}
 
--(void)controllerDidChangeContent:(NSFetchedResultsController *)controller
-{
-    
-}
+
 
 -(void)setCourse:(Course *)course
 {
     _course = course;
-    
-    [self initializeFetchedResultsController];
-    
 }
 
 
@@ -117,25 +90,24 @@
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
- return [[self.fetchedResultsController sections] count];
+ //return [[self.fetchedResultsController sections] count];
+   
+    return [self.course.categories count];
+    
+    
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    if ([[self.fetchedResultsController sections] count] > 0) {
-        id <NSFetchedResultsSectionInfo> sectionInfo = [[self.fetchedResultsController sections] objectAtIndex:section];
-        return [sectionInfo numberOfObjects];
-    } else
-        return 0;
+
+    Category *cat = [self.course.categories objectAtIndex:section];
+    return [cat.scores count];
+    
 }
 
 
 -(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
-    if ([[self.fetchedResultsController sections] count] > 0) {
-        id <NSFetchedResultsSectionInfo> sectionInfo = [[self.fetchedResultsController sections] objectAtIndex:section];
-        return [sectionInfo name];
-    } else
-        return nil;
+    return [[self.course.categories objectAtIndex:section] name];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -145,8 +117,9 @@
     if (cell == nil){
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"ScoreCell"];
     }
-
-    Score *score = [self.fetchedResultsController objectAtIndexPath:indexPath];
+    
+    Category *cat = [self.course.categories objectAtIndex:indexPath.section];
+    Score *score = [cat.scores objectAtIndex:indexPath.row];
     cell.textLabel.text = score.name;
     [cell.detailTextLabel setText:[score stringLabel]];
     [cell.detailTextLabel setTextColor:[UIColor blackColor]];
@@ -156,9 +129,11 @@
 
 -(NSArray<UITableViewRowAction *> *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    Category *cat = [self.course.categories objectAtIndex:indexPath.section];
+    
     UITableViewRowAction *edit = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleNormal title:@"Edit" handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
         
-        Score *selectedScore = [self.fetchedResultsController objectAtIndexPath:indexPath];
+        Score *selectedScore = [cat.scores objectAtIndex:indexPath.row];
         APSEditScoreTableViewController *tvc = [[APSEditScoreTableViewController alloc] initWithStyle:UITableViewStyleGrouped];
         [tvc setCourse:self.course];
         [tvc updateWithScore:selectedScore];
@@ -172,7 +147,7 @@
     
     UITableViewRowAction *delete = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDestructive title:@"Delete" handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
         
-        Score *scoreToBeDeleted = [self.fetchedResultsController objectAtIndexPath:indexPath];
+        Score *scoreToBeDeleted = [cat.scores objectAtIndex:indexPath.row];
         NSManagedObjectContext *moc = [[APSCoreDataStack shared] mainQueueMOC];
         [moc deleteObject:scoreToBeDeleted];
         [APSPersistenceController saveToPersistedStore];

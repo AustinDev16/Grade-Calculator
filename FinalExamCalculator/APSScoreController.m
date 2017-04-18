@@ -130,7 +130,7 @@
 /// This function reassigns scores to a new category and then deletes the old category.
 -(void)reassignScoresFromCategory:(Category *)oldCategory toNewCategory:(Category *)newCategory
 {
-    NSArray *scoresToReassign = [oldCategory.scores allObjects];
+    NSArray *scoresToReassign = [oldCategory.scores array];
     for (Score *score in scoresToReassign){
         [score setCategory:newCategory];
     }
