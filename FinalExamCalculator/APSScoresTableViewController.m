@@ -107,7 +107,11 @@
 
 -(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
-    return [[self.course.categories objectAtIndex:section] name];
+    NSString *title = [NSString stringWithFormat:@"%@: %.0f %@",
+                       [[self.course.categories objectAtIndex:section] name],
+                       [self.course.categories objectAtIndex:section].weight * 100,
+                       @"%"];
+    return title;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
