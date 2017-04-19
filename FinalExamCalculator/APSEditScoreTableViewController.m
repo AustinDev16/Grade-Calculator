@@ -196,6 +196,15 @@
     [pointsEarned setKeyboardType:UIKeyboardTypeDecimalPad];
     [pointsEarned setTextAlignment:NSTextAlignmentCenter];
     
+    // Toolbar
+    UIToolbar *toolbarEarned = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 40)];
+    UIBarButtonItem *titleButton = [[UIBarButtonItem alloc] initWithTitle:@"Title" style:UIBarButtonItemStylePlain target:self action:@selector(titleButtonTapped)];
+    UIBarButtonItem *spacerEarned = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
+    UIBarButtonItem *nextButton = [[UIBarButtonItem alloc] initWithTitle:@"Next" style:UIBarButtonItemStylePlain target:self action:@selector(nextButtonTapped)];
+    
+    [toolbarEarned setItems:@[titleButton, spacerEarned, nextButton]];
+    [pointsEarned setInputAccessoryView:toolbarEarned];
+    
     UILabel *label = [UILabel new];
     [label setText:@"/"];
     [label setFont:[UIFont boldSystemFontOfSize:28]];
@@ -207,6 +216,15 @@
     [pointsPossible.layer setCornerRadius:5.0];
     [pointsPossible setKeyboardType:UIKeyboardTypeDecimalPad];
     [pointsPossible setTextAlignment:NSTextAlignmentCenter];
+    
+    //Toolbar
+    UIToolbar *toolbarPossible = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 40)];
+    UIBarButtonItem *titleButtonPossible = [[UIBarButtonItem alloc] initWithTitle:@"Title" style:UIBarButtonItemStylePlain target:self action:@selector(titleButtonTapped)];
+    UIBarButtonItem *spacerPossible = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
+    UIBarButtonItem *previousButton = [[UIBarButtonItem alloc] initWithTitle:@"Previous" style:UIBarButtonItemStylePlain target:self action:@selector(previousButtonTapped)];
+    
+    [toolbarPossible setItems:@[titleButtonPossible, spacerPossible, previousButton]];
+    [pointsPossible setInputAccessoryView:toolbarPossible];
     
     // Divider
     [cell.contentView addSubview:label];
@@ -279,6 +297,23 @@
     
     [self setCategoryPicker:picker];
     [self setCategoryCell:cell];
+}
+
+-(void)titleButtonTapped
+{
+    [nameTextField becomeFirstResponder];
+}
+
+-(void)nextButtonTapped
+{
+    [pointsEarnedField resignFirstResponder];
+    [pointsPossibleField becomeFirstResponder];
+}
+
+-(void)previousButtonTapped
+{
+    [pointsPossibleField resignFirstResponder];
+    [pointsEarnedField becomeFirstResponder];
 }
 
 #pragma mark UIPickerView Delegate and data source
