@@ -95,8 +95,12 @@
         }
     }
     
-    double average = sum / (double)[scoresInCategory count];
+    if ([scoresInCategory count] == 0){
+        return 0;
+    }
     
+    double average = sum / (double)[scoresInCategory count];
+    NSLog(@"%@, Sum: %f, Ave: %f", category.name, sum, average);
     return category.weight * average;
 }
 
@@ -149,6 +153,18 @@
     for (Category *category in self.nonFinalCategories) {
         sum += [self averageWeightedScoreForCategory:category];
     }
+    double totalWeight = [self weightOfNonFinalCategories];
+    return sum/totalWeight;
+}
+
+-(double)weightOfNonFinalCategories
+{
+    double sum = 0.0;
+    for (Category *cat in self.nonFinalCategories){
+        if ([cat.scores count] != 0){
+            sum += cat.weight;
+        }
+    }
     return sum;
 }
 
@@ -157,19 +173,19 @@
     double sum = 0.0;
     for (Category *category in self.nonFinalCategories) {
         
-        NSArray *scores = [self scoresWithType:@"Other"];
-        if (scores == nil || scores.count == 0){
-            continue;
-        }
+//        NSArray *scores = [self scoresWithType:@"Other"];
+//        if (scores == nil || scores.count == 0){
+//            continue;
+//        }
         
         sum += [self averageWeightedScoreForCategory:category];
         
     }
-    
+    NSLog(@"Sum: %f", sum);
     double denominator = self.finalCategory.weight * sum;
-    if (denominator == 0 || denominator == NAN) { return 0; }
+    if (denominator == 0 || denominator == NAN || self.finalCategory.weight == 0) { return 0; }
     
-    return finalGrade/denominator;
+    return finalGrade/self.finalCategory.weight - sum/self.finalCategory.weight;
 }
 
 

@@ -203,6 +203,8 @@
 {
     if (section == 0){
         return @"Current score doesn't include the final exam.";
+    } else if (section == 1){
+        return @"This projection assumes a zero score for any categories with no scores.";
     } else {
         return nil;
     }

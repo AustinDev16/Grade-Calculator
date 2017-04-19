@@ -178,7 +178,7 @@
 {
     double neededScore = [self.scoreController predictedFinalScoreForFinalGrade:score];
     // Evaluate if score is reasonable
-    NSString *updatedLabel = [NSString stringWithFormat:@"%.1f %@",neededScore*10.0, @"%"];
+    NSString *updatedLabel = [NSString stringWithFormat:@"%.1f %@",neededScore*100.0, @"%"];
     
     [self.finalScoreLabel setText:updatedLabel];
     
