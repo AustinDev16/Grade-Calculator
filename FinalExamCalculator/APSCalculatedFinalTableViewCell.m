@@ -90,7 +90,7 @@
                                  toItem:self.contentView
                                  attribute:NSLayoutAttributeTop
                                  multiplier:1.0
-                                 constant:8.0];
+                                 constant:0];
     NSLayoutConstraint *ovTrailing = [NSLayoutConstraint
                                       constraintWithItem:outerView
                                       attribute:NSLayoutAttributeTrailing
@@ -98,7 +98,7 @@
                                       toItem:self.contentView
                                       attribute:NSLayoutAttributeTrailing
                                       multiplier:1.0
-                                      constant:-8];
+                                      constant:0];
     NSLayoutConstraint *ovBottom = [NSLayoutConstraint
                                     constraintWithItem:outerView
                                     attribute:NSLayoutAttributeBottom
@@ -122,8 +122,9 @@
     
     UIStackView *rightView = [UIStackView new];
     [rightView setAxis:UILayoutConstraintAxisVertical];
-    [rightView setSpacing:8];
+    [rightView setSpacing:0];
     [rightView setDistribution:UIStackViewDistributionFillProportionally];
+    [rightView setBackgroundColor:[UIColor groupTableViewBackgroundColor]];
     
     [outerView addArrangedSubview:leftView];
     [outerView addArrangedSubview:rightView];
@@ -141,6 +142,7 @@
     [[self finalScoreLabel] setText:@"--- %"];
     [[self finalScoreLabel] setFont:[UIFont boldSystemFontOfSize:24]];
     [[self finalScoreLabel] setTextAlignment:NSTextAlignmentCenter];
+    [[self finalScoreLabel] setTextColor:[UIColor redColor]];
     [leftView addArrangedSubview:finalScoreLabel];
     
     [self setScoreFooter:[[UILabel alloc] initWithFrame:CGRectMake(0, 0, 100, 40)]];
@@ -150,19 +152,30 @@
     
     
     // Add label and picker to right view
+    UILabel *spacerLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 60, 8)];
+    [spacerLabel setText:@"Spacer"];
+    [spacerLabel setBackgroundColor:[UIColor groupTableViewBackgroundColor]];
+    [spacerLabel setTextColor:[UIColor groupTableViewBackgroundColor]];
+    spacerLabel.translatesAutoresizingMaskIntoConstraints = NO;
+    [rightView addArrangedSubview:spacerLabel];
+    
     
     [self setPickerLabel:[[UILabel alloc] initWithFrame:CGRectMake(0, 0, 60, 40)]];
     self.pickerLabel.translatesAutoresizingMaskIntoConstraints = NO;
     [[self pickerLabel] setText:@"Desired Grade:"];
     [[self pickerLabel] setTextAlignment:NSTextAlignmentCenter];
+    [[self pickerLabel] setBackgroundColor:[UIColor groupTableViewBackgroundColor]];
     self.pickerLabel.adjustsFontSizeToFitWidth = true;
+    
     [rightView addArrangedSubview:pickerLabel];
     
     [self setPickerView:[UIPickerView new]];
-    [[self pickerView] setFrame:CGRectMake(0, 0, 60, 50)];
+    [[self pickerView] setFrame:CGRectMake(0, 0, 70, 50)];
     [[self pickerView] setDelegate:self];
     [[self pickerView] setDataSource:self];
     [rightView addArrangedSubview:pickerView];
+    [[self pickerView] setBackgroundColor:[UIColor groupTableViewBackgroundColor]];
+    
     
     
 }
@@ -210,5 +223,7 @@
     
     [self updateFinalScoreForDesiredScore:[selectedScore doubleValue]/100.0];
 }
+
+
 
 @end
