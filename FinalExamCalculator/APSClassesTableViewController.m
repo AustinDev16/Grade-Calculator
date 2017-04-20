@@ -12,6 +12,7 @@
 #import "Course+CoreDataProperties.h"
 #import "APSDashboardTableViewController.h"
 #import "APSWeightsViewController.h"
+#import "APSPersistenceController.h"
 
 @interface APSClassesTableViewController ()
 
@@ -89,9 +90,6 @@
             
             [self presentViewController:nc animated:true completion:nil];
             
-            
-            
-            
         }
         
     }];
@@ -135,6 +133,48 @@
 
 -(NSArray<UITableViewRowAction *> *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    UITableViewRowAction *edit = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleNormal title:@"Edit" handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
+        
+        Course *courseToEdit = [[[self courseController] courses] objectAtIndex:indexPath.row];
+        
+        NSString *message = [NSString stringWithFormat:@"Choose a new name for %@", courseToEdit.name];
+        
+        
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:nil message:message preferredStyle:UIAlertControllerStyleAlert];
+        
+        [alertController addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
+            [textField setPlaceholder:courseToEdit.name];
+            [textField setAutocapitalizationType:UITextAutocapitalizationTypeWords];
+        }];
+        
+        UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+            [self.tableView setEditing:false animated:true];
+        }];
+        
+        UIAlertAction *update = [UIAlertAction actionWithTitle:@"Update" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            
+            UITextField *textField = [[alertController textFields] firstObject];
+            if (textField && textField.text.length > 0){
+                
+                [self.tableView setEditing:false animated:true];
+                [courseToEdit setName:textField.text];
+                [APSPersistenceController saveToPersistedStore];
+                [self.tableView reloadData];
+                
+            } else {
+                [self.tableView setEditing:false animated:true];
+            }
+            
+        }];
+        
+        [alertController addAction:cancel];
+        [alertController addAction:update];
+        
+        [self presentViewController:alertController animated:true completion:nil];
+        
+    }];
+    
+    
     UITableViewRowAction *delete = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDestructive title:@"Delete" handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
         
         
@@ -144,7 +184,7 @@
         
     }];
     
-    return @[delete];
+    return @[delete, edit];
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
