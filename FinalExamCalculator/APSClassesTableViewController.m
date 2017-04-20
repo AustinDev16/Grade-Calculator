@@ -177,10 +177,21 @@
     
     UITableViewRowAction *delete = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDestructive title:@"Delete" handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
         
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Are you sure?" message:@"Deleting this course will delete all its scores, and can not be undone." preferredStyle:UIAlertControllerStyleActionSheet];
         
-        Course *courseToDelete = [[[self courseController] courses] objectAtIndex:indexPath.row];
-        [[self courseController] deleteCourse:courseToDelete];
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+        UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+            [self.tableView setEditing:false animated:true];
+        }];
+        
+        UIAlertAction *delete = [UIAlertAction actionWithTitle:@"Delete Class and Scores" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+            Course *courseToDelete = [[[self courseController] courses] objectAtIndex:indexPath.row];
+            [[self courseController] deleteCourse:courseToDelete];
+            [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+        }];
+        
+        [alertController addAction:cancel];
+        [alertController addAction:delete];
+        [self presentViewController:alertController animated:true completion:nil];
         
     }];
     
