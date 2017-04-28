@@ -12,6 +12,7 @@
 #import "APSScoreController.h"
 #import "APSCoreDataStack.h"
 #import "APSPersistenceController.h"
+#import "APSAppearanceController.h"
 
 @interface APSEditScoreTableViewController () <UIPickerViewDelegate, UIPickerViewDataSource>
 @property (nonatomic, strong) Course *selectedCourse;
@@ -191,16 +192,16 @@
     [pointsEarned setPlaceholder:@"Points Earned"];
     [pointsEarned setBorderStyle:UITextBorderStyleRoundedRect];
     [pointsEarned.layer setBorderWidth:1.0];
-    [pointsEarned.layer setBorderColor:[UIColor grayColor].CGColor];
+    [pointsEarned.layer setBorderColor:[APSAppearanceController.shared blueColor].CGColor];
     [pointsEarned.layer setCornerRadius:5.0];
     [pointsEarned setKeyboardType:UIKeyboardTypeDecimalPad];
     [pointsEarned setTextAlignment:NSTextAlignmentCenter];
     
     // Toolbar
-    UIToolbar *toolbarEarned = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 40)];
-    UIBarButtonItem *titleButton = [[UIBarButtonItem alloc] initWithTitle:@"Title" style:UIBarButtonItemStylePlain target:self action:@selector(titleButtonTapped)];
+    UIToolbar *toolbarEarned = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 35)];
+    UIBarButtonItem *titleButton = [[UIBarButtonItem alloc] initWithTitle:@"Back to Title" style:UIBarButtonItemStylePlain target:self action:@selector(titleButtonTapped)];
     UIBarButtonItem *spacerEarned = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
-    UIBarButtonItem *nextButton = [[UIBarButtonItem alloc] initWithTitle:@"Next" style:UIBarButtonItemStylePlain target:self action:@selector(nextButtonTapped)];
+    UIBarButtonItem *nextButton = [[UIBarButtonItem alloc] initWithTitle:@"Points Possible" style:UIBarButtonItemStylePlain target:self action:@selector(nextButtonTapped)];
     
     [toolbarEarned setItems:@[titleButton, spacerEarned, nextButton]];
     [pointsEarned setInputAccessoryView:toolbarEarned];
@@ -212,16 +213,16 @@
     UITextField *pointsPossible = [UITextField new];
     [pointsPossible setPlaceholder:@"Points Possible"];
     [pointsPossible.layer setBorderWidth:1.0];
-    [pointsPossible.layer setBorderColor:[UIColor grayColor].CGColor];
+    [pointsPossible.layer setBorderColor:[APSAppearanceController.shared blueColor].CGColor];
     [pointsPossible.layer setCornerRadius:5.0];
     [pointsPossible setKeyboardType:UIKeyboardTypeDecimalPad];
     [pointsPossible setTextAlignment:NSTextAlignmentCenter];
     
     //Toolbar
-    UIToolbar *toolbarPossible = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 40)];
-    UIBarButtonItem *titleButtonPossible = [[UIBarButtonItem alloc] initWithTitle:@"Title" style:UIBarButtonItemStylePlain target:self action:@selector(titleButtonTapped)];
+    UIToolbar *toolbarPossible = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 35)];
+    UIBarButtonItem *titleButtonPossible = [[UIBarButtonItem alloc] initWithTitle:@"Back to Title" style:UIBarButtonItemStylePlain target:self action:@selector(titleButtonTapped)];
     UIBarButtonItem *spacerPossible = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
-    UIBarButtonItem *previousButton = [[UIBarButtonItem alloc] initWithTitle:@"Previous" style:UIBarButtonItemStylePlain target:self action:@selector(previousButtonTapped)];
+    UIBarButtonItem *previousButton = [[UIBarButtonItem alloc] initWithTitle:@"Points Earned" style:UIBarButtonItemStylePlain target:self action:@selector(previousButtonTapped)];
     
     [toolbarPossible setItems:@[titleButtonPossible, spacerPossible, previousButton]];
     [pointsPossible setInputAccessoryView:toolbarPossible];
