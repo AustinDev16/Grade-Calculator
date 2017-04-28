@@ -13,6 +13,7 @@
 #import "APSDashboardTableViewController.h"
 #import "APSWeightsViewController.h"
 #import "APSPersistenceController.h"
+#import "APSAppearanceController.h"
 
 @interface APSClassesTableViewController ()
 
@@ -50,6 +51,12 @@
     
     UIBarButtonItem *add = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addNewCourseTapped)];
     [[self navigationItem] setRightBarButtonItem:add];
+}
+
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [APSAppearanceController.shared configureAppearanceForViewController:self];
 }
 
 -(void)viewDidAppear:(BOOL)animated

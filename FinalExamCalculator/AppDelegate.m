@@ -13,6 +13,7 @@
 #import "APSCourseController.h"
 #import "APSMockDataController.h"
 #import "APSAppDataController.h"
+#import "APSAppearanceController.h"
 
 @interface AppDelegate ()
 
@@ -53,6 +54,7 @@
     
     [window makeKeyAndVisible];
     
+    [APSAppearanceController.shared appWideAppearanceSettings];
     
     [self setWindow:window];
     
