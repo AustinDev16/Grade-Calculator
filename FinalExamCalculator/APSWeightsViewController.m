@@ -381,6 +381,11 @@
     return cell;
 }
 
+-(void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
+}
+
 -(BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.row + 1 > self.course.categories.count){
@@ -435,6 +440,8 @@
         
         
     }];
+    
+    [edit setBackgroundColor:[APSAppearanceController.shared blueColor]];
     
     
     //DELETE category action
