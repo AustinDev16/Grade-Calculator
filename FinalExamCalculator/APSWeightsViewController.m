@@ -18,6 +18,9 @@
 #import "APSScoreController.h"
 #import "APSReassignScoresViewController.h"
 #import "APSCategoryType.h"
+#import "APSAppearanceController.h"
+
+
 #pragma mark HALFSIZEPresentation Controller
 @interface HalfSizePresentationController : UIPresentationController
 
@@ -128,13 +131,12 @@
     [textField setReturnKeyType:UIReturnKeyDone];
     [textField setDelegate:self];
     [textField addTarget:self action:@selector(textFieldChangedValue) forControlEvents:UIControlEventEditingChanged];
+    
 //    [textField.layer setCornerRadius:5];
 //    [textField.layer setBorderColor:[UIColor grayColor].CGColor];
 //    [textField.layer setBorderWidth:1];
     
-    
-    
-    [button setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
+    [button setTitleColor:[APSAppearanceController.shared blueColor] forState:UIControlStateNormal];
     [button setTitleColor:[UIColor grayColor] forState:UIControlStateDisabled];
     [button setTitle:@"Add" forState:UIControlStateNormal];
     [button addTarget:self action:@selector(addNewCategoryTapped) forControlEvents:UIControlEventTouchUpInside];
@@ -212,6 +214,7 @@
 -(void)configureTableView
 {
     UITableView *tv = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 80) style:UITableViewStylePlain];
+
     
     tv.translatesAutoresizingMaskIntoConstraints = false;
     [self.view addSubview:tv];
