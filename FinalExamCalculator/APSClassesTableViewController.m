@@ -159,6 +159,7 @@
             [self.tableView setEditing:false animated:true];
         }];
         
+        
         UIAlertAction *update = [UIAlertAction actionWithTitle:@"Update" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             
             UITextField *textField = [[alertController textFields] firstObject];
@@ -179,8 +180,10 @@
         [alertController addAction:update];
         
         [self presentViewController:alertController animated:true completion:nil];
+        [alertController.view setTintColor:[APSAppearanceController.shared blueColor]];
         
     }];
+    
     [edit setBackgroundColor:[APSAppearanceController.shared blueColor]];
     
     
@@ -201,7 +204,7 @@
         [alertController addAction:cancel];
         [alertController addAction:delete];
         [self presentViewController:alertController animated:true completion:nil];
-        
+        [alertController.view setTintColor:[APSAppearanceController.shared blueColor]];
     }];
     
     return @[delete, edit];
