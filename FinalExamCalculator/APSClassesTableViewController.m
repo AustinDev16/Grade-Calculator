@@ -14,6 +14,7 @@
 #import "APSWeightsViewController.h"
 #import "APSPersistenceController.h"
 #import "APSAppearanceController.h"
+#import "UITableViewCell+APSCustomColorDisclosure.h"
 
 @interface APSClassesTableViewController ()
 
@@ -203,6 +204,11 @@
     }];
     
     return @[delete, edit];
+}
+
+-(void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    [cell prepareDisclosureIndicatorWithTint:[APSAppearanceController.shared blueColor]];
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath

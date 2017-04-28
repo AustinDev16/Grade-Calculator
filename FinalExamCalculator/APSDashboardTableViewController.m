@@ -13,6 +13,8 @@
 #import "APSScoreController.h"
 #import "APSEditScoreTableViewController.h"
 #import "APSWeightsViewController.h"
+#import "UITableViewCell+APSCustomColorDisclosure.h"
+#import "APSAppearanceController.h"
 
 @interface APSDashboardTableViewController () <UIToolbarDelegate>
 @property (nonatomic, strong) Course *selectedCourse;
@@ -168,6 +170,13 @@
         
     } else {
         return [UITableViewCell new];
+    }
+}
+
+-(void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (indexPath.section == 2){
+        [cell prepareDisclosureIndicatorWithTint:[APSAppearanceController.shared blueColor]];
     }
 }
 
