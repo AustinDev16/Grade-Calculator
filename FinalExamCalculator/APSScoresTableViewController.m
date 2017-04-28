@@ -131,6 +131,11 @@
     return cell;
 }
 
+-(void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
+}
+
 -(NSArray<UITableViewRowAction *> *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     Category *cat = [self.course.categories objectAtIndex:indexPath.section];

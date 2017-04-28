@@ -40,7 +40,7 @@
     [super viewDidLoad];
     
     self.tableView.scrollEnabled = NO;
-    
+
     [self buildCurrentScoreCell];
     [self setupToolBar];
     
@@ -177,8 +177,11 @@
 {
     if (indexPath.section == 2){
         [cell prepareDisclosureIndicatorWithTint:[APSAppearanceController.shared blueColor]];
+    } else {
+        [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
     }
 }
+
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
