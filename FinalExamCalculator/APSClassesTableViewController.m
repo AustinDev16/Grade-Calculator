@@ -70,14 +70,14 @@
 
 -(void)addNewCourseTapped
 {
-    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"New Course" message:@"Add weights on the next screen." preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"New Class" message:@"You'll add categories for this class next." preferredStyle:UIAlertControllerStyleAlert];
     
     [alertController addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
         [textField setAutocapitalizationType:UITextAutocapitalizationTypeWords];
-        [textField setPlaceholder:@"Course name"];
+        [textField setPlaceholder:@"Class name"];
     }];
     
-    UIAlertAction *add = [UIAlertAction actionWithTitle:@"Add" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+    UIAlertAction *add = [UIAlertAction actionWithTitle:@"Next" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         
         UITextField *textField = [[alertController textFields] firstObject];
         NSString *newCourseName = textField.text;
@@ -108,7 +108,7 @@
     [alertController addAction:cancel];
     
     [self presentViewController:alertController animated:YES completion:nil];
-    
+    [alertController.view setTintColor:[APSAppearanceController.shared blueColor]];
     
 }
 
