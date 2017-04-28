@@ -181,6 +181,7 @@
         [self presentViewController:alertController animated:true completion:nil];
         
     }];
+    [edit setBackgroundColor:[APSAppearanceController.shared blueColor]];
     
     
     UITableViewRowAction *delete = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDestructive title:@"Delete" handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
