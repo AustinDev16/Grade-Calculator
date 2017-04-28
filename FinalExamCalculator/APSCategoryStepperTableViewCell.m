@@ -8,6 +8,7 @@
 
 #import "APSCategoryStepperTableViewCell.h"
 #import "Category+CoreDataClass.h"
+#import "APSAppearanceController.h"
 
 
 @interface APSCategoryStepperTableViewCell ()
@@ -114,6 +115,7 @@
     // Stepper
     
     [self.stepper setTranslatesAutoresizingMaskIntoConstraints:false];
+    [self.stepper setTintColor:[APSAppearanceController.shared blueColor]];
     
     [self.stepper setMaximumValue:0.99];
     [self.stepper setMinimumValue:0.01];
