@@ -191,7 +191,7 @@
     UITextField *pointsEarned = [UITextField new];
     [pointsEarned setPlaceholder:@"Points Earned"];
     [pointsEarned setBorderStyle:UITextBorderStyleRoundedRect];
-    [pointsEarned.layer setBorderWidth:1.0];
+    [pointsEarned.layer setBorderWidth:1.7];
     [pointsEarned.layer setBorderColor:[APSAppearanceController.shared blueColor].CGColor];
     [pointsEarned.layer setCornerRadius:5.0];
     [pointsEarned setKeyboardType:UIKeyboardTypeDecimalPad];
@@ -212,7 +212,7 @@
     
     UITextField *pointsPossible = [UITextField new];
     [pointsPossible setPlaceholder:@"Points Possible"];
-    [pointsPossible.layer setBorderWidth:1.0];
+    [pointsPossible.layer setBorderWidth:1.7];
     [pointsPossible.layer setBorderColor:[APSAppearanceController.shared blueColor].CGColor];
     [pointsPossible.layer setCornerRadius:5.0];
     [pointsPossible setKeyboardType:UIKeyboardTypeDecimalPad];
