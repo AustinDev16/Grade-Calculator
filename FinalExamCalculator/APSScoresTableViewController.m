@@ -15,6 +15,7 @@
 #import "APSEditScoreTableViewController.h"
 #import "APSPersistenceController.h"
 #import "APSWeightsViewController.h"
+#import "APSAppearanceController.h"
 
 @interface APSScoresTableViewController () <NSFetchedResultsControllerDelegate, UIToolbarDelegate>
 
@@ -150,9 +151,10 @@
         
         [self presentViewController:nc animated:true completion:nil];
         
+        
     }];
     
-    //[edit setBackgroundColor:[UIColor blueColor]];
+    [edit setBackgroundColor:[APSAppearanceController.shared blueColor]];
     
     UITableViewRowAction *delete = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDestructive title:@"Delete" handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
         
