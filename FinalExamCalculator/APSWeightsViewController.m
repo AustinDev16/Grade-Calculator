@@ -279,6 +279,7 @@
 {
     if ([self.course categoryWeightsValid]){
         [APSPersistenceController saveToPersistedStore];
+        [[self addNewCategoryField] resignFirstResponder];
         [self dismissViewControllerAnimated:true completion:nil];
     }
 }
