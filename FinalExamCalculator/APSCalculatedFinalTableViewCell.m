@@ -8,6 +8,7 @@
 
 #import "APSCalculatedFinalTableViewCell.h"
 #import "APSScoreController.h"
+#import "APSAppearanceController.h"
 
 @interface APSCalculatedFinalTableViewCell ()
 
@@ -82,7 +83,7 @@
                                      toItem:self.contentView
                                      attribute:NSLayoutAttributeLeading
                                      multiplier:1.0
-                                     constant:8];
+                                     constant:0];
     NSLayoutConstraint *ovTop = [NSLayoutConstraint
                                  constraintWithItem:outerView
                                  attribute:NSLayoutAttributeTop
@@ -140,9 +141,13 @@
     
     [self setFinalScoreLabel:[[UILabel alloc] initWithFrame:CGRectMake(0, 0, 100, 60)]];
     [[self finalScoreLabel] setText:@"--- %"];
-    [[self finalScoreLabel] setFont:[UIFont boldSystemFontOfSize:24]];
+    [[self finalScoreLabel] setFont:[UIFont boldSystemFontOfSize:44]];
     [[self finalScoreLabel] setTextAlignment:NSTextAlignmentCenter];
-    [[self finalScoreLabel] setTextColor:[UIColor redColor]];
+    [[self finalScoreLabel] setTextColor:[UIColor whiteColor]];
+    [[[self finalScoreLabel] layer] setBorderWidth:1.5];
+    [[[self finalScoreLabel] layer] setBorderColor:[APSAppearanceController.shared blueColor].CGColor];
+    [[[self finalScoreLabel] layer] setCornerRadius:5.0];
+    [[self finalScoreLabel] setBackgroundColor:[APSAppearanceController.shared blueColor]];
     [leftView addArrangedSubview:finalScoreLabel];
     
     [self setScoreFooter:[[UILabel alloc] initWithFrame:CGRectMake(0, 0, 100, 40)]];
@@ -216,6 +221,11 @@
     NSString *title = [NSString stringWithFormat:@"%@", [self.gradeArray objectAtIndex:row]];
     return title;
 }
+
+//-(NSAttributedString *)pickerView:(UIPickerView *)pickerView attributedTitleForRow:(NSInteger)row forComponent:(NSInteger)component
+//{
+//    
+//}
 
 -(void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component
 {
