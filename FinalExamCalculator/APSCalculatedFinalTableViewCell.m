@@ -13,7 +13,6 @@
 @interface APSCalculatedFinalTableViewCell ()
 
 @property (nonatomic, strong) UILabel *finalScoreLabel;
-@property (nonatomic, strong) UIView *finalScoreOuterFrame;
 @property (nonatomic, strong) UILabel *scoreHeader;
 @property (nonatomic, strong) UILabel *scoreFooter;
 @property (nonatomic, strong) UIPickerView *pickerView;
@@ -26,7 +25,6 @@
 @implementation APSCalculatedFinalTableViewCell
 
 @synthesize finalScoreLabel;
-@synthesize finalScoreOuterFrame;
 @synthesize scoreHeader;
 @synthesize scoreFooter;
 @synthesize pickerView;
@@ -141,21 +139,13 @@
     [leftView addArrangedSubview:scoreHeader];
     
     
-    // Final Score Outer label and Final Score Label
-    [self setFinalScoreOuterFrame:[[UIView alloc] initWithFrame:CGRectMake(0, 0, 100, 60)]];
-    [[self finalScoreOuterFrame] setBackgroundColor:[APSAppearanceController.shared blueColor]];
-    
-    
-    
-    
+    // Final Score Label
     [self setFinalScoreLabel:[[UILabel alloc] initWithFrame:CGRectMake(0, 0, 100, 60)]];
     [[self finalScoreLabel] setText:@"--- %"];
     [[self finalScoreLabel] setFont:[UIFont boldSystemFontOfSize:44]];
     [[self finalScoreLabel] setTextAlignment:NSTextAlignmentCenter];
     [[self finalScoreLabel] setTextColor:[UIColor whiteColor]];
-    [[[self finalScoreLabel] layer] setBorderWidth:1.5];
     [[[self finalScoreLabel] layer] setBorderColor:[APSAppearanceController.shared blueColor].CGColor];
-    [[[self finalScoreLabel] layer] setCornerRadius:5.0];
     [[self finalScoreLabel] setBackgroundColor:[APSAppearanceController.shared blueColor]];
     [leftView addArrangedSubview:finalScoreLabel];
     
