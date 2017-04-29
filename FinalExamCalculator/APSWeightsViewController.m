@@ -281,6 +281,7 @@
         [APSPersistenceController saveToPersistedStore];
         [[self addNewCategoryField] resignFirstResponder];
         [self dismissViewControllerAnimated:true completion:nil];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"ScoreUpdated" object:nil];
     }
 }
 
