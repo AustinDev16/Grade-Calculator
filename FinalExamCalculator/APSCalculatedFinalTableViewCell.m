@@ -13,6 +13,7 @@
 @interface APSCalculatedFinalTableViewCell ()
 
 @property (nonatomic, strong) UILabel *finalScoreLabel;
+@property (nonatomic, strong) UIView *finalScoreOuterFrame;
 @property (nonatomic, strong) UILabel *scoreHeader;
 @property (nonatomic, strong) UILabel *scoreFooter;
 @property (nonatomic, strong) UIPickerView *pickerView;
@@ -25,6 +26,7 @@
 @implementation APSCalculatedFinalTableViewCell
 
 @synthesize finalScoreLabel;
+@synthesize finalScoreOuterFrame;
 @synthesize scoreHeader;
 @synthesize scoreFooter;
 @synthesize pickerView;
@@ -139,6 +141,13 @@
     [leftView addArrangedSubview:scoreHeader];
     
     
+    // Final Score Outer label and Final Score Label
+    [self setFinalScoreOuterFrame:[[UIView alloc] initWithFrame:CGRectMake(0, 0, 100, 60)]];
+    [[self finalScoreOuterFrame] setBackgroundColor:[APSAppearanceController.shared blueColor]];
+    
+    
+    
+    
     [self setFinalScoreLabel:[[UILabel alloc] initWithFrame:CGRectMake(0, 0, 100, 60)]];
     [[self finalScoreLabel] setText:@"--- %"];
     [[self finalScoreLabel] setFont:[UIFont boldSystemFontOfSize:44]];
@@ -198,7 +207,32 @@
     // Evaluate if score is reasonable
     NSString *updatedLabel = [NSString stringWithFormat:@"%.1f %@",neededScore*100.0, @"%"];
     
-    [self.finalScoreLabel setText:updatedLabel];
+
+    
+    [UIView animateWithDuration:0.1 animations:^{
+        if (neededScore > 1.0) {
+            [[self finalScoreLabel] setBackgroundColor:[APSAppearanceController.shared redColor]];
+        } else if (neededScore <= 1.0 && neededScore > 0){
+            [[self finalScoreLabel] setBackgroundColor:[APSAppearanceController.shared blueColor]];
+        } else {
+            [[self finalScoreLabel] setBackgroundColor:[APSAppearanceController.shared greenColor]];
+        }
+        
+        
+        
+        [self.finalScoreLabel setText:updatedLabel];
+        
+        self.finalScoreLabel.transform = CGAffineTransformScale(self.finalScoreLabel.transform, 1.070000, 1.0);
+    } completion:^(BOOL finished) {
+        [UIView animateWithDuration:0.4 animations:^{
+            
+            self.finalScoreLabel.transform = CGAffineTransformScale(self.finalScoreLabel.transform, 1/1.070000, 1/1.0);
+        } completion:^(BOOL finished) {
+            
+        }];
+    }];
+    
+
     
     
     

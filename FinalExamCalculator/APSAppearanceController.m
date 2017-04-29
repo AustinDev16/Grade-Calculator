@@ -18,6 +18,7 @@
 @implementation APSAppearanceController
 @synthesize blueColor;
 @synthesize greenColor;
+@synthesize redColor;
 
 
 +(instancetype)shared{
@@ -36,8 +37,11 @@
     UIColor *darkerBlue = [UIColor colorWithRed:5/255.0 green:130/255.0 blue:202/255.0 alpha:1];
     UIColor *green = [UIColor colorWithRed:58/255.0 green:125/255.0 blue:68/255.0 alpha:1];
     
+    UIColor *red = [UIColor colorWithRed:204/255.0 green:30/255.0 blue:45/255.0 alpha:1];
+    
     [self setBlueColor: darkerBlue];
     [self setGreenColor:green];
+    [self setRedColor:red];
 }
 
 -(void)configureAppearanceForViewController:(UIViewController *)viewController

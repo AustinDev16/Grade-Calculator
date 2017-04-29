@@ -15,6 +15,7 @@
 
 @property (nonatomic, strong) UIColor *blueColor;
 @property (nonatomic, strong) UIColor *greenColor;
+@property (nonatomic, strong) UIColor *redColor;
 
 
 +(instancetype)shared;
