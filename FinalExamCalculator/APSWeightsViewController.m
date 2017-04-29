@@ -109,7 +109,6 @@
     UIBarButtonItem *labelButton = [[UIBarButtonItem alloc] initWithCustomView:self.toolBarLabel];
     
     [self setToolbarItems:@[resetWeights, spacer, labelButton, spacer]];
-    
     [self.toolBarLabel setTextColor:[UIColor redColor]];
 }
 
@@ -267,11 +266,37 @@
         [[self.navigationItem rightBarButtonItem] setEnabled:true];
         [self.toolBarLabel setText:@""];
         
+    } else if ([self.course.categories count] > 1) {
+        [[self.navigationItem rightBarButtonItem] setEnabled:false];
+        
+        [UIView animateWithDuration:0.1 animations:^{
+        
+            [self.toolBarLabel setTextColor:[UIColor redColor]];
+            [[self toolBarLabel] setText:@"Adjust Weights"];
+            [[self toolBarLabel] setFont:[UIFont systemFontOfSize:18]];
+            self.toolBarLabel.transform = CGAffineTransformScale(self.toolBarLabel.transform, 1.1, 1.1);
+        } completion:^(BOOL finished) {
+            
+            [UIView animateWithDuration:0.5 animations:^{
+                self.toolBarLabel.transform = CGAffineTransformScale(self.toolBarLabel.transform, 1/1.1, 1/1.1);
+            }];
+        }];
     } else {
         [[self.navigationItem rightBarButtonItem] setEnabled:false];
         
-        [[self toolBarLabel] setText:@"Adjust Weights"];
-        [self.toolBarLabel setTextColor:[UIColor redColor]];
+        [UIView animateWithDuration:0.1 animations:^{
+            
+            [self.toolBarLabel setTextColor:[UIColor redColor]];
+            [[self toolBarLabel] setText:@"Add another category"];
+            [[self toolBarLabel] setFont:[UIFont systemFontOfSize:18]];
+            [[self toolBarLabel] setAdjustsFontSizeToFitWidth:true];
+            self.toolBarLabel.transform = CGAffineTransformScale(self.toolBarLabel.transform, 1.1, 1.1);
+        } completion:^(BOOL finished) {
+            
+            [UIView animateWithDuration:0.5 animations:^{
+                self.toolBarLabel.transform = CGAffineTransformScale(self.toolBarLabel.transform, 1/1.1, 1/1.1);
+            }];
+        }];
     }
 }
 
