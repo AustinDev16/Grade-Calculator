@@ -103,7 +103,7 @@
         
     }
     
-    [self dismissViewControllerAnimated:self completion:nil];
+    [self dismissViewControllerAnimated:YES completion:nil];
     
     [[NSNotificationCenter defaultCenter] postNotificationName:@"ScoreUpdated" object:nil];
 }
@@ -113,7 +113,7 @@
     [self.nameTextField resignFirstResponder];
     [self.pointsEarnedField resignFirstResponder];
     [self.pointsPossibleField resignFirstResponder];
-    [self dismissViewControllerAnimated:self completion:nil];
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 -(void)setCourse:(Course *)course
