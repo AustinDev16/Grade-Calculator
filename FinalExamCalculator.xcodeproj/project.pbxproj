@@ -13,6 +13,7 @@
 		FA30CB6E1E85B84F00BD01C0 /* APSCategoryType.m in Sources */ = {isa = PBXBuildFile; fileRef = FA30CB6D1E85B84F00BD01C0 /* APSCategoryType.m */; };
 		FA4784161EB976680057118B /* APSOnboardingPageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FA4784151EB976680057118B /* APSOnboardingPageViewController.m */; };
 		FA8A87ED1E8369990053D648 /* APSScoreController.m in Sources */ = {isa = PBXBuildFile; fileRef = FA8A87EC1E8369990053D648 /* APSScoreController.m */; };
+		FA9EEFF91ED7453300D74A46 /* APSWelcomeScreenViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FA9EEFF81ED7453300D74A46 /* APSWelcomeScreenViewController.m */; };
 		FA9FD0751E8B1C9A0083265C /* APSEditScoreTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FA9FD0741E8B1C9A0083265C /* APSEditScoreTableViewController.m */; };
 		FABE7BB41EC4C98C0070377A /* APSOnboardingCustomViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FABE7BB31EC4C98C0070377A /* APSOnboardingCustomViewController.m */; };
 		FACB9F291EB3AFBC00F84882 /* APSAppearanceController.m in Sources */ = {isa = PBXBuildFile; fileRef = FACB9F281EB3AFBC00F84882 /* APSAppearanceController.m */; };
@@ -55,6 +56,8 @@
 		FA4784151EB976680057118B /* APSOnboardingPageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = APSOnboardingPageViewController.m; sourceTree = "<group>"; };
 		FA8A87EB1E8369990053D648 /* APSScoreController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = APSScoreController.h; sourceTree = "<group>"; };
 		FA8A87EC1E8369990053D648 /* APSScoreController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = APSScoreController.m; sourceTree = "<group>"; };
+		FA9EEFF71ED7453300D74A46 /* APSWelcomeScreenViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = APSWelcomeScreenViewController.h; sourceTree = "<group>"; };
+		FA9EEFF81ED7453300D74A46 /* APSWelcomeScreenViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = APSWelcomeScreenViewController.m; sourceTree = "<group>"; };
 		FA9FD0731E8B1C9A0083265C /* APSEditScoreTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = APSEditScoreTableViewController.h; sourceTree = "<group>"; };
 		FA9FD0741E8B1C9A0083265C /* APSEditScoreTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = APSEditScoreTableViewController.m; sourceTree = "<group>"; };
 		FABE7BB21EC4C98C0070377A /* APSOnboardingCustomViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = APSOnboardingCustomViewController.h; sourceTree = "<group>"; };
@@ -135,6 +138,8 @@
 			children = (
 				FABE7BB21EC4C98C0070377A /* APSOnboardingCustomViewController.h */,
 				FABE7BB31EC4C98C0070377A /* APSOnboardingCustomViewController.m */,
+				FA9EEFF71ED7453300D74A46 /* APSWelcomeScreenViewController.h */,
+				FA9EEFF81ED7453300D74A46 /* APSWelcomeScreenViewController.m */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -351,6 +356,7 @@
 				FAEC74981E80ACFA008236E9 /* APSCoreDataStack.m in Sources */,
 				FAFEBEB71E95AF9E0042B70C /* Course+CourseCategory.m in Sources */,
 				FA4784161EB976680057118B /* APSOnboardingPageViewController.m in Sources */,
+				FA9EEFF91ED7453300D74A46 /* APSWelcomeScreenViewController.m in Sources */,
 				FAEC74951E80AC87008236E9 /* APSPersistenceController.m in Sources */,
 				FAEC746B1E803FC5008236E9 /* APSClassesTableViewController.m in Sources */,
 				FAEC74901E80A9A2008236E9 /* Category+CoreDataProperties.m in Sources */,

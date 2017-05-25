@@ -8,16 +8,21 @@
 
 #import "APSOnboardingPageViewController.h"
 #import "APSOnboardingCustomViewController.h"
+#import "APSAppearanceController.h"
+#import "APSWelcomeScreenViewController.h"
 
 @interface APSOnboardingPageViewController () <UIPageViewControllerDelegate, UIPageViewControllerDataSource>
 
 @property (nonatomic, strong) NSArray<UIViewController *> *viewControllerArray;
+@property (nonatomic, strong) UIButton *bottomButton;
+
 
 @end
 
 @implementation APSOnboardingPageViewController
 
 @synthesize viewControllerArray;
+@synthesize bottomButton;
 
 -(void)configurePageController
 {
@@ -32,17 +37,21 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    [self.view setBackgroundColor:[UIColor groupTableViewBackgroundColor]];
+    
+    [[UIPageControl appearance] setPageIndicatorTintColor: [UIColor lightGrayColor]];
+    [[UIPageControl appearance] setCurrentPageIndicatorTintColor: [[APSAppearanceController shared] blueColor]];
+    [[UIPageControl appearance] setTintColor: [UIColor blackColor]];
+    [[UIPageControl appearance] setBackgroundColor:[UIColor groupTableViewBackgroundColor]];
+    
+    [self addBottomButton];
 
-
-}
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 -(void)fillViewControllerArray
 {
+    APSWelcomeScreenViewController *welcome = [[APSWelcomeScreenViewController alloc] init];
+    
     APSOnboardingCustomViewController *classes = [[APSOnboardingCustomViewController alloc] init];
     [classes updateWithText:@"Manage all the courses you're taking. Add, edit, delete, or tap a course for more detail." andImage:[UIImage imageNamed:@"Classes"]];
     
@@ -62,12 +71,85 @@
     [setCategories updateWithText:@"Next, add categories and set their weights. Make sure the weights add up to 100%." andImage:[UIImage imageNamed:@"SetCategories"]];
 
 
-    NSArray *array = [NSArray arrayWithObjects:classes, addNewCourse, setCategories, addAScore, scoresSummary, dashboardView, nil];
+    NSArray *array = [NSArray arrayWithObjects:welcome, classes, addNewCourse, setCategories, addAScore, scoresSummary, dashboardView, nil];
     [self setViewControllerArray:array];
 }
+
+-(void) addBottomButton
+{
+    if (!self.bottomButton) {
+        [self setBottomButton:[UIButton buttonWithType:UIButtonTypeRoundedRect]];
+    }
+    
+    [self.bottomButton setTitle:@"Skip Intro" forState:UIControlStateNormal];
+    [self.bottomButton setTintColor:[UIColor redColor]];
+    
+    [self.view addSubview:bottomButton];
+    [bottomButton setTranslatesAutoresizingMaskIntoConstraints:false];
+    
+    NSLayoutConstraint *trailingBB = [NSLayoutConstraint
+                                    constraintWithItem:bottomButton
+                                    attribute:NSLayoutAttributeTrailing
+                                      relatedBy:NSLayoutRelationEqual
+                                      toItem:self.view
+                                      attribute:NSLayoutAttributeTrailing
+                                      multiplier:1.0 constant:-8];
+    NSLayoutConstraint *bottomBB = [NSLayoutConstraint
+                                    constraintWithItem:bottomButton
+                                    attribute:NSLayoutAttributeBottom
+                                    relatedBy:NSLayoutRelationEqual
+                                    toItem:self.view
+                                    attribute:NSLayoutAttributeBottom
+                                    multiplier:1.0 constant:-4];
+    NSLayoutConstraint *heightBB = [NSLayoutConstraint
+                                    constraintWithItem:bottomButton
+                                    attribute:NSLayoutAttributeHeight
+                                    relatedBy:NSLayoutRelationEqual
+                                    toItem:self.view
+                                    attribute:NSLayoutAttributeHeight
+                                    multiplier:0 constant:30];
+    NSLayoutConstraint *widthBB = [NSLayoutConstraint
+                                   constraintWithItem:bottomButton
+                                   attribute:NSLayoutAttributeWidth
+                                   relatedBy:NSLayoutRelationEqual
+                                   toItem:self.view
+                                   attribute:NSLayoutAttributeWidth
+                                   multiplier:0.0 constant:80];
+    [self.view addConstraints:@[trailingBB, bottomBB, heightBB, widthBB]];
+    
+    [bottomButton addTarget:self action:@selector(skipButtonTapped) forControlEvents:UIControlEventTouchUpInside];
+}
+
+-(void)skipButtonTapped
+{
+    NSLog(@"skip tapped");
+    
+    [UIView animateWithDuration:2.0 animations:^{
+        [self.view setBackgroundColor:[UIColor blackColor]];
+    } completion:^(BOOL finished) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"OnboardingFinished" object:nil];
+    }];
+    
+    
+}
+
+-(void)updateButtonTextFromNotification:(NSNotification *)notif
+{
+    [bottomButton setEnabled:false];
+}
+
 #pragma mark Delegate
 
+-(NSInteger)presentationCountForPageViewController:(UIPageViewController *)pageViewController
+{
+    return [self.viewControllerArray count];
+}
 
+-(NSInteger)presentationIndexForPageViewController:(UIPageViewController *)pageViewController
+{
+    APSOnboardingCustomViewController *vc = [[pageViewController viewControllers] firstObject];
+    return [self.viewControllerArray indexOfObject:vc];
+}
 #pragma mark Data source
 
 - (nullable UIViewController *)pageViewController:(UIPageViewController *)pageViewController viewControllerBeforeViewController:(UIViewController *)viewController
@@ -89,17 +171,6 @@
         return nil;
     }
 }
-
-- (NSInteger)presentationCountForPageViewController:(UIPageViewController *)pageViewController
-{
-    return [self.viewControllerArray count];
-}
-
-- (NSInteger)presentationIndexForPageViewController:(UIPageViewController *)pageViewController
-{
-    return 1;
-}
-
 
 
 @end

@@ -31,6 +31,18 @@
     }
 }
 
+-(void)launchMainViewAfterOnboarding
+{
+    UITableViewController *tvc = [[APSClassesTableViewController alloc] initWithStyle:UITableViewStylePlain];
+    
+    UINavigationController *nc = [[UINavigationController alloc] initWithRootViewController:tvc];
+    
+
+    [self.window setRootViewController:nc];
+    
+    [self.window makeKeyAndVisible];
+}
+
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
     
@@ -38,7 +50,7 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(CoreDataReadyNotified) name:@"CoreDataStoreReady" object:nil];
     
-    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(launchMainViewAfterOnboarding) name:@"OnboardingFinished" object:nil];
     
     [[APSCoreDataStack shared] initializeCoreData];
     
@@ -53,20 +65,19 @@
     UINavigationController *nc = [[UINavigationController alloc] initWithRootViewController:tvc];
     
     //For Testing onboarding
-    
-    APSOnboardingCustomViewController *test = [[APSOnboardingCustomViewController alloc] init];
     NSDictionary * options = [NSDictionary dictionaryWithObject:
                               [NSNumber numberWithInt:UIPageViewControllerSpineLocationMax]
                                                          forKey:UIPageViewControllerOptionSpineLocationKey];
     
     APSOnboardingPageViewController *testPageController = [[APSOnboardingPageViewController alloc] initWithTransitionStyle:UIPageViewControllerTransitionStyleScroll navigationOrientation:UIPageViewControllerNavigationOrientationHorizontal options:options];
     [testPageController configurePageController];
+
+    
+    
     
     [window setRootViewController:testPageController];
     
     [window makeKeyAndVisible];
-    [test updateWithText:@"Get a bird's eye view of all the courses you've saved. Add, edit, and delete whole courses from here. Tap a course for more detail." andImage:nil];
-    
     
     [APSAppearanceController.shared appWideAppearanceSettings];
     
