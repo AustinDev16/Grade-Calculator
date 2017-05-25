@@ -38,15 +38,13 @@
     // Dispose of any resources that can be recreated.
 }
 
--(void)updateWithText:(NSString *)text andImage:(UIImage *)image
+-(void)updateWithText:(NSString *)text andImage:(UIImage *)imageForView
 {
-    [self.instructionLabel setText:text];
+    //[self.instructionLabel setText:text];
     [self setInstructionText:text];
     
-    //For Testing
-    UIImage *testImage = [UIImage imageNamed:@"Classes"];
-    [self setImage:testImage];
-    [imageView setImage:testImage];
+    [self setImage:imageForView];
+    //[imageView setImage:testImage];
 }
 
 -(void)configureView

@@ -10,6 +10,6 @@
 
 @interface APSOnboardingCustomViewController : UIViewController
 
--(void)updateWithText:(NSString *)text andImage:(UIImage *)image;
+-(void)updateWithText:(NSString *)text andImage:(UIImage *)imageForView;
 
 @end

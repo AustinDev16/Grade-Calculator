@@ -59,7 +59,7 @@
                               [NSNumber numberWithInt:UIPageViewControllerSpineLocationMax]
                                                          forKey:UIPageViewControllerOptionSpineLocationKey];
     
-    APSOnboardingPageViewController *testPageController = [[APSOnboardingPageViewController alloc] initWithTransitionStyle:UIPageViewControllerTransitionStylePageCurl navigationOrientation:UIPageViewControllerNavigationOrientationHorizontal options:options];
+    APSOnboardingPageViewController *testPageController = [[APSOnboardingPageViewController alloc] initWithTransitionStyle:UIPageViewControllerTransitionStyleScroll navigationOrientation:UIPageViewControllerNavigationOrientationHorizontal options:options];
     [testPageController configurePageController];
     
     [window setRootViewController:testPageController];

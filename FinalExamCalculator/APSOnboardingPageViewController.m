@@ -43,21 +43,26 @@
 
 -(void)fillViewControllerArray
 {
-    NSMutableArray<APSOnboardingCustomViewController *> *array = [NSMutableArray new];
+    APSOnboardingCustomViewController *classes = [[APSOnboardingCustomViewController alloc] init];
+    [classes updateWithText:@"Get a bird's eye view of all the courses you've saved. Add, edit, and delete whole courses from here. Tap a course for more detail." andImage:[UIImage imageNamed:@"Classes"]];
     
-    APSOnboardingCustomViewController *first = [[APSOnboardingCustomViewController alloc] init];
-    [first updateWithText:@"Get a bird's eye view of all the courses you've saved. Add, edit, and delete whole courses from here. Tap a course for more detail." andImage:nil];
+    APSOnboardingCustomViewController *addNewCourse = [[APSOnboardingCustomViewController alloc] init];
+    [addNewCourse updateWithText:@"Get a bird's eye view of all the courses you've saved. Add, edit, and delete whole courses from here. Tap a course for more detail." andImage:[UIImage imageNamed:@"AddNewCourse"]];
+    
+    APSOnboardingCustomViewController *addAScore = [[APSOnboardingCustomViewController alloc] init];
+    [addAScore updateWithText:@"asdf" andImage:[UIImage imageNamed:@"AddAScore"]];
+    
+    APSOnboardingCustomViewController *dashboardView = [[APSOnboardingCustomViewController alloc] init];
+    [dashboardView updateWithText:@"asdf" andImage:[UIImage imageNamed:@"DashboardView"]];
+    
+    APSOnboardingCustomViewController *scoresSummary = [[APSOnboardingCustomViewController alloc] init];
+    [scoresSummary updateWithText:@"asdf" andImage:[UIImage imageNamed:@"ScoresSummary"]];
+    
+    APSOnboardingCustomViewController *setCategories = [[APSOnboardingCustomViewController alloc] init];
+    [setCategories updateWithText:@"asldfj" andImage:[UIImage imageNamed:@"SetCategories"]];
 
-    
-    [array addObject:first];
-    
-    APSOnboardingCustomViewController *second = [[APSOnboardingCustomViewController alloc] init];
-    [second updateWithText:@"Get a bird's eye view of all the courses you've saved. Add, edit, and delete whole courses from here. Tap a course for more detail." andImage:nil];
-    
-    
-    [array addObject:second];
 
-    
+    NSArray *array = [NSArray arrayWithObjects:classes, addNewCourse, dashboardView, setCategories, addAScore, scoresSummary, nil];
     [self setViewControllerArray:array];
 }
 #pragma mark Delegate
