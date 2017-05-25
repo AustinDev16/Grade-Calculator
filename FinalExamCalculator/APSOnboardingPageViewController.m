@@ -131,6 +131,8 @@
     [nc setModalTransitionStyle:UIModalTransitionStyleFlipHorizontal];
     [self presentViewController:nc animated:true completion:nil];
     
+    [[NSUserDefaults standardUserDefaults] setBool:true forKey:@"HasOnboarded"];
+    
     
 }
 

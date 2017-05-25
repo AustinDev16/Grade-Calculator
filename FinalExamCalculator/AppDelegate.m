@@ -49,31 +49,35 @@
     
     
     [[APSCoreDataStack shared] initializeCoreData];
-    
-
-    
-    
-    
     UIWindow *window = [[UIWindow alloc] initWithFrame: [[UIScreen mainScreen] bounds]];
-    
-    UITableViewController *tvc = [[APSClassesTableViewController alloc] initWithStyle:UITableViewStylePlain];
-    
-    UINavigationController *nc = [[UINavigationController alloc] initWithRootViewController:tvc];
-    
-    //For Testing onboarding
-    NSDictionary * options = [NSDictionary dictionaryWithObject:
-                              [NSNumber numberWithInt:UIPageViewControllerSpineLocationMax]
-                                                         forKey:UIPageViewControllerOptionSpineLocationKey];
-    
-    APSOnboardingPageViewController *testPageController = [[APSOnboardingPageViewController alloc] initWithTransitionStyle:UIPageViewControllerTransitionStyleScroll navigationOrientation:UIPageViewControllerNavigationOrientationHorizontal options:options];
-    [testPageController configurePageController];
 
     
     
     
-    [window setRootViewController:testPageController];
+    //Onboarding
+    if (![[NSUserDefaults standardUserDefaults] boolForKey:@"HasOnboarded"]){
+        NSDictionary * options = [NSDictionary dictionaryWithObject:
+                                  [NSNumber numberWithInt:UIPageViewControllerSpineLocationMax]
+                                                             forKey:UIPageViewControllerOptionSpineLocationKey];
+        
+        APSOnboardingPageViewController *testPageController = [[APSOnboardingPageViewController alloc] initWithTransitionStyle:UIPageViewControllerTransitionStyleScroll navigationOrientation:UIPageViewControllerNavigationOrientationHorizontal options:options];
+        [testPageController configurePageController];
+        
+        
+        
+        
+        [window setRootViewController:testPageController];
+        
+        [window makeKeyAndVisible];
+
+    } else {
+        UITableViewController *tvc = [[APSClassesTableViewController alloc] initWithStyle:UITableViewStylePlain];
+        UINavigationController *nc = [[UINavigationController alloc] initWithRootViewController:tvc];
+        
+        [window setRootViewController:nc];
+        [window makeKeyAndVisible];
+    }
     
-    [window makeKeyAndVisible];
     
     [APSAppearanceController.shared appWideAppearanceSettings];
     
