@@ -121,7 +121,7 @@
                                         toItem:self.view
                                         attribute:NSLayoutAttributeBottom
                                         multiplier:1.0
-                                        constant:-30];
+                                        constant:0];
     NSLayoutConstraint *imageViewHeight = [NSLayoutConstraint
                                            constraintWithItem:imageView
                                            attribute:NSLayoutAttributeHeight

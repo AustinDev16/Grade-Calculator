@@ -44,25 +44,25 @@
 -(void)fillViewControllerArray
 {
     APSOnboardingCustomViewController *classes = [[APSOnboardingCustomViewController alloc] init];
-    [classes updateWithText:@"Get a bird's eye view of all the courses you've saved. Add, edit, and delete whole courses from here. Tap a course for more detail." andImage:[UIImage imageNamed:@"Classes"]];
+    [classes updateWithText:@"Manage all the courses you're taking. Add, edit, delete, or tap a course for more detail." andImage:[UIImage imageNamed:@"Classes"]];
     
     APSOnboardingCustomViewController *addNewCourse = [[APSOnboardingCustomViewController alloc] init];
-    [addNewCourse updateWithText:@"Get a bird's eye view of all the courses you've saved. Add, edit, and delete whole courses from here. Tap a course for more detail." andImage:[UIImage imageNamed:@"AddNewCourse"]];
+    [addNewCourse updateWithText:@"Adding a new course is simple: just tap the + button and give it a name." andImage:[UIImage imageNamed:@"AddNewCourse"]];
     
     APSOnboardingCustomViewController *addAScore = [[APSOnboardingCustomViewController alloc] init];
-    [addAScore updateWithText:@"asdf" andImage:[UIImage imageNamed:@"AddAScore"]];
+    [addAScore updateWithText:@"Now, enter your scores for that class. Do it all at once, or as the semester progresses." andImage:[UIImage imageNamed:@"AddAScore"]];
     
     APSOnboardingCustomViewController *dashboardView = [[APSOnboardingCustomViewController alloc] init];
-    [dashboardView updateWithText:@"asdf" andImage:[UIImage imageNamed:@"DashboardView"]];
+    [dashboardView updateWithText:@"Finally, select your desired grade to see how well you'll have to do on your final to get it." andImage:[UIImage imageNamed:@"DashboardView"]];
     
     APSOnboardingCustomViewController *scoresSummary = [[APSOnboardingCustomViewController alloc] init];
-    [scoresSummary updateWithText:@"asdf" andImage:[UIImage imageNamed:@"ScoresSummary"]];
+    [scoresSummary updateWithText:@"Your scores are saved on your iPhone, so you can see all your assignments, anytime." andImage:[UIImage imageNamed:@"ScoresSummary"]];
     
     APSOnboardingCustomViewController *setCategories = [[APSOnboardingCustomViewController alloc] init];
-    [setCategories updateWithText:@"asldfj" andImage:[UIImage imageNamed:@"SetCategories"]];
+    [setCategories updateWithText:@"Next, add categories and set their weights. Make sure the weights add up to 100%." andImage:[UIImage imageNamed:@"SetCategories"]];
 
 
-    NSArray *array = [NSArray arrayWithObjects:classes, addNewCourse, dashboardView, setCategories, addAScore, scoresSummary, nil];
+    NSArray *array = [NSArray arrayWithObjects:classes, addNewCourse, setCategories, addAScore, scoresSummary, dashboardView, nil];
     [self setViewControllerArray:array];
 }
 #pragma mark Delegate
