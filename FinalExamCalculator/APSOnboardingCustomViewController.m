@@ -62,6 +62,14 @@
     
     [imageView setContentMode:UIViewContentModeScaleAspectFit ];
     [imageView setImage:self.image];
+   
+    imageView.layer.masksToBounds = NO;
+    imageView.layer.shadowColor = [UIColor lightGrayColor].CGColor;
+    
+    imageView.layer.shadowOffset = CGSizeZero;
+    imageView.layer.shadowRadius = 10.0f;
+    
+    imageView.layer.shadowOpacity = 1.0f;
     
     [self.view addSubview:self.imageView];
     [self.view addSubview:instructionLabel];
