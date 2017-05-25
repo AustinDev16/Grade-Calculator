@@ -22,7 +22,7 @@
 {
     
     // Courses
-    [[[APSAppDataController shared] courseController] addNewCourseWithName:@"Algebra"];
+    [[[APSAppDataController shared] courseController] addNewCourseWithName:@"Algebra - SAMPLE COURSE - Swipe to delete."];
     //[[[APSAppDataController shared] courseController] addNewCourseWithName:@"English"];
     
     

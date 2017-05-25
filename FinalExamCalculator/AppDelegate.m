@@ -31,16 +31,13 @@
     }
 }
 
--(void)launchMainViewAfterOnboarding
++(UINavigationController *)navigationControllerToPresentAfterOnboarding
 {
     UITableViewController *tvc = [[APSClassesTableViewController alloc] initWithStyle:UITableViewStylePlain];
     
     UINavigationController *nc = [[UINavigationController alloc] initWithRootViewController:tvc];
     
-
-    [self.window setRootViewController:nc];
-    
-    [self.window makeKeyAndVisible];
+    return nc;
 }
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
@@ -50,7 +47,6 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(CoreDataReadyNotified) name:@"CoreDataStoreReady" object:nil];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(launchMainViewAfterOnboarding) name:@"OnboardingFinished" object:nil];
     
     [[APSCoreDataStack shared] initializeCoreData];
     

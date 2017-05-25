@@ -10,6 +10,7 @@
 #import "APSOnboardingCustomViewController.h"
 #import "APSAppearanceController.h"
 #import "APSWelcomeScreenViewController.h"
+#import "AppDelegate.h"
 
 @interface APSOnboardingPageViewController () <UIPageViewControllerDelegate, UIPageViewControllerDataSource>
 
@@ -28,7 +29,7 @@
 {
     [self fillViewControllerArray];
         [self setViewControllers:@[[self.viewControllerArray firstObject]] direction:UIPageViewControllerNavigationDirectionForward animated:true completion:nil];
-    [self setDelegate:self];
+   // [self setDelegate:self];
     [self setDataSource:self];
     
 
@@ -82,7 +83,7 @@
     }
     
     [self.bottomButton setTitle:@"Skip Intro" forState:UIControlStateNormal];
-    [self.bottomButton setTintColor:[UIColor redColor]];
+    [self.bottomButton setTintColor:[[APSAppearanceController shared] redColor]];
     
     [self.view addSubview:bottomButton];
     [bottomButton setTranslatesAutoresizingMaskIntoConstraints:false];
@@ -124,11 +125,11 @@
 {
     NSLog(@"skip tapped");
     
-    [UIView animateWithDuration:2.0 animations:^{
-        [self.view setBackgroundColor:[UIColor blackColor]];
-    } completion:^(BOOL finished) {
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"OnboardingFinished" object:nil];
-    }];
+    UINavigationController *nc = [AppDelegate navigationControllerToPresentAfterOnboarding];
+    
+    [nc setModalPresentationStyle:UIModalPresentationFullScreen];
+    [nc setModalTransitionStyle:UIModalTransitionStyleFlipHorizontal];
+    [self presentViewController:nc animated:true completion:nil];
     
     
 }
@@ -148,7 +149,13 @@
 -(NSInteger)presentationIndexForPageViewController:(UIPageViewController *)pageViewController
 {
     APSOnboardingCustomViewController *vc = [[pageViewController viewControllers] firstObject];
-    return [self.viewControllerArray indexOfObject:vc];
+    NSInteger index = [self.viewControllerArray indexOfObject:vc];
+    if (index == [self.viewControllerArray count] - 1){
+        
+    } else {
+        [bottomButton setTitle:@"Skip Intro" forState:UIControlStateNormal];
+    }
+    return index;
 }
 #pragma mark Data source
 
@@ -156,6 +163,9 @@
 {
     NSInteger index = [self.viewControllerArray indexOfObject:viewController];
     if (index != 0){
+        if (index == 1){
+            [self.bottomButton setTitle:@"Skip Intro" forState:UIControlStateNormal];
+        }
         return [self.viewControllerArray objectAtIndex:index - 1];
     } else {
         return nil;
@@ -166,6 +176,10 @@
 {
     NSInteger index = [self.viewControllerArray indexOfObject:viewController];
     if (index != [self.viewControllerArray count] - 1){
+        [self.bottomButton setTitle:@"Skip Intro" forState:UIControlStateNormal];
+        if (index == [self.viewControllerArray count] - 2){
+            [bottomButton setTitle:@"Get Started" forState:UIControlStateNormal];
+        }
         return [self.viewControllerArray objectAtIndex:index + 1];
     } else {
         return nil;

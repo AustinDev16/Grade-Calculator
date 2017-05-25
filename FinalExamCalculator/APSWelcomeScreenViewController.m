@@ -7,28 +7,33 @@
 //
 
 #import "APSWelcomeScreenViewController.h"
+#import "APSAppearanceController.h"
 
 @interface APSWelcomeScreenViewController ()
 
 @property (nonatomic, strong) UILabel *welcomeLabel;
 @property (nonatomic, strong) UILabel *descriptionLabel;
+@property BOOL hasDisplayedOnce;
 
 @end
 
 @implementation APSWelcomeScreenViewController
 @synthesize welcomeLabel;
 @synthesize descriptionLabel;
+@synthesize hasDisplayedOnce;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     [self configureView];
+    [self setHasDisplayedOnce:false];
     
 }
 
 -(void)viewDidAppear:(BOOL)animated
 {
-        [UIView animateWithDuration:1.0 delay:0.8 options:UIViewAnimationOptionCurveEaseOut animations:^{
+    if (!hasDisplayedOnce){
+    [UIView animateWithDuration:1.0 delay:0.8 options:UIViewAnimationOptionCurveEaseOut animations:^{
             
             CGRect finalWelcome = CGRectMake(self.view.frame.origin.x + 8, self.view.frame.size.height/7.0, self.view.frame.size.width - 16, 60);
             
@@ -43,11 +48,13 @@
                 
                 [descriptionLabel setAlpha:1.0];
                 
-            } completion:nil];
+            } completion:^(BOOL finished){
+                [self setHasDisplayedOnce:true];
+            }];
 
         }];
         
-        
+    }
     
 }
 
@@ -58,8 +65,8 @@
         [self setWelcomeLabel:[[UILabel alloc] init]];
     }
     
-    [welcomeLabel setText:@"Welcome to Final Exam"];
-    [welcomeLabel setTextColor:[UIColor blackColor]];
+    [welcomeLabel setText:@"Welcome"];
+    [welcomeLabel setTextColor:[[APSAppearanceController shared] blueColor]];
     [welcomeLabel setTextAlignment:NSTextAlignmentCenter];
     [welcomeLabel setFont:[UIFont boldSystemFontOfSize:36]];
     [welcomeLabel setAdjustsFontSizeToFitWidth:true];
@@ -78,7 +85,7 @@
         [self setDescriptionLabel:[[UILabel alloc] init]];
     }
     
-    [descriptionLabel setText:@"asdlfj asdkfj ajjs asjfdsj ajskfj ajskjdf jaksj ajiwjej jieji jijdkj fjie"];
+    [descriptionLabel setText:@"Swipe through this introduction to see how to get started with some of the great features of FinalExam.\n\nOr tap 'Skip Intro' to get started right away."];
     [descriptionLabel setTextColor:[UIColor blackColor]];
     [descriptionLabel setTextAlignment:NSTextAlignmentCenter];
     [descriptionLabel setNumberOfLines:0];
@@ -109,7 +116,7 @@
                                    relatedBy:NSLayoutRelationEqual
                                    toItem:self.view
                                    attribute:NSLayoutAttributeWidth
-                                   multiplier:1.0 constant:-16];
+                                   multiplier:1.0 constant:-60];
     [self.view addConstraints:@[centerX, centerY, widthDL]];
 }
 
