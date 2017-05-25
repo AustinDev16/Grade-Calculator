@@ -11,8 +11,10 @@
 		FA1BFF881E84887B00A1228C /* Score+ScoreCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = FA1BFF871E84887B00A1228C /* Score+ScoreCategory.m */; };
 		FA2848C21E93334D0084F11C /* APSCategoryStepperTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FA2848C11E93334D0084F11C /* APSCategoryStepperTableViewCell.m */; };
 		FA30CB6E1E85B84F00BD01C0 /* APSCategoryType.m in Sources */ = {isa = PBXBuildFile; fileRef = FA30CB6D1E85B84F00BD01C0 /* APSCategoryType.m */; };
+		FA4784161EB976680057118B /* APSOnboardingPageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FA4784151EB976680057118B /* APSOnboardingPageViewController.m */; };
 		FA8A87ED1E8369990053D648 /* APSScoreController.m in Sources */ = {isa = PBXBuildFile; fileRef = FA8A87EC1E8369990053D648 /* APSScoreController.m */; };
 		FA9FD0751E8B1C9A0083265C /* APSEditScoreTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FA9FD0741E8B1C9A0083265C /* APSEditScoreTableViewController.m */; };
+		FABE7BB41EC4C98C0070377A /* APSOnboardingCustomViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FABE7BB31EC4C98C0070377A /* APSOnboardingCustomViewController.m */; };
 		FACB9F291EB3AFBC00F84882 /* APSAppearanceController.m in Sources */ = {isa = PBXBuildFile; fileRef = FACB9F281EB3AFBC00F84882 /* APSAppearanceController.m */; };
 		FACB9F2C1EB3D9C200F84882 /* UITableViewCell+APSCustomColorDisclosure.m in Sources */ = {isa = PBXBuildFile; fileRef = FACB9F2B1EB3D9C200F84882 /* UITableViewCell+APSCustomColorDisclosure.m */; };
 		FACF84741E9BEBB300C186C5 /* APSReassignScoresViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FACF84731E9BEBB300C186C5 /* APSReassignScoresViewController.m */; };
@@ -49,10 +51,14 @@
 		FA2848C11E93334D0084F11C /* APSCategoryStepperTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = APSCategoryStepperTableViewCell.m; sourceTree = "<group>"; };
 		FA30CB6C1E85B84F00BD01C0 /* APSCategoryType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = APSCategoryType.h; sourceTree = "<group>"; };
 		FA30CB6D1E85B84F00BD01C0 /* APSCategoryType.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = APSCategoryType.m; sourceTree = "<group>"; };
+		FA4784141EB976680057118B /* APSOnboardingPageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = APSOnboardingPageViewController.h; sourceTree = "<group>"; };
+		FA4784151EB976680057118B /* APSOnboardingPageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = APSOnboardingPageViewController.m; sourceTree = "<group>"; };
 		FA8A87EB1E8369990053D648 /* APSScoreController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = APSScoreController.h; sourceTree = "<group>"; };
 		FA8A87EC1E8369990053D648 /* APSScoreController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = APSScoreController.m; sourceTree = "<group>"; };
 		FA9FD0731E8B1C9A0083265C /* APSEditScoreTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = APSEditScoreTableViewController.h; sourceTree = "<group>"; };
 		FA9FD0741E8B1C9A0083265C /* APSEditScoreTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = APSEditScoreTableViewController.m; sourceTree = "<group>"; };
+		FABE7BB21EC4C98C0070377A /* APSOnboardingCustomViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = APSOnboardingCustomViewController.h; sourceTree = "<group>"; };
+		FABE7BB31EC4C98C0070377A /* APSOnboardingCustomViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = APSOnboardingCustomViewController.m; sourceTree = "<group>"; };
 		FACB9F271EB3AFBC00F84882 /* APSAppearanceController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = APSAppearanceController.h; sourceTree = "<group>"; };
 		FACB9F281EB3AFBC00F84882 /* APSAppearanceController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = APSAppearanceController.m; sourceTree = "<group>"; };
 		FACB9F2A1EB3D9C200F84882 /* UITableViewCell+APSCustomColorDisclosure.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITableViewCell+APSCustomColorDisclosure.h"; sourceTree = "<group>"; };
@@ -114,6 +120,25 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		FA4784131EB9760A0057118B /* Onboarding */ = {
+			isa = PBXGroup;
+			children = (
+				FABE7BB11EC4C93B0070377A /* ViewControllers */,
+				FA4784141EB976680057118B /* APSOnboardingPageViewController.h */,
+				FA4784151EB976680057118B /* APSOnboardingPageViewController.m */,
+			);
+			name = Onboarding;
+			sourceTree = "<group>";
+		};
+		FABE7BB11EC4C93B0070377A /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				FABE7BB21EC4C98C0070377A /* APSOnboardingCustomViewController.h */,
+				FABE7BB31EC4C98C0070377A /* APSOnboardingCustomViewController.m */,
+			);
+			name = ViewControllers;
+			sourceTree = "<group>";
+		};
 		FAD48AA01E8038EE003050B3 = {
 			isa = PBXGroup;
 			children = (
@@ -134,6 +159,7 @@
 		FAD48AAB1E8038EE003050B3 /* FinalExamCalculator */ = {
 			isa = PBXGroup;
 			children = (
+				FA4784131EB9760A0057118B /* Onboarding */,
 				FAEC74701E8047A6008236E9 /* ModelController */,
 				FAEC746C1E804039008236E9 /* Model */,
 				FAEC749F1E81D424008236E9 /* View Controllers */,
@@ -309,6 +335,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				FA30CB6E1E85B84F00BD01C0 /* APSCategoryType.m in Sources */,
+				FABE7BB41EC4C98C0070377A /* APSOnboardingCustomViewController.m in Sources */,
 				FAEC749B1E8189CB008236E9 /* APSAppDataController.m in Sources */,
 				FAD48AC51E803E79003050B3 /* APSScoresTableViewController.m in Sources */,
 				FAD48AB11E8038EE003050B3 /* AppDelegate.m in Sources */,
@@ -323,6 +350,7 @@
 				FA14632B1E901D0900D56D00 /* APSWeightsViewController.m in Sources */,
 				FAEC74981E80ACFA008236E9 /* APSCoreDataStack.m in Sources */,
 				FAFEBEB71E95AF9E0042B70C /* Course+CourseCategory.m in Sources */,
+				FA4784161EB976680057118B /* APSOnboardingPageViewController.m in Sources */,
 				FAEC74951E80AC87008236E9 /* APSPersistenceController.m in Sources */,
 				FAEC746B1E803FC5008236E9 /* APSClassesTableViewController.m in Sources */,
 				FAEC74901E80A9A2008236E9 /* Category+CoreDataProperties.m in Sources */,

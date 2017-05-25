@@ -14,6 +14,8 @@
 #import "APSMockDataController.h"
 #import "APSAppDataController.h"
 #import "APSAppearanceController.h"
+#import "APSOnboardingCustomViewController.h"
+#import "APSOnboardingPageViewController.h"
 
 @interface AppDelegate ()
 
@@ -50,9 +52,21 @@
     
     UINavigationController *nc = [[UINavigationController alloc] initWithRootViewController:tvc];
     
-    [window setRootViewController:nc];
+    //For Testing onboarding
+    
+    APSOnboardingCustomViewController *test = [[APSOnboardingCustomViewController alloc] init];
+    NSDictionary * options = [NSDictionary dictionaryWithObject:
+                              [NSNumber numberWithInt:UIPageViewControllerSpineLocationMax]
+                                                         forKey:UIPageViewControllerOptionSpineLocationKey];
+    
+    APSOnboardingPageViewController *testPageController = [[APSOnboardingPageViewController alloc] initWithTransitionStyle:UIPageViewControllerTransitionStylePageCurl navigationOrientation:UIPageViewControllerNavigationOrientationHorizontal options:options];
+    [testPageController configurePageController];
+    
+    [window setRootViewController:testPageController];
     
     [window makeKeyAndVisible];
+    [test updateWithText:@"Get a bird's eye view of all the courses you've saved. Add, edit, and delete whole courses from here. Tap a course for more detail." andImage:nil];
+    
     
     [APSAppearanceController.shared appWideAppearanceSettings];
     
