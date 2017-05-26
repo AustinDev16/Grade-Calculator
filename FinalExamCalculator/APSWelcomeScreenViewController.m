@@ -8,11 +8,14 @@
 
 #import "APSWelcomeScreenViewController.h"
 #import "APSAppearanceController.h"
+#import <QuartzCore/QuartzCore.h>
 
 @interface APSWelcomeScreenViewController ()
 
 @property (nonatomic, strong) UILabel *welcomeLabel;
 @property (nonatomic, strong) UILabel *descriptionLabel;
+@property (nonatomic, strong) UIImageView *iconImageView;
+@property (nonatomic, strong) UIView *iconContainingView;
 @property BOOL hasDisplayedOnce;
 
 @end
@@ -21,6 +24,8 @@
 @synthesize welcomeLabel;
 @synthesize descriptionLabel;
 @synthesize hasDisplayedOnce;
+@synthesize iconImageView;
+@synthesize iconContainingView;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -33,29 +38,51 @@
 -(void)viewDidAppear:(BOOL)animated
 {
     if (!hasDisplayedOnce){
-    [UIView animateWithDuration:1.0 delay:0.8 options:UIViewAnimationOptionCurveEaseOut animations:^{
+        
+        [UIView animateWithDuration:0.8 delay: 0.1 options: UIViewAnimationOptionCurveEaseIn animations:^{
             
-            CGRect finalWelcome = CGRectMake(self.view.frame.origin.x + 8, self.view.frame.size.height/7.0, self.view.frame.size.width - 16, 60);
-            
-            [welcomeLabel setFrame:finalWelcome];
+            [welcomeLabel setAlpha:1.0];
+            [iconContainingView setAlpha:1.0];
             
             
         } completion:^(BOOL finished) {
-
-            [self addDescription];
-            
-            [UIView animateWithDuration:0.6 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
-                
-                [descriptionLabel setAlpha:1.0];
-                
-            } completion:^(BOOL finished){
-                [self setHasDisplayedOnce:true];
-            }];
-
+            [self animateWelcomeToDescriptionText];
         }];
+        
+
         
     }
     
+}
+
+-(void)animateWelcomeToDescriptionText
+{
+    
+    [UIView animateWithDuration:1.0 delay:0.4 options:UIViewAnimationOptionCurveEaseOut animations:^{
+        
+        CGRect finalWelcome = CGRectMake(self.view.frame.origin.x + 8, self.view.frame.size.height/7.0, self.view.frame.size.width - 16, 60);
+        
+        [welcomeLabel setFrame:finalWelcome];
+        
+        
+        CGFloat centerXOfView = self.view.center.x;
+        
+        CGRect iconImageFinalFrame = CGRectMake(centerXOfView - 50, self.view.frame.size.height - 160, 100, 100);
+        
+        [iconContainingView setFrame:iconImageFinalFrame];
+    } completion:^(BOOL finished) {
+        
+        [self addDescription];
+        
+        [UIView animateWithDuration:0.4 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
+            
+            [descriptionLabel setAlpha:1.0];
+            
+        } completion:^(BOOL finished){
+            [self setHasDisplayedOnce:true];
+        }];
+        
+    }];
 }
 
 
@@ -73,10 +100,48 @@
     
     [self.view addSubview:welcomeLabel];
     
- 
-    CGRect initialFrame = CGRectMake(self.view.frame.origin.x + 8, self.view.center.y - 40, self.view.frame.size.width - 16, 60);
+    
+    CGRect initialFrame = CGRectMake(self.view.frame.origin.x + 8, self.view.center.y - 80, self.view.frame.size.width - 16, 60);
     [welcomeLabel setFrame:initialFrame];
     
+    
+    // [iconImageView setClipsToBounds:YES];
+    
+    [self.view addSubview:iconImageView];
+    
+    CGFloat centerXOfView = self.view.center.x;
+    
+    //self.view.frame.origin.x + 8
+    
+    CGRect iconImageFrame = CGRectMake(centerXOfView - 50, self.view.center.y + 10, 100, 100);
+    
+    UIView *containerView = [[UIView alloc] initWithFrame:iconImageFrame];
+    [containerView.layer setShadowColor:[[UIColor blackColor] CGColor]];
+    [containerView.layer setShadowRadius:5.0f];
+    [containerView.layer setShadowOffset:CGSizeMake(3, 3)];
+    [containerView.layer setShadowOpacity:0.5f];
+    [self.view addSubview:containerView];
+    
+    UIImageView *imageView = [[UIImageView alloc] initWithFrame:containerView.bounds];
+    imageView.image = [UIImage imageNamed:@"WelcomeScreenIcon"];
+    [imageView.layer setCornerRadius:20.0f];
+    //[imageView.layer setBorderWidth:1];
+    //[imageView.layer setBorderColor:[[UIColor colorWithRed:78.0/255.0 green:82.0/255.0 blue:85.0/255.0 alpha:1] CGColor] ];
+    [imageView.layer setMasksToBounds:YES];
+    [containerView addSubview:imageView];
+    
+    [self.view addSubview:containerView];
+    
+    
+    [self setIconImageView:imageView];
+    [self setIconContainingView:containerView];
+    
+    [iconImageView setContentMode:UIViewContentModeScaleAspectFill];
+    
+    // Prime for animations
+    
+    [welcomeLabel setAlpha:0.0];
+    [iconContainingView setAlpha:0.0];
 }
 
 -(void)addDescription
