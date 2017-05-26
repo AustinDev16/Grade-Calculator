@@ -29,7 +29,7 @@
 {
     [self fillViewControllerArray];
         [self setViewControllers:@[[self.viewControllerArray firstObject]] direction:UIPageViewControllerNavigationDirectionForward animated:true completion:nil];
-   // [self setDelegate:self];
+    [self setDelegate:self];
     [self setDataSource:self];
     
 
@@ -54,23 +54,22 @@
     APSWelcomeScreenViewController *welcome = [[APSWelcomeScreenViewController alloc] init];
     
     APSOnboardingCustomViewController *classes = [[APSOnboardingCustomViewController alloc] init];
-    [classes updateWithText:@"Manage all the courses you're taking. Add, edit, delete, or tap a course for more detail." andImage:[UIImage imageNamed:@"Classes"]];
+    [classes updateWithText:@"Manage all your classes in one place. \n\nAdd, edit, delete, or tap on a class for more detail." andImage:[UIImage imageNamed:@"Classes"]];
     
     APSOnboardingCustomViewController *addNewCourse = [[APSOnboardingCustomViewController alloc] init];
-    [addNewCourse updateWithText:@"Adding a new course is simple: just tap the + button and give it a name." andImage:[UIImage imageNamed:@"AddNewCourse"]];
+    [addNewCourse updateWithText:@"Adding a new class is simple: \n\nTap the '+' button, and give it a name." andImage:[UIImage imageNamed:@"AddNewCourse"]];
     
     APSOnboardingCustomViewController *addAScore = [[APSOnboardingCustomViewController alloc] init];
-    [addAScore updateWithText:@"Now, enter your scores for that class. Do it all at once, or as the semester progresses." andImage:[UIImage imageNamed:@"AddAScore"]];
+    [addAScore updateWithText:@"Now, enter your scores for that class. \n\nDo it all at once, or as the semester progresses." andImage:[UIImage imageNamed:@"AddAScore"]];
+
+    APSOnboardingCustomViewController *setCategories = [[APSOnboardingCustomViewController alloc] init];
+    [setCategories updateWithText:@"Next, add categories and set their weights. \n\nMake sure the weights add up to 100%." andImage:[UIImage imageNamed:@"SetCategories"]];
+
+    APSOnboardingCustomViewController *scoresSummary = [[APSOnboardingCustomViewController alloc] init];
+    [scoresSummary updateWithText:@"Your scores are saved on your iPhone.\n\nSee all your assignments, anytime." andImage:[UIImage imageNamed:@"ScoresSummary"]];
     
     APSOnboardingCustomViewController *dashboardView = [[APSOnboardingCustomViewController alloc] init];
-    [dashboardView updateWithText:@"Finally, select your desired grade to see how well you'll have to do on your final to get it." andImage:[UIImage imageNamed:@"DashboardView"]];
-    
-    APSOnboardingCustomViewController *scoresSummary = [[APSOnboardingCustomViewController alloc] init];
-    [scoresSummary updateWithText:@"Your scores are saved on your iPhone, so you can see all your assignments, anytime." andImage:[UIImage imageNamed:@"ScoresSummary"]];
-    
-    APSOnboardingCustomViewController *setCategories = [[APSOnboardingCustomViewController alloc] init];
-    [setCategories updateWithText:@"Next, add categories and set their weights. Make sure the weights add up to 100%." andImage:[UIImage imageNamed:@"SetCategories"]];
-
+    [dashboardView updateWithText:@"See how well you'll have to do on your final to get the grade you want.\n\n Good luck!" andImage:[UIImage imageNamed:@"DashboardView"]];
 
     NSArray *array = [NSArray arrayWithObjects:welcome, classes, addNewCourse, setCategories, addAScore, scoresSummary, dashboardView, nil];
     [self setViewControllerArray:array];
@@ -143,6 +142,22 @@
 
 #pragma mark Delegate
 
+-(void)pageViewController:(UIPageViewController *)pageViewController didFinishAnimating:(BOOL)finished previousViewControllers:(NSArray<UIViewController *> *)previousViewControllers transitionCompleted:(BOOL)completed
+{
+    if (finished && completed){
+        UIViewController *vc = [[pageViewController viewControllers] firstObject];
+        NSInteger index = [self.viewControllerArray indexOfObject:vc];
+        
+        if (index == [self.viewControllerArray count] - 1){
+            [bottomButton setTitle:@"Get Started" forState:UIControlStateNormal];
+        }  else {
+            [bottomButton setTitle:@"Skip Intro" forState:UIControlStateNormal];
+        }
+        
+    }
+    
+}
+
 -(NSInteger)presentationCountForPageViewController:(UIPageViewController *)pageViewController
 {
     return [self.viewControllerArray count];
@@ -150,24 +165,17 @@
 
 -(NSInteger)presentationIndexForPageViewController:(UIPageViewController *)pageViewController
 {
-    APSOnboardingCustomViewController *vc = [[pageViewController viewControllers] firstObject];
+    UIViewController *vc = [[pageViewController viewControllers] firstObject];
     NSInteger index = [self.viewControllerArray indexOfObject:vc];
-    if (index == [self.viewControllerArray count] - 1){
-        
-    } else {
-        [bottomButton setTitle:@"Skip Intro" forState:UIControlStateNormal];
-    }
     return index;
 }
+
 #pragma mark Data source
 
 - (nullable UIViewController *)pageViewController:(UIPageViewController *)pageViewController viewControllerBeforeViewController:(UIViewController *)viewController
 {
     NSInteger index = [self.viewControllerArray indexOfObject:viewController];
     if (index != 0){
-        if (index == 1){
-            [self.bottomButton setTitle:@"Skip Intro" forState:UIControlStateNormal];
-        }
         return [self.viewControllerArray objectAtIndex:index - 1];
     } else {
         return nil;
@@ -178,10 +186,6 @@
 {
     NSInteger index = [self.viewControllerArray indexOfObject:viewController];
     if (index != [self.viewControllerArray count] - 1){
-        [self.bottomButton setTitle:@"Skip Intro" forState:UIControlStateNormal];
-        if (index == [self.viewControllerArray count] - 2){
-            [bottomButton setTitle:@"Get Started" forState:UIControlStateNormal];
-        }
         return [self.viewControllerArray objectAtIndex:index + 1];
     } else {
         return nil;
