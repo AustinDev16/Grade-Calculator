@@ -84,7 +84,7 @@
                                     toItem:self.view
                                     attribute:NSLayoutAttributeTopMargin
                                     multiplier:1.0
-                                    constant:30];
+                                    constant:45];
     NSLayoutConstraint *labelCenterX = [NSLayoutConstraint
                                         constraintWithItem:instructionLabel
                                         attribute:NSLayoutAttributeCenterX
@@ -101,7 +101,7 @@
                                       attribute:NSLayoutAttributeWidth
                                       multiplier:0.8
                                       constant:0];
-    [self.view addConstraints:@[labelTop, labelWidth, labelCenterX]];
+    [self.view addConstraints:@[labelWidth, labelCenterX]];
     
     
     [imageView setTranslatesAutoresizingMaskIntoConstraints:false];
@@ -140,6 +140,14 @@
                                            constant:0];
     [self.view addConstraints:@[imageViewCenterX, imageViewWidth, imageViewBottom, imageViewHeight]];
     
+    NSLayoutConstraint *labelCenterY = [NSLayoutConstraint
+                                        constraintWithItem:instructionLabel
+                                        attribute:NSLayoutAttributeCenterY
+                                        relatedBy:NSLayoutRelationEqual
+                                        toItem:imageView
+                                        attribute:NSLayoutAttributeTop
+                                        multiplier:0.5 constant:0];
+    [self.view addConstraint:labelCenterY];
 }
 
 

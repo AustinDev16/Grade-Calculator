@@ -44,7 +44,7 @@
 
             [self addDescription];
             
-            [UIView animateWithDuration:1.2 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
+            [UIView animateWithDuration:0.6 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
                 
                 [descriptionLabel setAlpha:1.0];
                 

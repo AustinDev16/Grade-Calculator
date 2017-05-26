@@ -25,7 +25,8 @@
 
 -(void)CoreDataReadyNotified
 {
-    if ([[[[APSAppDataController shared] courseController] courses] count] == 0){
+    if ([[[[APSAppDataController shared] courseController] courses] count] == 0 &&
+        ![[NSUserDefaults standardUserDefaults] boolForKey:@"HasOnboarded"]){
         [APSMockDataController createMockDataCourse];
         [APSMockDataController createMockDataCategories];
     }
