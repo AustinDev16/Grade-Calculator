@@ -77,14 +77,14 @@
     // Add constraints
     [instructionLabel setTranslatesAutoresizingMaskIntoConstraints:false];
     
-    NSLayoutConstraint *labelTop = [NSLayoutConstraint
-                                    constraintWithItem:instructionLabel
-                                    attribute:NSLayoutAttributeTop
-                                    relatedBy:NSLayoutRelationEqual
-                                    toItem:self.view
-                                    attribute:NSLayoutAttributeTopMargin
-                                    multiplier:1.0
-                                    constant:45];
+//    NSLayoutConstraint *labelTop = [NSLayoutConstraint
+//                                    constraintWithItem:instructionLabel
+//                                    attribute:NSLayoutAttributeTop
+//                                    relatedBy:NSLayoutRelationEqual
+//                                    toItem:self.view
+//                                    attribute:NSLayoutAttributeTopMargin
+//                                    multiplier:1.0
+//                                    constant:45];
     NSLayoutConstraint *labelCenterX = [NSLayoutConstraint
                                         constraintWithItem:instructionLabel
                                         attribute:NSLayoutAttributeCenterX
