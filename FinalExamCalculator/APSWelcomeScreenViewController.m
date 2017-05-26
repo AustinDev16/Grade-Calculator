@@ -150,7 +150,7 @@
         [self setDescriptionLabel:[[UILabel alloc] init]];
     }
     
-    [descriptionLabel setText:@"Swipe through this introduction to see how to get started with some of the great features of FinalExam.\n\nOr tap 'Skip Intro' to get started right away."];
+    [descriptionLabel setText:@"Swipe through this introduction to get started with some of the great features of Final Exam.\n\nOr tap 'Skip Intro' to get started right away."];
     [descriptionLabel setTextColor:[UIColor blackColor]];
     [descriptionLabel setTextAlignment:NSTextAlignmentCenter];
     [descriptionLabel setNumberOfLines:0];
