@@ -67,7 +67,7 @@
         
         CGFloat centerXOfView = self.view.center.x;
         
-        CGRect iconImageFinalFrame = CGRectMake(centerXOfView - 50, self.view.frame.size.height - 160, 100, 100);
+        CGRect iconImageFinalFrame = CGRectMake(centerXOfView - 40, self.view.frame.size.height - 160, 80, 80);
         
         [iconContainingView setFrame:iconImageFinalFrame];
     } completion:^(BOOL finished) {
@@ -113,7 +113,7 @@
     
     //self.view.frame.origin.x + 8
     
-    CGRect iconImageFrame = CGRectMake(centerXOfView - 50, self.view.center.y + 10, 100, 100);
+    CGRect iconImageFrame = CGRectMake(centerXOfView - 40, self.view.center.y + 10, 80, 80);
     
     UIView *containerView = [[UIView alloc] initWithFrame:iconImageFrame];
     [containerView.layer setShadowColor:[[UIColor blackColor] CGColor]];
@@ -150,7 +150,7 @@
         [self setDescriptionLabel:[[UILabel alloc] init]];
     }
     
-    [descriptionLabel setText:@"Swipe through this introduction to get started with some of the great features of Final Exam.\n\nOr tap 'Skip Intro' to get started right away."];
+    [descriptionLabel setText:@"Swipe through this introduction for a tour of some of the great features of Final Exam.\n\nOr tap 'Skip Intro' to get started right away."];
     [descriptionLabel setTextColor:[UIColor blackColor]];
     [descriptionLabel setTextAlignment:NSTextAlignmentCenter];
     [descriptionLabel setNumberOfLines:0];
