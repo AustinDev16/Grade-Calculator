@@ -21,6 +21,8 @@
 @property (nonatomic, strong) UITableViewCell *currentScoreCell;
 @property (nonatomic, strong) UIToolbar *toolBar;
 
+
+
 @end
 
 @implementation APSDashboardTableViewController
@@ -28,6 +30,19 @@
 @synthesize selectedCourse;
 @synthesize currentScoreCell;
 @synthesize toolBar;
+
+
+-(BOOL)iPad
+{
+    if ( [(NSString*)[UIDevice currentDevice].model hasPrefix:@"iPad"] ) {
+        return YES; /* Device is iPad */
+    } else {
+        return NO;
+    }
+    
+    
+    //return UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad;
+}
 
 -(void)updateViewWithSelectedCourse:(Course *)course
 {
@@ -39,8 +54,12 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.tableView.scrollEnabled = NO;
-
+//    if ([self iPad]){
+//        self.tableView.scrollEnabled = YES;
+//    } else {
+        self.tableView.scrollEnabled = NO;
+//    }
+    
     [self buildCurrentScoreCell];
     [self setupToolBar];
     
@@ -186,7 +205,11 @@
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.section == 1){
-        return 200;
+        if ([self iPad]){
+            return 140;
+        } else {
+            return 200;
+        }
     } else {
         return 40;
     }
