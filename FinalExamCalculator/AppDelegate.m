@@ -7,6 +7,15 @@
 //
 
 #import "AppDelegate.h"
+#import "APSCoreDataStack.h"
+#import "APSPersistenceController.h"
+#import "APSClassesTableViewController.h"
+#import "APSCourseController.h"
+#import "APSMockDataController.h"
+#import "APSAppDataController.h"
+#import "APSAppearanceController.h"
+#import "APSOnboardingCustomViewController.h"
+#import "APSOnboardingPageViewController.h"
 
 @interface AppDelegate ()
 
@@ -14,9 +23,71 @@
 
 @implementation AppDelegate
 
+-(void)CoreDataReadyNotified
+{
+    if ([[[[APSAppDataController shared] courseController] courses] count] == 0 &&
+        ![[NSUserDefaults standardUserDefaults] boolForKey:@"HasOnboarded"]){
+        [APSMockDataController createMockDataCourse];
+        [APSMockDataController createMockDataCategories];
+    }
+}
+
++(UINavigationController *)navigationControllerToPresentAfterOnboarding
+{
+    UITableViewController *tvc = [[APSClassesTableViewController alloc] initWithStyle:UITableViewStylePlain];
+    
+    UINavigationController *nc = [[UINavigationController alloc] initWithRootViewController:tvc];
+    
+    return nc;
+}
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    
+    
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(CoreDataReadyNotified) name:@"CoreDataStoreReady" object:nil];
+    
+    
+    [[APSCoreDataStack shared] initializeCoreData];
+    UIWindow *window = [[UIWindow alloc] initWithFrame: [[UIScreen mainScreen] bounds]];
+
+    
+    
+    
+    //Onboarding
+    if (![[NSUserDefaults standardUserDefaults] boolForKey:@"HasOnboarded"]){
+        NSDictionary * options = [NSDictionary dictionaryWithObject:
+                                  [NSNumber numberWithInt:UIPageViewControllerSpineLocationMax]
+                                                             forKey:UIPageViewControllerOptionSpineLocationKey];
+        
+        APSOnboardingPageViewController *testPageController = [[APSOnboardingPageViewController alloc] initWithTransitionStyle:UIPageViewControllerTransitionStyleScroll navigationOrientation:UIPageViewControllerNavigationOrientationHorizontal options:options];
+        [testPageController configurePageController];
+        
+        
+        
+        
+        [window setRootViewController:testPageController];
+        
+        [window makeKeyAndVisible];
+
+    } else {
+        UITableViewController *tvc = [[APSClassesTableViewController alloc] initWithStyle:UITableViewStylePlain];
+        UINavigationController *nc = [[UINavigationController alloc] initWithRootViewController:tvc];
+        
+        [window setRootViewController:nc];
+        [window makeKeyAndVisible];
+    }
+    
+    
+    [APSAppearanceController.shared appWideAppearanceSettings];
+    
+    [self setWindow:window];
+    
+    [UIApplication sharedApplication].keyWindow.backgroundColor = [UIColor whiteColor];
+    
+    
+    
     return YES;
 }
 
@@ -30,6 +101,8 @@
 - (void)applicationDidEnterBackground:(UIApplication *)application {
     // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
     // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
+    
+    [APSPersistenceController saveToPersistedStore];
 }
 
 
@@ -45,6 +118,7 @@
 
 - (void)applicationWillTerminate:(UIApplication *)application {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+    [APSPersistenceController saveToPersistedStore];
 }
 
 

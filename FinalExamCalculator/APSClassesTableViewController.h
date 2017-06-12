@@ -1,5 +1,5 @@
 //
-//  APSScoresTableViewController.h
+//  APSClassesTableViewController.h
 //  FinalExamCalculator
 //
 //  Created by Austin Blaser on 3/20/17.
@@ -7,11 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-@class Course;
 
-@interface APSScoresTableViewController : UITableViewController
-
-@property (nonatomic, strong) Course *course;
-
+@interface APSClassesTableViewController : UITableViewController
 
 @end

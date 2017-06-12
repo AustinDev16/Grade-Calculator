@@ -7,92 +7,168 @@
 //
 
 #import "APSScoresTableViewController.h"
+#import "Course+CoreDataProperties.h"
+#import "Category+CoreDataProperties.h"
+#import "Score+CoreDataProperties.h"
+#import "APSCoreDataStack.h"
+#import "Score+ScoreCategory.h"
+#import "APSEditScoreTableViewController.h"
+#import "APSPersistenceController.h"
+#import "APSWeightsViewController.h"
+#import "APSAppearanceController.h"
 
-@interface APSScoresTableViewController ()
+@interface APSScoresTableViewController () <NSFetchedResultsControllerDelegate, UIToolbarDelegate>
+
+@property (nonatomic, strong) UIToolbar *toolBar;
 
 @end
 
 @implementation APSScoresTableViewController
 
+@synthesize toolBar;
+
+
+
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
-    
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    NSString *titleString = [NSString stringWithFormat:@"%@ - Scores", self.course.name];
+    [self setTitle: titleString];
+    [self.tableView setDelegate: self];
+    [self.tableView setDataSource:self];
+
+    [self setupToolBar];
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    //[self setEditing:false animated:true];
+    [self.tableView reloadData];
+}
+
+
+
+
+-(void)setCourse:(Course *)course
+{
+    _course = course;
+}
+
+
+-(void)setupToolBar
+{
+
+    UIBarButtonItem *adjustCats = [[UIBarButtonItem alloc] initWithTitle:@"Categories" style:UIBarButtonItemStylePlain target:self action:@selector(adjustWeightsTapped)];
+    UIBarButtonItem *spacer = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
+    UIBarButtonItem *newScore = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCompose target:self action:@selector(addScoreTapped)];
+    
+    self.navigationController.toolbarHidden = false;
+    [self setToolbarItems:@[adjustCats, spacer, newScore]];
+}
+
+-(void)adjustWeightsTapped
+{
+    APSWeightsViewController *wvc = [[APSWeightsViewController alloc] init];
+    [wvc updateWithCourse:self.course];
+    UINavigationController *nc = [[UINavigationController alloc] initWithRootViewController:wvc];
+    [nc setModalPresentationStyle:UIModalPresentationPopover];
+    
+    [self presentViewController:nc animated:true completion:nil];
+    
+}
+
+-(void)addScoreTapped
+{
+    APSEditScoreTableViewController *tvc = [[APSEditScoreTableViewController alloc] initWithStyle:UITableViewStyleGrouped];
+    
+    [tvc setCourse:_course];
+    
+    UINavigationController *nc = [[UINavigationController alloc] initWithRootViewController:tvc];
+    [nc setModalPresentationStyle:UIModalPresentationPopover];
+    [self presentViewController:nc animated:true completion:nil];
 }
 
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-#warning Incomplete implementation, return the number of sections
-    return 0;
+ //return [[self.fetchedResultsController sections] count];
+   
+    return [self.course.categories count];
+    
+    
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-#warning Incomplete implementation, return the number of rows
-    return 0;
+
+    Category *cat = [self.course.categories objectAtIndex:section];
+    return [cat.scores count];
+    
 }
 
-/*
+
+-(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
+{
+    NSString *title = [NSString stringWithFormat:@"%@: %.0f %@",
+                       [[self.course.categories objectAtIndex:section] name],
+                       [self.course.categories objectAtIndex:section].weight * 100,
+                       @"%"];
+    return title;
+}
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:<#@"reuseIdentifier"#> forIndexPath:indexPath];
     
-    // Configure the cell...
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ScoreCell"];
+    
+    if (cell == nil){
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"ScoreCell"];
+    }
+    
+    Category *cat = [self.course.categories objectAtIndex:indexPath.section];
+    Score *score = [cat.scores objectAtIndex:indexPath.row];
+    cell.textLabel.text = score.name;
+    [cell.detailTextLabel setText:[score stringLabel]];
+    [cell.detailTextLabel setTextColor:[UIColor blackColor]];
     
     return cell;
 }
-*/
 
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
+-(void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
 }
-*/
 
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    } else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
+-(NSArray<UITableViewRowAction *> *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    Category *cat = [self.course.categories objectAtIndex:indexPath.section];
+    
+    UITableViewRowAction *edit = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleNormal title:@"Edit" handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
+        
+        Score *selectedScore = [cat.scores objectAtIndex:indexPath.row];
+        APSEditScoreTableViewController *tvc = [[APSEditScoreTableViewController alloc] initWithStyle:UITableViewStyleGrouped];
+        [tvc setCourse:self.course];
+        [tvc updateWithScore:selectedScore];
+        UINavigationController *nc = [[UINavigationController alloc] initWithRootViewController:tvc];
+        
+        [self presentViewController:nc animated:true completion:nil];
+        
+        
+    }];
+    
+    [edit setBackgroundColor:[APSAppearanceController.shared blueColor]];
+    
+    UITableViewRowAction *delete = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDestructive title:@"Delete" handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
+        
+        Score *scoreToBeDeleted = [cat.scores objectAtIndex:indexPath.row];
+        NSManagedObjectContext *moc = [[APSCoreDataStack shared] mainQueueMOC];
+        [moc deleteObject:scoreToBeDeleted];
+        [APSPersistenceController saveToPersistedStore];
+        
+        [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"ScoreUpdated" object:nil];
+    }];
+    
+    return @[delete, edit];
 }
-*/
 
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath {
-}
-*/
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end
