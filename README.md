@@ -1,7 +1,12 @@
-# Grade-Calculator
-Have you ever wanted to know what you need on your final exam to get a desired grade in one of your courses? Grade Calculator can do just that!
+# Final Exam
 
-- Add your courses and weights your professor has for the course.
-- Add scores you get on your assignments.
-- Select your desired grade for each course.
-- Continually see how well you'll need to do on your final.
+Welcome to the product site for Final Exam, an app for iPhone that lets you calculate how well (or poorly) you'll need to do on your final to get your desired grade in the course. 
+
+<p align="center">
+<img src="1024Icon.jpg" width="150" height="150" /> <br>
+Get <a href="https://itunes.apple.com/WebObjects/MZStore.woa/wa/viewSoftware?id=1229272214&mt=8">Final Exam on the App Store</a> and try it out today!
+</p>
+
+
+
+
