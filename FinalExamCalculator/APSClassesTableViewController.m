@@ -58,6 +58,7 @@
 {
     [super viewWillAppear:animated];
     [APSAppearanceController.shared configureAppearanceForViewController:self];
+    [self.navigationController setToolbarHidden:true animated:true];
 }
 
 -(void)viewDidAppear:(BOOL)animated

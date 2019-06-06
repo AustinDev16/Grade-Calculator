@@ -19,17 +19,12 @@
 @interface APSDashboardTableViewController () <UIToolbarDelegate>
 @property (nonatomic, strong) Course *selectedCourse;
 @property (nonatomic, strong) UITableViewCell *currentScoreCell;
-@property (nonatomic, strong) UIToolbar *toolBar;
-
-
-
 @end
 
 @implementation APSDashboardTableViewController
 
 @synthesize selectedCourse;
 @synthesize currentScoreCell;
-@synthesize toolBar;
 
 
 -(BOOL)iPad
@@ -61,7 +56,6 @@
 //    }
     
     [self buildCurrentScoreCell];
-    [self setupToolBar];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateCurrentScore) name:@"ScoreUpdated" object:nil];
 }
@@ -69,7 +63,7 @@
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [self.navigationController setToolbarHidden:true animated:false];
+    [self setupToolBar];
 }
 
 -(void)viewDidAppear:(BOOL)animated
@@ -95,15 +89,8 @@
     UIBarButtonItem *spacer = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
     UIBarButtonItem *newScore = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCompose target:self action:@selector(addScoreTapped)];
     
-  [newToolBar setItems:@[adjustCats, spacer, newScore]];
-    [newToolBar setDelegate:self];
-    
-    CGRect toolBarFrame = CGRectMake(0, [[UIScreen mainScreen] bounds].size.height - (44 + 64), [[UIScreen mainScreen] bounds].size.width, 44);
-    [newToolBar setFrame:toolBarFrame];
-    [newToolBar setBarStyle:UIBarStyleDefault];
-    [self.view addSubview:newToolBar];
-    
-    [self setToolBar:newToolBar];
+    self.navigationController.toolbarHidden = false;
+    [self setToolbarItems:@[adjustCats, spacer, newScore]];
 }
 
 -(void)buildCurrentScoreCell

@@ -87,20 +87,43 @@
     [self.view addSubview:bottomButton];
     [bottomButton setTranslatesAutoresizingMaskIntoConstraints:false];
     
-    NSLayoutConstraint *trailingBB = [NSLayoutConstraint
-                                    constraintWithItem:bottomButton
-                                    attribute:NSLayoutAttributeTrailing
-                                      relatedBy:NSLayoutRelationEqual
-                                      toItem:self.view
-                                      attribute:NSLayoutAttributeTrailing
-                                      multiplier:1.0 constant:-8];
-    NSLayoutConstraint *bottomBB = [NSLayoutConstraint
-                                    constraintWithItem:bottomButton
-                                    attribute:NSLayoutAttributeBottom
-                                    relatedBy:NSLayoutRelationEqual
-                                    toItem:self.view
-                                    attribute:NSLayoutAttributeBottom
-                                    multiplier:1.0 constant:-4];
+    NSLayoutConstraint *trailingBB;
+    NSLayoutConstraint *bottomBB;
+    if (@available(iOS 11.0, *)) {
+        UILayoutGuide *safeArea = [self.view safeAreaLayoutGuide];
+        
+        trailingBB = [NSLayoutConstraint
+                      constraintWithItem:bottomButton
+                      attribute:NSLayoutAttributeTrailing
+                      relatedBy:NSLayoutRelationEqual
+                      toItem:safeArea
+                      attribute:NSLayoutAttributeTrailing
+                      multiplier:1.0 constant:-8];
+        bottomBB = [NSLayoutConstraint
+                    constraintWithItem:bottomButton
+                    attribute:NSLayoutAttributeBottom
+                    relatedBy:NSLayoutRelationEqual
+                    toItem: safeArea
+                    attribute:NSLayoutAttributeBottom
+                    multiplier:1.0 constant:-4];
+    } else {
+        // Fallback on earlier versions
+        trailingBB = [NSLayoutConstraint
+                      constraintWithItem:bottomButton
+                      attribute:NSLayoutAttributeTrailing
+                      relatedBy:NSLayoutRelationEqual
+                      toItem:self.view
+                      attribute:NSLayoutAttributeTrailing
+                      multiplier:1.0 constant:-8];
+        bottomBB = [NSLayoutConstraint
+                    constraintWithItem:bottomButton
+                    attribute:NSLayoutAttributeBottom
+                    relatedBy:NSLayoutRelationEqual
+                    toItem: self.view
+                    attribute:NSLayoutAttributeBottom
+                    multiplier:1.0 constant:-4];
+    }
+    
     NSLayoutConstraint *heightBB = [NSLayoutConstraint
                                     constraintWithItem:bottomButton
                                     attribute:NSLayoutAttributeHeight
