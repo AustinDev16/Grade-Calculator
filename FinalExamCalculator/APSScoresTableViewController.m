@@ -127,7 +127,7 @@
     Score *score = [cat.scores objectAtIndex:indexPath.row];
     cell.textLabel.text = score.name;
     [cell.detailTextLabel setText:[score stringLabel]];
-    [cell.detailTextLabel setTextColor:[UIColor blackColor]];
+//    [cell.detailTextLabel setTextColor:[UIColor blackColor]];
     
     return cell;
 }
