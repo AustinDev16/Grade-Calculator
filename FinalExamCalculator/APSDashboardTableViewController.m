@@ -119,7 +119,7 @@
     [tvc setCourse:selectedCourse];
     
     UINavigationController *nc = [[UINavigationController alloc] initWithRootViewController:tvc];
-    [nc setModalPresentationStyle:UIModalPresentationPopover];
+    [nc setModalPresentationStyle:UIModalPresentationFullScreen];
     [self presentViewController:nc animated:true completion:nil];
 }
 
@@ -128,7 +128,7 @@
     APSWeightsViewController *wvc = [[APSWeightsViewController alloc] init];
     [wvc updateWithCourse:self.selectedCourse];
     UINavigationController *nc = [[UINavigationController alloc] initWithRootViewController:wvc];
-    [nc setModalPresentationStyle:UIModalPresentationPopover];
+    [nc setModalPresentationStyle:UIModalPresentationFullScreen];
     
     [self presentViewController:nc animated:true completion:nil];
 }
