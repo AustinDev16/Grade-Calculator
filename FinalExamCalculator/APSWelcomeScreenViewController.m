@@ -41,8 +41,8 @@
         
         [UIView animateWithDuration:0.8 delay: 0.1 options: UIViewAnimationOptionCurveEaseIn animations:^{
             
-            [welcomeLabel setAlpha:1.0];
-            [iconContainingView setAlpha:1.0];
+            [self.welcomeLabel setAlpha:1.0];
+            [self.iconContainingView setAlpha:1.0];
             
             
         } completion:^(BOOL finished) {
@@ -62,21 +62,21 @@
         
         CGRect finalWelcome = CGRectMake(self.view.frame.origin.x + 8, self.view.frame.size.height/7.0, self.view.frame.size.width - 16, 60);
         
-        [welcomeLabel setFrame:finalWelcome];
+        [self.welcomeLabel setFrame:finalWelcome];
         
         
         CGFloat centerXOfView = self.view.center.x;
         
         CGRect iconImageFinalFrame = CGRectMake(centerXOfView - 40, self.view.frame.size.height - 160, 80, 80);
         
-        [iconContainingView setFrame:iconImageFinalFrame];
+        [self.iconContainingView setFrame:iconImageFinalFrame];
     } completion:^(BOOL finished) {
         
         [self addDescription];
         
         [UIView animateWithDuration:0.4 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
             
-            [descriptionLabel setAlpha:1.0];
+            [self.descriptionLabel setAlpha:1.0];
             
         } completion:^(BOOL finished){
             [self setHasDisplayedOnce:true];

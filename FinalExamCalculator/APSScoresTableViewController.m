@@ -71,7 +71,7 @@
     APSWeightsViewController *wvc = [[APSWeightsViewController alloc] init];
     [wvc updateWithCourse:self.course];
     UINavigationController *nc = [[UINavigationController alloc] initWithRootViewController:wvc];
-    [nc setModalPresentationStyle:UIModalPresentationPopover];
+    [nc setModalPresentationStyle:UIModalPresentationFullScreen];
     
     [self presentViewController:nc animated:true completion:nil];
     
@@ -84,7 +84,7 @@
     [tvc setCourse:_course];
     
     UINavigationController *nc = [[UINavigationController alloc] initWithRootViewController:tvc];
-    [nc setModalPresentationStyle:UIModalPresentationPopover];
+    [nc setModalPresentationStyle:UIModalPresentationFullScreen];
     [self presentViewController:nc animated:true completion:nil];
 }
 
@@ -127,7 +127,7 @@
     Score *score = [cat.scores objectAtIndex:indexPath.row];
     cell.textLabel.text = score.name;
     [cell.detailTextLabel setText:[score stringLabel]];
-    [cell.detailTextLabel setTextColor:[UIColor blackColor]];
+//    [cell.detailTextLabel setTextColor:[UIColor blackColor]];
     
     return cell;
 }
@@ -148,7 +148,7 @@
         [tvc setCourse:self.course];
         [tvc updateWithScore:selectedScore];
         UINavigationController *nc = [[UINavigationController alloc] initWithRootViewController:tvc];
-        
+        [nc setModalPresentationStyle:UIModalPresentationFullScreen];
         [self presentViewController:nc animated:true completion:nil];
         
         

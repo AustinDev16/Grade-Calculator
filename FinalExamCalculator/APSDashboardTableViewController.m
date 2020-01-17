@@ -19,17 +19,12 @@
 @interface APSDashboardTableViewController () <UIToolbarDelegate>
 @property (nonatomic, strong) Course *selectedCourse;
 @property (nonatomic, strong) UITableViewCell *currentScoreCell;
-@property (nonatomic, strong) UIToolbar *toolBar;
-
-
-
 @end
 
 @implementation APSDashboardTableViewController
 
 @synthesize selectedCourse;
 @synthesize currentScoreCell;
-@synthesize toolBar;
 
 
 -(BOOL)iPad
@@ -61,7 +56,6 @@
 //    }
     
     [self buildCurrentScoreCell];
-    [self setupToolBar];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateCurrentScore) name:@"ScoreUpdated" object:nil];
 }
@@ -69,7 +63,7 @@
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [self.navigationController setToolbarHidden:true animated:false];
+    [self setupToolBar];
 }
 
 -(void)viewDidAppear:(BOOL)animated
@@ -90,20 +84,12 @@
 
 -(void)setupToolBar
 {
-    UIToolbar *newToolBar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 44)];
     UIBarButtonItem *adjustCats = [[UIBarButtonItem alloc] initWithTitle:@"Categories" style:UIBarButtonItemStylePlain target:self action:@selector(adjustWeightsTapped)];
     UIBarButtonItem *spacer = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
     UIBarButtonItem *newScore = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCompose target:self action:@selector(addScoreTapped)];
     
-  [newToolBar setItems:@[adjustCats, spacer, newScore]];
-    [newToolBar setDelegate:self];
-    
-    CGRect toolBarFrame = CGRectMake(0, [[UIScreen mainScreen] bounds].size.height - (44 + 64), [[UIScreen mainScreen] bounds].size.width, 44);
-    [newToolBar setFrame:toolBarFrame];
-    [newToolBar setBarStyle:UIBarStyleDefault];
-    [self.view addSubview:newToolBar];
-    
-    [self setToolBar:newToolBar];
+    self.navigationController.toolbarHidden = false;
+    [self setToolbarItems:@[adjustCats, spacer, newScore]];
 }
 
 -(void)buildCurrentScoreCell
@@ -111,7 +97,7 @@
     UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:nil];
     cell.textLabel.text = @"Current score:";
     cell.detailTextLabel.text = @"-- %";
-    [cell.detailTextLabel setTextColor:[UIColor blackColor]];
+//    [cell.detailTextLabel setTextColor:[UIColor blackColor]];
     [self setCurrentScoreCell:cell];
 }
 
@@ -133,7 +119,7 @@
     [tvc setCourse:selectedCourse];
     
     UINavigationController *nc = [[UINavigationController alloc] initWithRootViewController:tvc];
-    [nc setModalPresentationStyle:UIModalPresentationPopover];
+    [nc setModalPresentationStyle:UIModalPresentationFullScreen];
     [self presentViewController:nc animated:true completion:nil];
 }
 
@@ -142,7 +128,7 @@
     APSWeightsViewController *wvc = [[APSWeightsViewController alloc] init];
     [wvc updateWithCourse:self.selectedCourse];
     UINavigationController *nc = [[UINavigationController alloc] initWithRootViewController:wvc];
-    [nc setModalPresentationStyle:UIModalPresentationPopover];
+    [nc setModalPresentationStyle:UIModalPresentationFullScreen];
     
     [self presentViewController:nc animated:true completion:nil];
 }

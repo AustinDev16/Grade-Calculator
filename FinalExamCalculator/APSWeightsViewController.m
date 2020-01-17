@@ -422,6 +422,11 @@
     }
 }
 
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 50;
+}
+
 -(NSArray<UITableViewRowAction *> *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     Category *selectedCategory = [self.course.categories objectAtIndex:indexPath.row];
@@ -463,6 +468,7 @@
             
         }];
         
+        [alertController.view setTintColor:[APSAppearanceController.shared blueColor]];
         
         
     }];
@@ -515,7 +521,7 @@
         }
         
         [self presentViewController:alertController animated:true completion:nil];
-        
+        [alertController.view setTintColor:[APSAppearanceController.shared blueColor]];
     }];
     
     if ([selectedCategory type] == [APSCategoryType numberFromTypeString:@"Final"]){

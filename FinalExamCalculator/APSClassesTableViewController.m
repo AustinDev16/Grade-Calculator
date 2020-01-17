@@ -58,6 +58,7 @@
 {
     [super viewWillAppear:animated];
     [APSAppearanceController.shared configureAppearanceForViewController:self];
+    [self.navigationController setToolbarHidden:true animated:true];
 }
 
 -(void)viewDidAppear:(BOOL)animated
@@ -95,7 +96,7 @@
             [weights updateWithCourse:newCourse];
             UINavigationController *nc = [[UINavigationController alloc] initWithRootViewController:weights];
             [nc setModalTransitionStyle:UIModalTransitionStyleCoverVertical];
-            
+            [nc setModalPresentationStyle:UIModalPresentationFullScreen];
             [self presentViewController:nc animated:true completion:nil];
             
         }
