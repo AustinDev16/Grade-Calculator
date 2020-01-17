@@ -148,7 +148,7 @@
         [tvc setCourse:self.course];
         [tvc updateWithScore:selectedScore];
         UINavigationController *nc = [[UINavigationController alloc] initWithRootViewController:tvc];
-        
+        [nc setModalPresentationStyle:UIModalPresentationFullScreen];
         [self presentViewController:nc animated:true completion:nil];
         
         

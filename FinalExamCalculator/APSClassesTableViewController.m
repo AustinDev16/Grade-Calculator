@@ -96,7 +96,7 @@
             [weights updateWithCourse:newCourse];
             UINavigationController *nc = [[UINavigationController alloc] initWithRootViewController:weights];
             [nc setModalTransitionStyle:UIModalTransitionStyleCoverVertical];
-            
+            [nc setModalPresentationStyle:UIModalPresentationFullScreen];
             [self presentViewController:nc animated:true completion:nil];
             
         }
